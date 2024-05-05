@@ -1,0 +1,24 @@
+
+@import url(/static/css/style.css);
+
+.molecule_navbarFile {
+    display: flex;
+    /* background: goldenrod; */
+    width: calc(100% - 20px);
+    margin: 10px auto;
+    
+    & p {
+        /* background: firebrick; */
+        font-size: small;
+        margin: 1px;
+        margin: auto 15px;
+        display: flex;
+        justify-content: center;
+        font-family: var(--font-roboto_normal);
+
+    }
+    .tittle_file {
+        justify-content: flex-start;
+    }
+}
+

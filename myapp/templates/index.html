@@ -1,11 +1,130 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIDEO - PROECESSOR</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/index/templates.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index/organisms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index/molecules.css' %}">
+
 </head>
-<body>
-    <h1>Hello World</h1>
+<body class="template_body">
+    <div class="template_cont style_RES_CONT">
+        <aside>
+            <div class="check">
+                <span>
+                    <label for="seleccion">Video Guias checkpoint</label>
+                    <select id="seleccion" name="seleccion">
+                        <option value="opcion1">ES-Guia</option>
+                        <option value="opcion2">Opción 2</option>
+                        <option value="opcion3">Opción 3</option>
+                        <option value="opcion4">Opción 4</option>
+                    </select>
+                </span>
+            </div>
+        </aside>
+        <aside>
+            <section>
+                <div class="organism_firsSettings">
+                    <span>Total Items: <input type="text" value="25" name="" id=""></span>
+                    <span>Total Items: <input type="text" value="26" name="" id=""></span>
+                </div>
+                <div class="organism_input">
+                    <form action="/upload" method="post" enctype="multipart/form-data">
+                        <!-- <label for="archivo">Selecciona un archivo:</label> -->
+                        <input type="file" id="archivo" name="archivo" accept=".jpg, .jpeg, .png, .pdf">
+                        <label for="">titulo/Brebe Descripción</label>
+                        <textarea id="parrafo" name="parrafo" rows="2" cols="50" maxlength="10"></textarea>
+
+                        <input type="submit" value="Subir Archivo">
+                    </form>
+                </div>
+                <div class="molecule_navbarFile">
+                    <p class="organism_th_1 tittle_file">Titulo</p>
+                    <p class="organism_th_2">Número</p>
+                    <p class="organism_th_3">Acción</p>
+                </div>
+                <div class="organism_listFile">
+                    <table>
+                        <!-- COLUMN -->
+                        <tr class="ligth">
+                            <th class="organism_th_1 tittle_cont">
+                                <div class="icon">
+                                    <img width="26px" height="23" src="{% static 'img/icon_vid.png' %}" alt="">
+                                </div>
+                                <div class="tittle">
+                                    <p>Nombre del video particularmente descriptivo</p>
+                                    <span>
+                                        <p class="before">Before:</p>
+                                        <p>vid_low_1 (1)</p>
+                                    </span>
+                                </div>
+                            </th>
+                            <th class="organism_th_2"><p>36</p></th>
+                            <th class="organism_th_3">
+                                <div class="actions">
+                                    <img height="16px" src="{% static 'img/icon_edit.png' %}" alt="">
+                                    <img height="16px" src="{% static 'img/icon_deleted.png' %}" alt="">
+                                </div>
+                            </th>
+                        </tr>
+                        <!-- COLUMN -->
+                        <tr class="">
+                            <th class="organism_th_1 tittle_cont">
+                                <div class="icon">
+                                    <img width="26px" height="23" src="{% static 'img/icon_vid.png' %}" alt="">
+                                </div>
+                                <div class="tittle">
+                                    <p>Nombre del video particularmente descriptivo</p>
+                                    <span>
+                                        <p class="before">Before:</p>
+                                        <p>vid_low_1 (1)</p>
+                                    </span>
+                                </div>
+                            </th>
+                            <th class="organism_th_2"><p>36</p></th>
+                            <th class="organism_th_3">
+                                <div class="actions">
+                                    <img height="16px" src="{% static 'img/icon_edit.png' %}" alt="">
+                                    <img height="16px" src="{% static 'img/icon_deleted.png' %}" alt="">
+                                </div>
+                            </th>
+                        </tr>
+                        <!-- COLUMN -->
+                        <tr class="ligth">
+                            <th class="organism_th_1 tittle_cont">
+                                <div class="icon">
+                                    <img width="26px" height="23" src="{% static 'img/icon_vid.png' %}" alt="">
+                                </div>
+                                <div class="tittle">
+                                    <p>Nombre del video particularmente descriptivo</p>
+                                    <span>
+                                        <p class="before">Before:</p>
+                                        <p>vid_low_1 (1)</p>
+                                    </span>
+                                </div>
+                            </th>
+                            <th class="organism_th_2"><p>36</p></th>
+                            <th class="organism_th_3">
+                                <div class="actions">
+                                    <img height="16px" src="{% static 'img/icon_edit.png' %}" alt="">
+                                    <img height="16px" src="{% static 'img/icon_deleted.png' %}" alt="">
+                                </div>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="organism_buttons">
+                    <button>PROCESAR</button>
+                    <button class="clear">LIMPIAR</button>
+                </div>
+            </section>
+            <section>s</section>
+        </aside>
+    </div>
 </body>
 </html>

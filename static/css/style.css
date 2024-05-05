@@ -1,0 +1,114 @@
+/* @font-face {
+    font-family: 'myfont_robot_bold';
+    src: url('/static/fonts/Roboto-Bold.ttf') format('truetype')
+    }
+    @font-face {
+    font-family: 'quicksand_light';
+    src: url('/static/fonts/Quicksand-Regular.ttf') format('truetype')
+    }
+    @font-face {
+    font-family: 'utendo_semibold';
+    src: url('/static/fonts/Utendo-Semibold.ttf') format('truetype')
+} */
+@font-face {
+font-family: 'myfont_robot_normal';
+src: url('/static/fonts/Roboto-Regular.ttf') format('truetype')
+}
+
+:root{
+    /* FONDOS */
+    --bg-salmon: salmon;
+    --bg-black-05 : #00000091;
+    --bg-black-1 : #00000056;
+    --bg-black: black;
+    --bg-white: #fff;
+
+    /* COLOR DE TEXTO */
+    --color-border_1: #2f3842;
+    --color-white: #fff;
+    --color-white_2: #ffffff7a;
+    --color-principal: #131415;
+    --color-dos: #101826;
+    --color-tres: #1f2936;
+    --color-cuatro: #1373e0;
+    --color-tres_2: #2b3847;
+    --color-cinco: #cc6300;
+
+
+    /* ESTILOS DE FUENTES */
+    /* --font-roboto_blod: 'myfont_robot_bold';
+    --font-quicksand_light: 'quicksand_light';
+    --font-utendo_semibold: 'utendo_semibold'; */
+    --font-roboto_normal: 'myfont_robot_normal';
+    
+    /* TAMAÑOS DE TEXTO */
+    --font-xs: 12px;
+    --font-sm: 14px;
+    --font-md: 16px;
+    --font-lg: 18px;
+    --font-xl: 20px;
+}
+
+
+.style_glass{
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border:1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 2px 10px 0 #0000002d;
+}
+
+.style_glassNavBar {
+    background: linear-gradient(135deg, #49494938, #35353541);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(10px);
+    border:1px solid #ffffff1a;
+    box-shadow: 0 0 20px 0 #00000038;
+}
+
+p {
+    font-size: 14px;
+    font-family: var(--font-roboto_normal);
+}
+
+h1 {
+    font-size: 40px;
+    font-family: var(--font-roboto_blod);
+}
+
+h2 {
+    font-size: 30px;
+    font-family: var(--font-roboto_blod);
+}
+
+h3 {
+    font-size: 20px;
+    font-family: var(--font-roboto_blod);
+}
+
+h4 {
+    font-size: 13px;
+    font-family: var(--font-roboto_blod);
+}
+
+.style_RES_CONT {
+    padding: 0px 20%;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 1050px) {
+    padding: 0px 10%;
+    }
+    @media (max-width: 580px) {
+        padding: 0px 0px;
+    }
+}
+
+/* COLORS */
+.style_bg_blaxstax_two {
+    background: #2b313a;
+}
+.style_bg_blaxstax_tree {
+    background: #1e2229;
+}

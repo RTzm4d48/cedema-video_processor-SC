@@ -1,0 +1,55 @@
+@import url(/static/css/style.css);
+
+.template_body {
+ background: var(--color-principal);
+ color: var(--color-white);
+ font-family: Arial, Helvetica, sans-serif;
+ font-size: small;
+}
+
+.template_cont {
+    /* display: flex;
+    flex-direction: column; */
+    /* background: gold; */
+
+    & aside {
+        /* background: black; */
+        margin: 10px 0px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        & section {
+            background: var(--color-dos);
+            width: calc(50% - 10px);
+            height: calc(100vh - 100px);
+            border-radius: 8px;
+        }
+    }
+
+    .check {
+        width: 100%;
+
+        & span {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+
+            & label {
+                background: var(--color-tres);
+                border: 1px solid var(--color-border_1);
+                font-size: smaller;
+                margin: 0px auto 0px 0px;
+                padding: 3px;
+            }
+
+            & select {
+                background: var(--color-tres);
+                color: var(--color-white);
+                padding: 5px;
+                border: 1px solid var(--color-border_1);
+
+            }
+        }
+    }
+}

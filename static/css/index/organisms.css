@@ -1,0 +1,195 @@
+@import url(/static/css/style.css);
+.organism_firsSettings {
+    background: var(--color-tres);
+    width: calc((100% - 20px) - 30px);
+    margin: 10px auto;    
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border_1);
+    display: flex;
+    flex-direction: column;
+
+    & span {
+        margin: 10px 0px;
+
+        & input[type="text"] {
+            background: var(--color-principal);
+            border: 1px solid var(--color-border_1);
+            border-radius: 4px;
+            padding: 4px;
+            color: var(--color-white_2);
+        }
+    }
+}
+
+.organism_input {
+    background: var(--color-tres);
+    width: calc((100% - 20px) - 30px);
+    margin: 10px auto;    
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #2f3842;
+    display: flex;
+    flex-direction: column;
+
+    & form {
+        display: flex;
+        flex-direction: column;
+        /* background: rebeccapurple; */
+
+        & * {
+            /* background: gold; */
+            margin: 5px 0px;
+        }
+
+        & input[type="file"] {
+            color: var(--color-white_2);
+        }
+
+        & label {
+            font-size: smaller;
+        }
+
+        & textarea {
+            background: var(--color-principal);
+            border: 1px solid var(--color-border_1);
+            border-radius: 3px;
+            color: var(--color-white);
+            padding: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        & input[type="submit"] {
+            background: var(--color-cuatro);
+            color: var(--color-white);
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+        }
+    }
+
+}
+
+.organism_th_1 {
+    width: 80%;
+}
+.organism_th_2 {
+    width: 10%;
+}
+.organism_th_3 {
+    width: 10%;
+}
+
+.organism_listFile {
+    background: var(--color-tres);
+    width: calc(100% - 20px);
+    margin: 10px auto;    
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid #2f3842;
+    display: flex;
+    flex-direction: column;
+
+    & table {
+        /* background: blue; */
+        display: flex;
+        flex-direction: column;
+
+        & tr {
+            /* background: darksalmon; */
+            display: flex;
+            height: 50px;
+            justify-content: space-between;
+
+            .tittle_cont {
+                justify-content: flex-start;
+            }
+
+            & th {
+                /* background: red; */
+                margin: auto 15px;
+                display: flex;
+                justify-content: center;
+
+                .icon {
+                    /* background: gold; */
+                    display: flex;
+
+                    & img {
+                        /* background: darkblue; */
+                        margin: auto 10px auto 0px;
+                    }
+                }
+
+                .actions {
+                    & img{
+                        cursor: pointer;
+                        margin: 0px 2px;
+
+                        &:hover {
+                            opacity: 70%;
+                        }
+                    }
+                }
+
+                & P {
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: smaller;
+                }
+
+                & span {
+                    /* background: forestgreen; */
+                    display: flex;
+                    color: var(--color-white_2);
+
+                    & p {
+                        font-size: smaller;
+                        margin-top: 2px;
+                    }
+
+                    .before {
+                        color: #cc6300;
+                    }
+                }
+            }
+        }
+    }
+
+    .ligth {
+        background: var(--color-tres_2) ;
+    }   
+}
+.organism_buttons {
+    background: var(--color-tres);
+    width: calc(100% - 20px);
+    margin: 10px auto;    
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid #2f3842;
+    display: flex;
+    justify-content: center;
+
+    & button {
+        margin: 10px;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        background: var(--color-cuatro);
+        color: var(--color-white);
+        font-size: small;
+        cursor: pointer;
+        width: 110px;
+
+        &:hover{
+            opacity: 50%;
+        }
+    }
+
+    .clear {
+        background: var(--color-cinco);
+    }
+}

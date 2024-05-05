@@ -1,3 +1,5 @@
+process.txt
+
 media
 **/*.pyc
 .vscode/
