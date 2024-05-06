@@ -93,6 +93,7 @@
     border: 1px solid #2f3842;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 
     & table {
         /* background: blue; */
@@ -164,12 +165,12 @@
     }   
 }
 .organism_buttons {
-    background: var(--color-tres);
+    /* background: var(--color-tres); */
     width: calc(100% - 20px);
     margin: 10px auto;    
     overflow: hidden;
     border-radius: 8px;
-    border: 1px solid #2f3842;
+    /* border: 1px solid #2f3842; */
     display: flex;
     justify-content: center;
 
@@ -192,4 +193,29 @@
     .clear {
         background: var(--color-cinco);
     }
+}
+
+.organism_fileOutput {
+    background: var(--color-tres);
+    width: calc((100% - 20px) - 30px);
+    margin: 10px auto;    
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border_1);
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+
+}
+
+.organism_code {
+    background: var(--color-tres);
+    width: calc((100% - 20px) - 30px);
+    margin: 10px auto;    
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border_1);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
