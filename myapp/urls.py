@@ -1,7 +1,9 @@
-from django.urls import path
-from . import views # corto y pego de ./mysite/urls.py
+from django.urls import path # type: ignore
+from . import views
+
 
 urlpatterns = [
     path('', views.hello),
-    # path('about/', views.about) #corto y pego de ./mysite/urls.py
+    path('videos/', views.ListVideoView.as_view(), name='n_videos'),
+    # path('videos/<int:pk>/', views.ListVideoView.as_view(), name='n_videos')
 ]
