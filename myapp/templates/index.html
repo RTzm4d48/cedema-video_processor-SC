@@ -36,11 +36,12 @@
                         <span>New Items: <input id="id_new_item" type="text" value="" name="" id="" disabled></span>
                     </div>
                     <div class="organism_input">
-                            <input type="file" id="video_file" name="archivo" accept=".mp4">
-                            <label for="">titulo/Brebe Descripción</label>
-                            <textarea id="parrafo" name="parrafo" rows="2" cols="50" maxlength="10"></textarea>
-
-                            <input type="submit" value="Subir Archivo">
+                            <div class="cont_desq">
+                                <input type="file" id="video_file" name="archivo" accept=".mp4">
+                                <label for="">titulo/Brebe Descripción</label>
+                                <textarea id="parrafo" name="parrafo" rows="2" cols="50" maxlength="10"></textarea>
+                                <input type="submit" value="Subir Archivo">
+                            </div>
                     </div>
                 </form>
                 <div class="molecule_navbarFile">
@@ -57,7 +58,7 @@
                                 <div class="icon">
                                     <img width="26px" height="23" src="{% static 'img/icon_vid.png' %}" alt="">
                                 </div>
-                                <div class="tittle">
+                                <div class="tittle" style="background: white;">
                                     <p>{{ video.tittle }}</p>
                                     <span>
                                         <p class="before">Before:</p>
@@ -89,10 +90,56 @@
                 </div>
                 <div class="organism_code">
                     <p>Insertar Código</p>
+                    <code id="insert_code">hola
+                    function saludar() {
+                        console.log("¡Hola mundo!");
+                    }
+                    
+                    saludar();
+                    
+                    </code>
                 </div>
             </section>
         </aside>
     </div>
     <script src="{% static 'js/index.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Realizar una solicitud GET a la API cuando se carga la página
+            $.ajax({
+                url: '/api/api/traking',
+                type: 'GET',
+                success: function(data) {
+                    console.log('Datos de la API:', data);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    // Manejar errores si la solicitud falla
+                    console.error('Error al obtener datos de la API:', errorThrown);
+                }
+            });
+        });
+    </script>
+
+    <div id="response-container">
+        <!-- Aquí se mostrará la respuesta de la API -->
+    </div>
+
+    <script>
+        // Realizar una solicitud GET a la API
+        fetch('/api/api/mi-endpoint/')
+            .then(response => response.json()) // Parsear la respuesta como JSON
+            .then(data => {
+                // Manipular los datos recibidos
+                const mensaje = data.mensaje;
+                // Mostrar el mensaje en el HTML
+                console.log('Datos de la API:', mensaje);
+
+            })
+            .catch(error => {
+                // Manejar errores si la solicitud falla
+                console.error('Error al obtener datos de la API:', error);
+            });
+    </script>
 </body>
 </html>
