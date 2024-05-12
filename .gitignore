@@ -6,3 +6,5 @@ media
 .vscode/
 .env
 .DS*
+
+tmp/

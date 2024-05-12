@@ -29,21 +29,18 @@
         </aside>
         <aside>
             <section>
-                <form action="/upload" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="organism_firsSettings">
-                        <span>Total Items: <input id="id_total_items" type="number" value="" name=""></span>
-                        <span>New Items: <input id="id_new_item" type="text" value="" name="" id="" disabled></span>
-                    </div>
-                    <div class="organism_input">
-                            <div class="cont_desq">
-                                <input type="file" id="video_file" name="archivo" accept=".mp4">
-                                <label for="">titulo/Brebe Descripción</label>
-                                <textarea id="parrafo" name="parrafo" rows="2" cols="50" maxlength="10"></textarea>
-                                <input type="submit" value="Subir Archivo">
-                            </div>
-                    </div>
-                </form>
+                <div class="organism_firsSettings">
+                    <span>Total Items: <input id="id_total_items" type="number" value="" name=""></span>
+                    <span>New Items: <input id="id_new_item" type="text" value="" name="" id="" disabled></span>
+                </div>
+                <div class="organism_input">
+                        <div class="cont_desq">
+                            <input type="file" id="video_file" name="archivo" accept=".mp4">
+                            <label for="">titulo/Brebe Descripción</label>
+                            <textarea id="id_tittle" name="tittle" rows="2" cols="50" maxlength="70"></textarea>
+                            <input type="submit" id="id_submit" value="Subir Archivo">
+                        </div>
+                </div>
                 <div class="molecule_navbarFile">
                     <p class="organism_th_1 tittle_file">Titulo</p>
                     <p class="organism_th_2">Número</p>
@@ -58,7 +55,7 @@
                                 <div class="icon">
                                     <img width="26px" height="23" src="{% static 'img/icon_vid.png' %}" alt="">
                                 </div>
-                                <div class="tittle" style="background: white;">
+                                <div class="tittle">
                                     <p>{{ video.tittle }}</p>
                                     <span>
                                         <p class="before">Before:</p>
@@ -102,7 +99,7 @@
             </section>
         </aside>
     </div>
-    <script src="{% static 'js/index.js' %}"></script>
+    <script type="module" src="{% static 'js/index.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -111,7 +108,7 @@
                 url: '/api/api/traking',
                 type: 'GET',
                 success: function(data) {
-                    console.log('Datos de la API:', data);
+                    console.log(' Ajax Datos de la API:', data);
                 },
                 error: function(xhr, textStatus, errorThrown) {
                     // Manejar errores si la solicitud falla

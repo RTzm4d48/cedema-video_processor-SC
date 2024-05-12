@@ -22,5 +22,11 @@ class ListVideoView(ListView):
         # num_item.calculate_siguiente_registro()
         
         print(num_item_json)
+        print("Hola")
+
+        with open('static/textoLENAY.txt', 'w') as f:
+            f.write('linea uno')
+        print('Archivo creado')
+        print('última linea de código')
 
         return render(request, 'index.html', {'videos': video_data_json})
