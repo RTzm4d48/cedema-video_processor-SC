@@ -47,32 +47,10 @@
                     <p class="organism_th_3">Acción</p>
                 </div>
                 <div class="organism_listFile">
-                    <table>
-                        {% for video in videos %}
+                    <table id="table_videos">
                         <!-- COLUMN -->
-                        <tr {% if video.id|divisibleby:"2" %} class="ligth" {% endif %}>
-                            <th class="organism_th_1 tittle_cont">
-                                <div class="icon">
-                                    <img width="26px" height="23" src="{% static 'img/icon_vid.png' %}" alt="">
-                                </div>
-                                <div class="tittle">
-                                    <p>{{ video.tittle }}</p>
-                                    <span>
-                                        <p class="before">Before:</p>
-                                        <p>{{ video.before_tittle }}</p>
-                                    </span>
-                                </div>
-                            </th>
-                            <th class="organism_th_2"><p>{{ video.total_items }}</p></th>
-                            <th class="organism_th_3">
-                                <div class="actions">
-                                    <img height="16px" src="{% static 'img/icon_edit.png' %}" alt="">
-                                    <img height="16px" src="{% static 'img/icon_deleted.png' %}" alt="">
-                                </div>
-                            </th>
-                        </tr>
+                        
                         <!-- COLUMN -->
-                        {% endfor %}
                     </table>
                 </div>
                 <div class="organism_buttons">
@@ -87,28 +65,34 @@
                 </div>
                 <div class="organism_code">
                     <p>Insertar Código</p>
-                    <code id="insert_code">hola
-                    function saludar() {
-                        console.log("¡Hola mundo!");
-                    }
-                    
-                    saludar();
-                    
-                    </code>
+                    <code id="insert_code"></code>
                 </div>
             </section>
         </aside>
     </div>
-    <script type="module" src="{% static 'js/index.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module" src="{% static 'js/index.js' %}"></script>
+    
+
+    <div id="response-container">
+        <!-- Aquí se mostrará la respuesta de la API -->
+    </div>
     <script>
         $(document).ready(function() {
-            // Realizar una solicitud GET a la API cuando se carga la página
+            var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
             $.ajax({
-                url: '/api/api/traking',
-                type: 'GET',
+                url: '/api/my_apis/create_video/',
+                type: 'POST',
+                data:{
+                    'title': 'Titulo del video',
+                    'num_item': '9',
+                    'old_title': 'Titulo del video viejo',
+                },
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                },
                 success: function(data) {
-                    console.log(' Ajax Datos de la API:', data);
+                    console.log('Datos de la API AAAAAAAAAAAAAAAA:', data);
                 },
                 error: function(xhr, textStatus, errorThrown) {
                     // Manejar errores si la solicitud falla
@@ -118,25 +102,5 @@
         });
     </script>
 
-    <div id="response-container">
-        <!-- Aquí se mostrará la respuesta de la API -->
-    </div>
-
-    <script>
-        // Realizar una solicitud GET a la API
-        fetch('/api/api/mi-endpoint/')
-            .then(response => response.json()) // Parsear la respuesta como JSON
-            .then(data => {
-                // Manipular los datos recibidos
-                const mensaje = data.mensaje;
-                // Mostrar el mensaje en el HTML
-                console.log('Datos de la API:', mensaje);
-
-            })
-            .catch(error => {
-                // Manejar errores si la solicitud falla
-                console.error('Error al obtener datos de la API:', error);
-            });
-    </script>
 </body>
 </html>
