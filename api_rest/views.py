@@ -15,18 +15,23 @@ class my_apis(viewsets.ModelViewSet):
     def create_video(self, request):
         if request.method == 'POST':
             title = request.data.get('title')
-            # attach_file = request.FILES.get('attach_file')
+            attach_file = request.FILES.get('attach_file')
             num_item = request.data.get('num_item')
             old_title = request.data.get('old_title')
 
+        print("----------------")
+        print(title)
+        print(num_item)
+        print(attach_file)
+        print(old_title)
         print('Hola desde la consola')
-        # if attach_file is None:
-        #     return Response('No hay archivo adjunto', status=status.HTTP_400_BAD_REQUEST)
+        if attach_file is None:
+            return Response('No hay archivo adjunto', status=status.HTTP_400_BAD_REQUEST)
         
-        # _, extension = os.path.splitext(attach_file.name)
-        # code = "{ titulo: '"+title+"', extencion: '"+extension+"' number: "+num_item+"'}";
-        # self.write_file(request, title, num_item, old_title, attach_file)
-        # self.save_video(request, title, num_item, extension, code
+        _, extension = os.path.splitext(attach_file.name)
+        code = "{ titulo: '"+title+"', extencion: '"+extension+"' number: "+num_item+"'}"
+        self.write_file(request, title, num_item, old_title, attach_file)
+        self.save_video(request, title, num_item, extension, code)
         code = {
             'mensaje': '¡Hola desde tu API en Django! MrBestia',
         }

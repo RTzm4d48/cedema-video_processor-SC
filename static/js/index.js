@@ -1,3 +1,5 @@
+console.log("PULGADAS");
+
 // Initialize the input
 var input = document.getElementById('id_total_items');
 input.addEventListener('input', function() {
@@ -5,7 +7,7 @@ input.addEventListener('input', function() {
     capture_num_item(inputValue);
 });
 
-function getCookie(name) {
+function getCookie__(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         var cookies = document.cookie.split(';');
@@ -20,6 +22,23 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+// function getCookie(name) {
+//     var cookieValue = null;
+//     if (document.cookie && document.cookie !== '') {
+//         var cookies = document.cookie.split(';');
+//         for (var i = 0; i < cookies.length; i++) {
+//             var cookie = jQuery.trim(cookies[i]);
+//             // Does this cookie string begin with the name we want?
+//             if (cookie.substring(0, name.length + 1) === (name + '=')) {
+//                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+//                 break;
+//             }
+//         }
+//     }
+//     return cookieValue;
+// }
+
 
 // Define your function
 function capture_num_item(value) {
@@ -54,6 +73,22 @@ class PROCESS_DATA {
             this.validateForm()
         }
     }
+
+    getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // ¿El cookie comienza con el nombre que queremos?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
   
     validateForm() {
         console.log("VALIDANDO FORMULARIO XD");
@@ -65,12 +100,12 @@ class PROCESS_DATA {
 
         $(document).ready(function() {
             // var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-            var csrftoken = getCookie('csrftoken');
+            var csrftoken = this.getCookie('csrftoken');
             var formData = new FormData();
             formData.append('title', 'Titulo del video');
             formData.append('num_item', '9');
             formData.append('old_title', 'Titulo del video viejo');
-            // formData.append('attach_file', self.file.files[0]);
+            formData.append('attach_file', self.file.files[0]);
             $.ajax({
                 url: '/api/my_apis/create_video/',
                 type: 'POST',
@@ -108,6 +143,11 @@ function init_program() {
     });
 
 }
+
+
+
+
+
 
 function pinter_data(data){
     for (var i = 0; i < data.length; i++) {
