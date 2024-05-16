@@ -32,15 +32,14 @@
             <section>
                 <div class="organism_firsSettings">
                     <span>Total Items: <input id="id_total_items" type="number" value="" name=""></span>
-                    <span>New Items: <input id="id_new_item" type="text" value="" name="" id="" disabled></span>
+                    <span>New Items: <input id="id_new_item" type="number" value="" name="" disabled></span>
                 </div>
                 <div class="organism_input">
                         <div class="cont_desq">
                             <input type="file" id="video_file" name="archivo" accept=".mp4">
                             <label for="">titulo/Brebe Descripción</label>
-                            <textarea id="id_tittle" name="tittle" rows="2" cols="50" maxlength="70"></textarea>
+                            <textarea id="id_title" name="tittle" rows="2" cols="50" maxlength="70"></textarea>
                             <input type="submit" id="id_submit" value="Subir Archivo">
-                            <button onclick="send_data()">SEND DATA</button>
                         </div>
                 </div>
                 <div class="molecule_navbarFile">
@@ -57,7 +56,7 @@
                 </div>
                 <div class="organism_buttons">
                     <button>PROCESAR</button>
-                    <button class="clear">LIMPIAR</button>
+                    <button id="id_clear" class="clear">LIMPIAR</button>
                 </div>
             </section>
             <section>
@@ -67,6 +66,7 @@
                 </div>
                 <div class="organism_code">
                     <p>Insertar Código</p>
+
                     <code id="insert_code"></code>
                 </div>
             </section>
@@ -74,40 +74,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        function send_data(){
-            console.log("SEND DATA");
-            $(document).ready(function() {
-                var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-                var myfile = document.getElementById('video_file');
-                var formData = new FormData();
-                formData.append('title', 'Titulo del video');
-                formData.append('num_item', '9');
-                formData.append('old_title', 'Titulo del video viejo');
-                formData.append('attach_file', myfile.files[0]);
-                console.log("QUE!")
-                console.log(myfile.files[0])
-                $.ajax({
-                    url: '/api/my_apis/create_video/',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    beforeSend: function(xhr) {
-                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                    },
-                    success: function(data) {
-                        console.log('Datos de la API AAAAAAAAAAAAAAAA:', data);
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        // Manejar errores si la solicitud falla
-                        console.error('Error al obtener datos de la API:', errorThrown);
-                    }
-                });
-            });
-        }
-        var la_vatuca = 'la vatuca';
-        var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-
+        // var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
     </script>
     <script type="module" src="{% static 'js/index.js' %}"></script>
 </body>
