@@ -24,25 +24,26 @@ class my_apis(viewsets.ModelViewSet):
         print(num_item)
         print(attach_file)
         print(old_title)
-        print('Hola desde la consola')
+        print('Hola desde la consola VAMONOOOS')
         if attach_file is None:
             return Response('No hay archivo adjunto', status=status.HTTP_400_BAD_REQUEST)
         
-        _, extension = os.path.splitext(attach_file.name)
-        code = "{ titulo: '"+title+"', extencion: '"+extension+"' number: "+num_item+"'}"
-        self.write_file(request, title, num_item, old_title, attach_file)
-        self.save_video(request, title, num_item, extension, code)
-        code = {
-            'mensaje': '¡Hola desde tu API en Django! MrBestia',
-        }
+        _, extension = os.path.splitext(attach_file.name) # Obtenemos la extencion del archivo
+        code = "{ titulo: '"+title+"', extencion: '"+extension+"' number: '"+num_item+"'}" # Codigo de insersion en la guia
+
+        self.write_file(request, title, num_item, old_title, attach_file, extension)
+        self.save_video(request, title, num_item, extension, code, old_title)
+        # code = {
+        #     'mensaje': '¡Hola desde tu API en Django! MrBestia',
+        # }
+
         return Response(code, status=status.HTTP_200_OK)
 
 
     def get_queryset(self):
         pass
 
-    def write_file(self, request, title, num_item, old_title, attach_file):
-        _, extension = os.path.splitext(attach_file.name)
+    def write_file(self, request, title, num_item, old_title, attach_file, extension):
         with open(f'static/tmp/{num_item}_{title}{extension}', 'wb') as f:
             for chunk in attach_file.chunks():
                 f.write(chunk)
@@ -56,8 +57,8 @@ class my_apis(viewsets.ModelViewSet):
         
         return Response('Video eliminado', status=status.HTTP_200_OK)
     
-    def save_video(self, request, title, num_item, extension, code):
-        new_video = video(title=title, num_items=num_item, extension=extension, code=code, id_guia=guia.objects.get(name='ES-Guia-v'))
+    def save_video(self, request, title, num_item, extension, code, old_title):
+        new_video = video(title=title, num_item=num_item, extension=extension, code=code, old_title=old_title, id_guia=guia.objects.get(name='ES-Guia-v'))
         new_video.save()
 
     @action(detail=False, methods=['get'], url_path='select_videos')
@@ -66,7 +67,7 @@ class my_apis(viewsets.ModelViewSet):
         data = []
         for i in myvideo:
             print(i.title)
-            data.append({'title': i.title, 'num_items': i.num_items, 'extension': i.extension, 'code': i.code, 'id_guia': i.id_guia.name})
+            data.append({'title': i.title, 'num_items': i.num_item, 'extension': i.extension, 'code': i.code, 'id_guia': i.id_guia.name, 'old_title': i.old_title})
 
         resultados_json = list(data)
 

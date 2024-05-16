@@ -11,9 +11,10 @@ class guia(models.Model):
 
 class video(models.Model):
     title = models.CharField(max_length=70, default='')
-    num_items = models.IntegerField(default=0)
+    old_title = models.CharField(max_length=70, default='')
+    num_item = models.IntegerField(default=0)
     extension = models.CharField(max_length=10, default='')
-    code = models.TextField(null=True)
+    code = models.TextField(null=True) # Codigo de insersion en la guia
     id_guia = models.ForeignKey(guia, on_delete=models.CASCADE)
 
     def __str__(self):
