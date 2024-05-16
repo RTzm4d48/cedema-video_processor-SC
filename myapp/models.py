@@ -10,13 +10,14 @@ class guia(models.Model):
         return self.name
 
 class video(models.Model):
-    tittle = models.CharField(max_length=70)
-    total_items = models.IntegerField()
-    before_tittle = models.CharField(max_length=70)
+    title = models.CharField(max_length=70, default='')
+    num_items = models.IntegerField(default=0)
+    extension = models.CharField(max_length=10, default='')
+    code = models.TextField(null=True)
     id_guia = models.ForeignKey(guia, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.tittle + ' | ' + self.id_guia.name
+        return self.title + ' | ' + self.id_guia.name
     
     def calcular_siguiente_registro(self):
-        return self.total_items + 1
+        return self.num_items + 1

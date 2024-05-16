@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIDEO - PROECESSOR</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'img/myicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/index/templates.css' %}">
@@ -29,52 +30,29 @@
         </aside>
         <aside>
             <section>
-                <form action="/upload" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="organism_firsSettings">
-                        <span>Total Items: <input id="id_total_items" type="number" value="" name=""></span>
-                        <span>New Items: <input id="id_new_item" type="text" value="" name="" id="" disabled></span>
-                    </div>
-                    <div class="organism_input">
+                <div class="organism_firsSettings">
+                    <span>Total Items: <input id="id_total_items" type="number" value="" name=""></span>
+                    <span>New Items: <input id="id_new_item" type="text" value="" name="" id="" disabled></span>
+                </div>
+                <div class="organism_input">
+                        <div class="cont_desq">
                             <input type="file" id="video_file" name="archivo" accept=".mp4">
                             <label for="">titulo/Brebe Descripción</label>
-                            <textarea id="parrafo" name="parrafo" rows="2" cols="50" maxlength="10"></textarea>
-
-                            <input type="submit" value="Subir Archivo">
-                    </div>
-                </form>
+                            <textarea id="id_tittle" name="tittle" rows="2" cols="50" maxlength="70"></textarea>
+                            <input type="submit" id="id_submit" value="Subir Archivo">
+                            <button onclick="send_data()">SEND DATA</button>
+                        </div>
+                </div>
                 <div class="molecule_navbarFile">
                     <p class="organism_th_1 tittle_file">Titulo</p>
                     <p class="organism_th_2">Número</p>
                     <p class="organism_th_3">Acción</p>
                 </div>
                 <div class="organism_listFile">
-                    <table>
-                        {% for video in videos %}
+                    <table id="table_videos">
                         <!-- COLUMN -->
-                        <tr {% if video.id|divisibleby:"2" %} class="ligth" {% endif %}>
-                            <th class="organism_th_1 tittle_cont">
-                                <div class="icon">
-                                    <img width="26px" height="23" src="{% static 'img/icon_vid.png' %}" alt="">
-                                </div>
-                                <div class="tittle">
-                                    <p>{{ video.tittle }}</p>
-                                    <span>
-                                        <p class="before">Before:</p>
-                                        <p>{{ video.before_tittle }}</p>
-                                    </span>
-                                </div>
-                            </th>
-                            <th class="organism_th_2"><p>{{ video.total_items }}</p></th>
-                            <th class="organism_th_3">
-                                <div class="actions">
-                                    <img height="16px" src="{% static 'img/icon_edit.png' %}" alt="">
-                                    <img height="16px" src="{% static 'img/icon_deleted.png' %}" alt="">
-                                </div>
-                            </th>
-                        </tr>
+                        
                         <!-- COLUMN -->
-                        {% endfor %}
                     </table>
                 </div>
                 <div class="organism_buttons">
@@ -89,10 +67,48 @@
                 </div>
                 <div class="organism_code">
                     <p>Insertar Código</p>
+                    <code id="insert_code"></code>
                 </div>
             </section>
         </aside>
     </div>
-    <script src="{% static 'js/index.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function send_data(){
+            console.log("SEND DATA");
+            $(document).ready(function() {
+                var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+                var myfile = document.getElementById('video_file');
+                var formData = new FormData();
+                formData.append('title', 'Titulo del video');
+                formData.append('num_item', '9');
+                formData.append('old_title', 'Titulo del video viejo');
+                formData.append('attach_file', myfile.files[0]);
+                console.log("QUE!")
+                console.log(myfile.files[0])
+                $.ajax({
+                    url: '/api/my_apis/create_video/',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    },
+                    success: function(data) {
+                        console.log('Datos de la API AAAAAAAAAAAAAAAA:', data);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        // Manejar errores si la solicitud falla
+                        console.error('Error al obtener datos de la API:', errorThrown);
+                    }
+                });
+            });
+        }
+        var la_vatuca = 'la vatuca';
+        var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+    </script>
+    <script type="module" src="{% static 'js/index.js' %}"></script>
 </body>
 </html>
