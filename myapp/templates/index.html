@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{% static 'css/index/templates.css' %}">
     <link rel="stylesheet" href="{% static 'css/index/organisms.css' %}">
     <link rel="stylesheet" href="{% static 'css/index/molecules.css' %}">
-
 </head>
 <body class="template_body">
     <div class="template_cont style_RES_CONT">
@@ -49,13 +48,11 @@
                 </div>
                 <div class="organism_listFile">
                     <table id="table_videos">
-                        <!-- COLUMN -->
-                        
-                        <!-- COLUMN -->
+                        <!-- STUB - TABLE GENERATED -->
                     </table>
                 </div>
                 <div class="organism_buttons">
-                    <button>PROCESAR</button>
+                    <button onclick="deleted_one_video(5)">PROCESAR</button>
                     <button id="id_clear" class="clear">LIMPIAR</button>
                 </div>
             </section>
@@ -73,9 +70,6 @@
         </aside>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        // var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
-    </script>
-    <script type="module" src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
 </body>
 </html>
