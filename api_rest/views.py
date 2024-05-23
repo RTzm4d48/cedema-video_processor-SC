@@ -22,12 +22,15 @@ class my_apis(viewsets.ModelViewSet):
         if attach_file is None:
             return Response('No hay archivo adjunto', status=status.HTTP_400_BAD_REQUEST)
         _, extension = os.path.splitext(attach_file.name) # Obtenemos la extencion del archivo
-        code = "{ titulo: '"+title+"', extencion: '"+extension+"', number: '"+num_item+"'}" # Codigo de insersion en la guia
+        code = "{ titulo: '"+title+"', extencion: '"+extension+"', number: '"+num_item+"'}," # Codigo de insersion en la guia
 
         self.write_file(request, title, num_item, old_title, attach_file, extension)
         self.save_video(request, title, num_item, extension, code, old_title)
 
         return Response(code, status=status.HTTP_200_OK)
+
+    
+
 
     #region # TODO: DELETED VIDEO
     @action(detail=False, methods=['post'], url_path='deleted_video')
@@ -49,7 +52,7 @@ class my_apis(viewsets.ModelViewSet):
     #region # TODO: SELECT VIDEOS
     @action(detail=False, methods=['get'], url_path='select_videos')
     def select_videos(self, request):
-        myvideo = video.objects.all()
+        myvideo = video.objects.all()[::-1]
         
         data = []
         for i in myvideo:

@@ -21,11 +21,14 @@
 
         & section {
             background: var(--color-dos);
-            width: calc(50% - 10px);
+            width: calc(40% - 10px);
             height: calc(100vh - 100px);
             border-radius: 8px;
             display: flex;
             flex-direction: column;
+        }
+        & .cont_viwer {
+            width: calc(60% - 10px);
         }
     }
 

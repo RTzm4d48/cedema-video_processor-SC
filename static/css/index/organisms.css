@@ -50,6 +50,7 @@
     .cont_desq {
         display: flex;
         flex-direction: column;
+        position: relative;
         /* background: rebeccapurple; */
 
         & * {
@@ -57,26 +58,84 @@
             margin: 5px 0px;
         }
 
-        & input[type="file"] {
-            color: var(--color-white_2);
-        }
+        .cont_select_video{
+            display: flex;
+            width: 100%;
+            height: 60px;
 
-        & label {
-            font-size: smaller;
-        }
+            &:hover {
+                opacity: 70%;
+                cursor: pointer;
+            }
 
-        & textarea {
-            background: var(--color-principal);
-            border: 1px solid var(--color-border_1);
-            border-radius: 3px;
-            color: var(--color-white);
-            padding: 5px;
-            font-family: Arial, Helvetica, sans-serif;
+            &:active {
+                opacity: 20%;
+            }
 
-            &:focus {
-                outline: none;
+            & input[type="file"] {
+                color: var(--color-white_2);
+                margin: 0px;
+                opacity: 0;
+                position: absolute;
+                background: salmon;
+                width: 100%;
+                height: 60px;
+                z-index: 2;
+                cursor: pointer;
+            }
+    
+            & label {
+                font-size: smaller;
+                margin: 0px;
+                display: flex;
+                justify-content: center; /* Alinea Horizontal */
+                align-items: center; /* Alinea Vertical */
+                border: 2px dotted #cacaca;
+                border-radius: 5px;
+                width: 100%;
+                height: calc(60px - 4px);
+                z-index: 1;
             }
         }
+
+        & p {
+            font-size: smaller;
+        }
+        
+        & .cont_text {
+            width: 100%;
+            position: relative; /*importante*/
+            /* background: red; */
+
+            & textarea {
+                background: var(--color-principal);
+                border: 1px solid var(--color-border_1);
+                border-radius: 3px;
+                color: var(--color-white);
+                padding: 5px;
+                font-family: Arial, Helvetica, sans-serif;
+                min-width: calc(100% - 10px);
+                max-width: calc(100% - 10px);
+                min-height: 40px;
+                max-height: 40px;
+                margin: 0px;
+    
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            & span {
+                font-size: smaller;
+                color: var(--color-white_2);
+                position: absolute;/*importante*/
+                top: 0px;
+                right: 0px;
+                margin: 6px 3px;
+            }
+        }
+
+        
 
         & input[type="submit"] {
             background: var(--color-cuatro);
@@ -110,10 +169,32 @@
     flex-direction: column;
     flex-grow: 1;
 
+    /* Estilo para la barra de desplazamiento */
+    & ::-webkit-scrollbar {
+        width: 5px; /* Ancho de la barra de desplazamiento */
+    }
+
+    /* Estilo para la pista de la barra de desplazamiento */
+    & ::-webkit-scrollbar-track {
+        background: #2B3846; /* Color de fondo de la pista */
+    }
+
+    /* Estilo para el pulgar de la barra de desplazamiento */
+    & ::-webkit-scrollbar-thumb {
+        background: #264277; /* Color de fondo del pulgar */
+    }
+
+    /* Cambia el color del pulgar al pasar el mouse */
+    & ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
     & table {
-        /* background: blue; */
         display: flex;
         flex-direction: column;
+        overflow-y: scroll;
+
+        
 
         & tr {
             /* background: darksalmon; */
@@ -229,7 +310,74 @@
     border: 1px solid var(--color-border_1);
     display: flex;
     flex-direction: column;
-    height: 100px;
+    height: 260px;
+    display: flex;
+
+    & .cont_viewer {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        & .video {
+            width: 50%;
+            background: black;
+            height: 100%;
+
+            & video {
+                width: auto;
+                max-width: 100%;
+                max-width: 100%;
+                height: 100%;
+                margin: auto;
+                /* opacity: 20%; */
+            }
+        }
+
+        & button {
+            width: 40px;
+            height: 40px;
+            /* background: green; */
+            margin: auto 10px;
+            border: none;
+            padding: 0px;
+            background: none;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 50%;
+            }
+            &:active {
+                opacity: 20%;
+            }
+
+            & img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        & .captura {
+            height: 240px;
+            margin: auto;
+            width: calc(50% - 60px);
+            background: black;
+            display: flex;
+            border: 1px solid var(--color-border_1);
+            /* opacity: 50%; */
+    
+            .video_styles {
+                width: auto;
+                max-width: 100%;
+                max-width: 100%;
+                height: 100%;
+                margin: auto;
+            }
+            
+        }
+    }
+
+
+    
 
 }
 
@@ -252,7 +400,7 @@
         background: var(--color-principal);
         border: 1px solid var(--color-border_1);
         border-radius: 3px;
-        color: var(--color-white);
+        /* color: var(--color-white); */
         padding: 15px;
         font-family: Arial, Helvetica, sans-serif;
         font-size: smaller;
@@ -263,5 +411,17 @@
         &:focus {
             outline: none;
         }
+    }
+    /* COLORES DEL CODGO */
+    .keyword {
+        color: #EF4E69;
+    }
+
+    .string {
+        color: #8ACD7A;
+    }
+
+    .number {
+        color: #D9FF31;
     }
 }

@@ -5,20 +5,21 @@ from django.db import models # type: ignore
 class guia(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
+    acronimo = models.CharField(max_length=10, default='')
+    date = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.name
 
 class video(models.Model):
-    title = models.CharField(max_length=70, default='')
-    old_title = models.CharField(max_length=70, default='')
-    num_item = models.IntegerField(default=0)
+    video_name = models.CharField(max_length=70, default='')
+    img_name = models.CharField(max_length=70, default='') # El nombre de la miniatura del video
+    old_name = models.CharField(max_length=70, default='')
     extension = models.CharField(max_length=10, default='')
-    code = models.TextField(null=True) # Codigo de insersion en la guia
-    id_guia = models.ForeignKey(guia, on_delete=models.CASCADE)
+    code = models.CharField(max_length=10, default='', null=False) # Codigo Example: 8jd36h
+    script = models.TextField(null=True)
+    acronimo = models.CharField(max_length=10, default='') # El acriónimo de la guía simpre mayusculas
+    date = models.DateField(auto_now=True)
 
     def __str__(self):
-        return self.title + ' | ' + self.id_guia.name
-    
-    def calcular_siguiente_registro(self):
-        return self.num_items + 1
+        return self.video_name + ' | ' + self.code

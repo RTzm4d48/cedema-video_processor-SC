@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/index/templates.css' %}">
     <link rel="stylesheet" href="{% static 'css/index/organisms.css' %}">
     <link rel="stylesheet" href="{% static 'css/index/molecules.css' %}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
 </head>
 <body class="template_body">
     <div class="template_cont style_RES_CONT">
@@ -32,12 +33,19 @@
                 <div class="organism_firsSettings">
                     <span>Total Items: <input id="id_total_items" type="number" value="" name=""></span>
                     <span>New Items: <input id="id_new_item" type="number" value="" name="" disabled></span>
+                    <button onclick="capture()">Capture</button>
                 </div>
                 <div class="organism_input">
                         <div class="cont_desq">
-                            <input type="file" id="video_file" name="archivo" accept=".mp4">
-                            <label for="">titulo/Brebe Descripción</label>
-                            <textarea id="id_title" name="tittle" rows="2" cols="50" maxlength="70"></textarea>
+                            <div class="cont_select_video">
+                                <input type="file" id="video_file" name="archivo" accept=".mp4">
+                                <label id="label_file" for="video_file">Arrastra el video aquí</label>
+                            </div>
+                            <p>titulo/Brebe Descripción</p>
+                            <div class="cont_text">
+                                <textarea id="id_title" name="tittle" rows="2" cols="50" maxlength="70"></textarea>
+                                <span id="total_description">0/70</span>
+                            </div>
                             <input type="submit" id="id_submit" value="Subir Archivo">
                         </div>
                 </div>
@@ -56,15 +64,27 @@
                     <button id="id_clear" class="clear">LIMPIAR</button>
                 </div>
             </section>
-            <section>
+            <section class="cont_viwer">
                 <div class="organism_fileOutput">
-                    <p>Direccion Archivos OutPut</p>
-                    <a href="#">Open Folder</a>
+                    <p>Video View</p>
+                    <nav class="cont_viewer">
+                        <nav class="video" id="video_output">
+                            <!-- STUB - CAPTURE VIWER -->
+                        </nav>
+                        <button id="btn_capture">
+                            <img src="{% static 'img/icon_capture.png' %}" alt="">
+                        </button>
+                        <nav class="captura" id="captura_output">
+                            <!-- STUB - VIDEO VIWER -->
+                        </nav>
+                    </nav>
                 </div>
                 <div class="organism_code">
                     <p>Insertar Código</p>
 
-                    <code id="insert_code"></code>
+                    <code id="insert_code" class="">
+                        <!-- STUB - CODE INSERT -->
+                    </code>
                 </div>
             </section>
         </aside>
