@@ -29,9 +29,6 @@ class my_apis(viewsets.ModelViewSet):
 
         return Response(code, status=status.HTTP_200_OK)
 
-    
-
-
     #region # TODO: DELETED VIDEO
     @action(detail=False, methods=['post'], url_path='deleted_video')
     def deleted_video(self, request):
@@ -61,6 +58,18 @@ class my_apis(viewsets.ModelViewSet):
         resultados_json = list(data)
         return Response(resultados_json, status=status.HTTP_200_OK)
     
+    #region # TODO: SELECTS GUIAS
+    @action(detail=False, methods=['get'], url_path='slecet_guias')
+    def traking(self, request, pk=None):
+        myvideo = guia.objects.all()
+        
+        data = []
+        for i in myvideo:
+            data.append({'name': i.name, 'description': i.description, 'acronimo': i.acronimo})
+
+        resultados_json = list(data)
+        return Response(resultados_json, status=status.HTTP_200_OK)
+
     # ANCHOR UN FILTRO QUE AÚN NO SE COMO FUNCIONA
     def get_queryset(self):
         pass

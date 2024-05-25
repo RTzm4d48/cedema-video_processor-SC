@@ -13,11 +13,12 @@
     /* background: gold; */
 
     & aside {
-        /* background: black; */
+        /* background: rgb(208, 255, 0); */
         margin: 10px 0px;
         width: 100%;
+        /* height: 50px; */
         display: flex;
-        justify-content: space-between;
+        justify-content: start;
 
         & section {
             background: var(--color-dos);
