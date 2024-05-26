@@ -28,12 +28,8 @@
         <aside>
             <section>
                 <div class="organism_firsSettings">
-                    <div>
-                        <span>Acronimo: <input id="id_total_items" type="text" value="ES" name="" disabled></span>
-                        <span>Código: <input id="id_new_item" type="text" value="jd63hd" name="" disabled></span>
-                    </div>
-                    <!-- <p>Patroclo la niña que no sabia poner un billete_ES-dsd94u.mp4</p> -->
-                    <!-- <button onclick="capture()">Capture</button> -->
+                    <span>Acronimo: <input maxlength="2" id="id_acronime" type="text" value="ES" name="" disabled></span>
+                    <span>Código: <input id="id_code" type="text" value="jd63hd" name="" disabled></span>
                 </div>
                 <div class="organism_input">
                         <div class="cont_desq">
@@ -54,26 +50,28 @@
                                 <button></button>
                             </div>
                             <div class="names_view">
-                                <div class="file">
+                                <div id="id_name_video" class="file">
                                     <img src="{% static '/img/file_video.png' %}" alt="">
-                                    <p>Patroclo_la_niña_que_no_sabia_poner_un_billete-</p>
-                                    <p class="color2">ES</p>
+                                    <p class="id_view_tittle">unnamed</p>
                                     <p>-</p>
-                                    <p class="color3">dsd94u</p>
+                                    <p class="id_view_acronime color2">ES</p>
+                                    <p>-</p>
+                                    <p class="id_view_code color3">dsd94u</p>
                                     <p class="">.mp4</p>
                                 </div>
                                 <div class="file">
                                     <img src="{% static '/img/file_image.png' %}" alt="">
 
-                                    <p>Patroclo_la_niña_que_no_sabia_poner_un_billete-</p>
-                                    <p class="color2">ES</p>
+                                    <p class="id_view_tittle">unnamed</p>
                                     <p>-</p>
-                                    <p class="color3">dsd94u</p>
+                                    <p class="id_view_acronime color2">ES</p>
+                                    <p>-</p>
+                                    <p class="id_view_code color3">dsd94u</p>
                                     <p>-</p>
                                     <p class="color1">01</p>
                                     <p class="">.png</p>
                                 </div>
-                                <div class="file">
+                                <!-- <div class="file">
                                     <img src="{% static '/img/file_image.png' %}" alt="">
                                     <p>Patroclo_la_niña_que_no_sabia_poner_un_billete-</p>
                                     <p class="color2">ES</p>
@@ -83,6 +81,16 @@
                                     <p class="color1">02</p>
                                     <p class="">.png</p>
                                 </div>
+                                <div class="file">
+                                    <img src="{% static '/img/file_image.png' %}" alt="">
+                                    <p>Patroclo_la_niña_que_no_sabia_poner_un_billete-</p>
+                                    <p class="color2">ES</p>
+                                    <p>-</p>
+                                    <p class="color3">dsd94u</p>
+                                    <p>-</p>
+                                    <p class="color1">03</p>
+                                    <p class="">.png</p>
+                                </div> -->
                             </div>
                             <input type="submit" id="id_submit" value="Subir Archivo">
                         </div>
@@ -98,7 +106,7 @@
                     </table>
                 </div>
                 <div class="organism_buttons">
-                    <button onclick="deleted_one_video(5)">PROCESAR</button>
+                    <button>DESCARGAR ARCHIVOS</button>
                     <button id="id_clear" class="clear">LIMPIAR</button>
                 </div>
             </section>

@@ -74,13 +74,6 @@ export function create_element_video(url){
 }
 
 
-document.getElementById('id_title').addEventListener('input', function(e) {
-    var value = e.target.value;
-    var length = value.length;
-    console.log('Cantidad de caracteres ingresados: ' + length);
-    document.getElementById('total_description').innerHTML = `${length}/70`;
-});
-
 function capture() {
     alert("Capturando video...")
     console.log("Capturando video...");

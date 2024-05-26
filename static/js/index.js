@@ -4,13 +4,23 @@ import {saludar,
         create_element_video,
 } from './gestor_imagen_capture.js';
 
+import {asigned_code, put_name_files, insertAcronime, put_view_acronime} from './operations.js';
+
+init();
+function init() {
+    // ANCHOR : ASIGNAMOS EL CODIGO AL INPUT
+    asigned_code();
+    // ANCHOR : ASIGNAMOS NUESTRAS GUIAS AL SELECTOR
+    consult_guias();
+}
+
 // ANCHOR : NUMBER ITEMS FUNCTION
-var input = document.getElementById('id_total_items');
+var input = document.getElementById('id_acronime');
 input.addEventListener('input', function() {
     const inputValue = input.value;
-    var value_int = parseInt(inputValue);
-    document.getElementById('id_new_item').value = value_int+1;
+    
 });
+
 
 // ANCHOR : CLICK CREATE CAPTURE
 document.getElementById('btn_capture').addEventListener('click', function() {
@@ -71,7 +81,8 @@ document.getElementById('id_clear').addEventListener('click', function() {
 
 document.getElementById('seleccion').addEventListener('change', function() {
     let seleccion = this.value;
-    alert(seleccion);
+    // alert(seleccion);
+    insertAcronime(seleccion);
 });
 
 
@@ -84,14 +95,20 @@ function select_guia(data) {
     console.log(data);
     for (let i = 0; i < data.length; i++) {
         let option = document.createElement('option');
-        option.setAttribute('value', data[i]['name']);
+        option.setAttribute('value', data[i]['acronimo']);
         option.textContent = data[i]['name'];
         select.appendChild(option);
     }
+    // NOTE : AGREGAMOS EL OTHERS
+    let option = document.createElement('option');
+    option.setAttribute('value', 'other');
+    option.textContent = 'other';
+    select.appendChild(option);
+    
     select_guia.appendChild(select);
 }
 
-consult_guias();
+
 function consult_guias() {
     $(document).ready(function() {
         // Realizar una solicitud GET a la API cuando se carga la página
@@ -257,3 +274,17 @@ function view_video() {
     `;
     document.getElementById('video_output').style.display = 'block';
 }
+
+// ANCHOR : MOSTRAMOS NUMERO Y TAMBIEN CAPTURAMOS LO QUE ESCRIBIMOS EN EL TITULO
+document.getElementById('id_title').addEventListener('input', function(e) {
+    var value = e.target.value;
+    put_name_files(value);
+
+    var length = value.length;
+    document.getElementById('total_description').innerHTML = `${length}/70`;
+});
+
+document.getElementById('id_acronime').addEventListener('input', function(e) {
+    var value = e.target.value;
+    put_view_acronime(value);
+});

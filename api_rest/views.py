@@ -91,7 +91,7 @@ class my_apis(viewsets.ModelViewSet):
                 os.remove(file_path)
         else:
             # NOTE : ELIMINAR UN VIDEO
-            directory = 'static/tmp/'
+            directory = 'static/tmp/videos/'
             files = os.listdir(directory) # ENLISTAMOS TODOS LOS ARCHIVOS DE LA CARPETA TEMPORAL
             for file in files:
                 if item+'_' in file: # BUSCAMOS EL ARCHIVO QUE CONTENGA EL NUMERO DE ITEM ejem: 1_
