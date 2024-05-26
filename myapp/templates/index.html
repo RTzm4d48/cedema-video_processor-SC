@@ -45,9 +45,11 @@
 
                             <!-- VIOSUALIZACION DE IMAGEN DE VIDEO -->
                             <div class="cont_viewImg">
-                                <img src="{% static '/img/imgPrueba_1.png' %}" alt="">
-                                <img src="{% static '/img/imgPrueba_2.png' %}" alt="">
-                                <button></button>
+                                <div id="id_only_imgs">
+                                </div>
+                                <input type="file" id="image_file" name="archivo" accept=".png" hidden>
+                                <label for="image_file"><img src="/static/img/add_imgIcon.png" alt=""></label>
+                                <!-- <button></button> -->
                             </div>
                             <div class="names_view">
                                 <div id="id_name_video" class="file">
@@ -118,11 +120,14 @@
                             <!-- STUB - CAPTURE VIWER -->
                         </nav>
                         <nav class="capture_options">
-                            <button id="btn_capture">
+                            <button id="btn_capture" style="width: 35px; height: 35px;">
                                 <img src="{% static 'img/icon_capture.png' %}" alt="">
                             </button>
                             <button id="btn_download">
                                 <img src="{% static 'img/icon_download.png' %}" alt="">
+                            </button>
+                            <button id="charger_capture">
+                                <img src="{% static 'img/add_imgIcon.png' %}" alt="">
                             </button>
                         </nav>
                         <nav class="captura" id="captura_output">

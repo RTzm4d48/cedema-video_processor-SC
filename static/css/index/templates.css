@@ -1,10 +1,31 @@
 @import url(/static/css/style.css);
 
 .template_body {
- background: var(--color-principal);
- color: var(--color-white);
- font-family: Arial, Helvetica, sans-serif;
- font-size: small;
+    background: var(--color-principal);
+    color: var(--color-white);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+
+    /* Estilo para la barra de desplazamiento */
+    & ::-webkit-scrollbar {
+        width: 5px; /* Ancho de la barra de desplazamiento */
+        height: 5px;
+    }
+
+    /* Estilo para la pista de la barra de desplazamiento */
+    & ::-webkit-scrollbar-track {
+        background: #2B3846; /* Color de fondo de la pista */
+    }
+
+    /* Estilo para el pulgar de la barra de desplazamiento */
+    & ::-webkit-scrollbar-thumb {
+        background: #264277; /* Color de fondo del pulgar */
+    }
+
+    /* Cambia el color del pulgar al pasar el mouse */
+    & ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 }
 
 .template_cont {
@@ -27,6 +48,7 @@
             border-radius: 8px;
             display: flex;
             flex-direction: column;
+            margin: 0px 5px;
         }
         & .cont_viwer {
             width: calc(60% - 10px);

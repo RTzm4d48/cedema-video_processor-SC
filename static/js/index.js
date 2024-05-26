@@ -2,6 +2,8 @@ import {saludar,
         capture_second,
         create_elemet_capture,
         create_element_video,
+        create_image_view,
+        captured_image_capturate,
 } from './gestor_imagen_capture.js';
 
 import {asigned_code, put_name_files, insertAcronime, put_view_acronime} from './operations.js';
@@ -38,9 +40,24 @@ document.getElementById('btn_capture').addEventListener('click', function() {
 });
 
 document.getElementById('btn_download').addEventListener('click', function() {
-    alert("Descargando video...");
-    
+    alert("Descargando video...");    
 });
+
+// ANCHOR : CARGAR LA IMAGEN QUE ESTA CAPTURADA
+document.getElementById('charger_capture').addEventListener('click', function() {
+    var screen_video = document.getElementById('screen_video');
+
+    const base64Image = captured_image_capturate(screen_video);
+
+    // Crea un nuevo elemento de imagen y establece su atributo src a la imagen en formato base64
+    // var img = document.createElement('img');
+    // img.src = base64Image;
+    // document.getElementById('id_only_imgs').appendChild(img);
+
+    create_image_view(base64Image);
+});
+
+
 
 // ANCHOR : CLICK CREATE VIDEO AND CAPTURE
 var fileInput = document.getElementById('video_file');
@@ -53,6 +70,14 @@ fileInput.addEventListener('change', function() {
     create_element_video(url)
 
     document.getElementById('label_file').innerHTML = file.name;
+});
+
+const imageFileImput = document.getElementById('image_file');
+imageFileImput.addEventListener('change', function() {
+    var file = imageFileImput.files[0];
+    var url = URL.createObjectURL(file); // crea una URL de objeto para el archivo
+
+    create_image_view(url);
 });
 
 

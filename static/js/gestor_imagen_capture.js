@@ -28,6 +28,7 @@ export function create_elemet_capture(url, second){
     // Crea un elemento de video y carga el video
     var video = document.createElement('video');
     video.src = url;
+    video.id = 'screen_video';
     video.className = 'video_styles';
     // Crea un elemento de canvas
     var canvas = document.createElement('canvas');
@@ -51,6 +52,14 @@ export function create_elemet_capture(url, second){
     // console.log('Imagen capturada:', base64Image);
     // console.log(base64Image)
     // return base64Image;
+}
+
+export function create_image_view(url){
+    var img = document.createElement('img');
+    img.src = url;
+    // img.className = 'img_styles';
+    document.getElementById('id_only_imgs').appendChild(img);
+
 }
 
 // ANCHOR : CREATE ELEMENT VIDEO
@@ -87,4 +96,22 @@ function capture() {
 
     create_elemet_capture(url, numSecond);
 
+}
+
+
+export function captured_image_capturate(screen_video) {
+    // NOTE : Crea un nuevo elemento de canvas y obtén su contexto
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');
+
+    // Asegúrate de que el canvas tenga el mismo tamaño que el screen_video
+    canvas.width = screen_video.videoWidth;
+    canvas.height = screen_video.videoHeight;
+
+    // Dibuja el frame actual del screen_video en el canvas
+    context.drawImage(screen_video, 0, 0, canvas.width, canvas.height);
+
+    // Obtiene la imagen en formato base64
+    var base64Image = canvas.toDataURL('image/jpeg');
+    return base64Image;
 }
