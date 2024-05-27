@@ -145,7 +145,7 @@
 
                 & img {
                     height: calc(100% - 4px);
-                    margin: auto;
+                    margin: auto 2px;
                     border: 2px solid #fff;
                 }
             }
@@ -175,13 +175,6 @@
             padding: 5px;
             background: var(--color-tres_2);
 
-            & .hiden {
-                display: none;
-            }
-            & .show {
-                display: flex;
-            }
-
             & .file {
                 display: flex;
                 height: 25px;
@@ -191,6 +184,12 @@
                     margin: auto 5px;
                     height: 20px;
                 }
+            }
+            & .hidden {
+                display: none;
+            }
+            & .show {
+                display: flex;
             }
             & p {
                 /* font-weight: bold; */
@@ -518,7 +517,10 @@
         color: #8ACD7A;
     }
 
-    .number {
+    .signos {
         color: #D9FF31;
+    }
+    .number {
+        color: #FBAC45;
     }
 }

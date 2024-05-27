@@ -14,6 +14,9 @@ function init() {
     asigned_code();
     // ANCHOR : ASIGNAMOS NUESTRAS GUIAS AL SELECTOR
     consult_guias();
+
+    // ANCHOR : VARIABLES WINDOWS, OBJETO GLOBAL
+    window.img_viwe_generated = 0;
 }
 
 // ANCHOR : NUMBER ITEMS FUNCTION
@@ -46,18 +49,9 @@ document.getElementById('btn_download').addEventListener('click', function() {
 // ANCHOR : CARGAR LA IMAGEN QUE ESTA CAPTURADA
 document.getElementById('charger_capture').addEventListener('click', function() {
     var screen_video = document.getElementById('screen_video');
-
     const base64Image = captured_image_capturate(screen_video);
-
-    // Crea un nuevo elemento de imagen y establece su atributo src a la imagen en formato base64
-    // var img = document.createElement('img');
-    // img.src = base64Image;
-    // document.getElementById('id_only_imgs').appendChild(img);
-
     create_image_view(base64Image);
 });
-
-
 
 // ANCHOR : CLICK CREATE VIDEO AND CAPTURE
 var fileInput = document.getElementById('video_file');
@@ -66,8 +60,9 @@ fileInput.addEventListener('change', function() {
     var url = URL.createObjectURL(file); // crea una URL de objeto para el archivo
 
     create_elemet_capture(url, 0)
-
     create_element_video(url)
+
+    document.getElementById('id_name_video').classList.add('show');
 
     document.getElementById('label_file').innerHTML = file.name;
 });
@@ -83,19 +78,21 @@ imageFileImput.addEventListener('change', function() {
 
 // ANCHOR : CLICK CREATE VIDEOS
 document.getElementById('id_submit').addEventListener('click', function() {
-    var items = document.getElementById('id_new_item').value.trim();
-    var int_items = parseInt(items);
-    var file = document.getElementById('video_file');
-    var title = document.getElementById('id_title').value.trim();
 
+    const video_name = document.getElementById('id_title').value.trim();
+    const code = document.getElementById('id_code').value.trim();
+    const acronym = document.getElementById('id_acronime').value.trim();
+    const file = document.getElementById('video_file');
+    
+    
     if (file.files.length == 0) {
         alert("Seleccione un archivo.");
-    } else if (title === '') {
+    } else if (video_name === '') {
         alert("ingrese la descripcion del documento.");
-    } else if (items == 0 || this.items === '') {
-        alert("ingrese la cantidad de items.");
+    } else if (code == '' || acronym == '') {
+        alert("Ingrese el codigo y el acronimo.");
     } else {
-        create_video(int_items, title, file);
+        create_video(code, acronym, video_name, file);
     }
 });
 
@@ -110,11 +107,10 @@ document.getElementById('seleccion').addEventListener('change', function() {
     insertAcronime(seleccion);
 });
 
-
 function select_guia(data) {
     console.log("GUIA SELECCIONADA");
     const select_guia = document.getElementById('select_guia');
-  
+
     // Crear el elemento select
     let select = document.getElementById('seleccion');
     console.log(data);
@@ -132,7 +128,6 @@ function select_guia(data) {
     
     select_guia.appendChild(select);
 }
-
 
 function consult_guias() {
     $(document).ready(function() {
@@ -171,14 +166,17 @@ function init_program() {
 }
 
 // #region TODO: CREATE VIDEOS
-function create_video(items, title, file) {
+function create_video(code, acronym, video_name, file) {
+    // const imagen_num = window.img_viwe_generated;
     $(document).ready(function() {
         var csrftoken = getCookie('csrftoken');
         var formData = new FormData();
-        formData.append('title', items+'_'+title);
-        formData.append('num_item', items);
-        formData.append('old_title', file.files[0].name);
+        formData.append('video_name', video_name);
+        formData.append('code', code);
+        formData.append('acronym', acronym);
+        formData.append('old_name', file.files[0].name);
         formData.append('attach_file', file.files[0]);
+        formData.append('images_num', img_viwe_generated);
         $.ajax({
             url: '/api/my_apis/create_video/',
             type: 'POST',
@@ -240,46 +238,51 @@ function getCookie(name) {
 // NOTE : PRINT DATA
 function pinter_data(data){
     for (var i = 0; i < data.length; i++) {
-        var video_name = data[i].video_name;
-        var code = data[i].script;
-        var extension = data[i].extension;
-        var num_items = i;
-        var old_name = data[i].old_name;
-        var html_table = `
+        const video_name = data[i].video_name;
+        const old_name = data[i].old_name;
+        const extension = data[i].extension;
+        const file_name = data[i].file_name;
+        const code = data[i].code;
+        const script = data[i].script;
+        const acronym = data[i].acronym;
+        const images_num = data[i].images_num;
+        const date = data[i].date;
+
+        const html_table = `
         <tr class="ligth">
             <th class="organism_th_1 tittle_cont">
                 <div class="icon">
                     <img width="26px" height="23" src="static/img/icon_vid.png" alt="">
                 </div>
                 <div class="tittle">
-                    <p class="thetitle">${video_name}${extension}</p>
+                    <p class="thetitle">${file_name}${extension}</p>
                     <span>
                         <p class="before">Before:</p>
                         <p>${old_name}</p>
                     </span>
                 </div>
             </th>
-            <th class="organism_th_2"><p>${num_items}</p></th>
+            <th class="organism_th_2"><p>${images_num}</p></th>
             <th class="organism_th_3">
                 <div class="actions">
                     <img height="16px" src="static/img/icon_edit.png" alt="">
-                    <img onclick="deleted_video(${num_items})" height="16px" src="static/img/icon_deleted.png" alt="">
+                    <img onclick="deleted_video(${acronym})" height="16px" src="static/img/icon_deleted.png" alt="">
                 </div>
             </th>
         </tr>
         `;
         document.getElementById('table_videos').innerHTML += html_table;
-        // document.getElementById('insert_code').innerHTML += `${code},<br>`;
-        highlightCode(code);
+        // document.getElementById('insert_code').innerHTML += `${script},<br>`;
+        highlightCode(script);
     }
 }
 
 function highlightCode(code) {
     // Reemplaza las partes del código con etiquetas HTML para el resaltado de sintaxis
     code = code.replace(/('.*?')/g, "<span class='string'>$1</span>");
-    code = code.replace(/(var|obj|titulo|extencion|number)/g, "<span class='keyword'>$1</span>");
-    code = code.replace(/(\{|\})/g, "<span class='number'>$1</span>");
-    // code = code.replace(/(\:)/g, "<span class='number'>$1</span>");
+    code = code.replace(/(var|obj|name|extencion|acronimo|file_name|images_num|files_name)/g, "<span class='keyword'>$1</span>");
+    code = code.replace(/(\{|\})/g, "<span class='signos'>$1</span>");
+    code = code.replace(/(1|2|3)/g, "<span class='number'>$1</span>");
     
     // Inserta el código resaltado en el elemento <code>
     document.getElementById("insert_code").innerHTML += `${code} <br>`;

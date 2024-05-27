@@ -14,37 +14,44 @@ class my_apis(viewsets.ModelViewSet):
     @action(detail=False, methods=['post'], url_path='create_video')
     def create_video(self, request):
         if request.method == 'POST':
-            title = request.data.get('title')
+            video_name = request.data.get('video_name')
+            old_name = request.data.get('old_name')
+            code = request.data.get('code')
+            acronym = request.data.get('acronym')
             attach_file = request.FILES.get('attach_file')
-            num_item = request.data.get('num_item')
-            old_title = request.data.get('old_title')
+            images_num = request.data.get('images_num')
 
+        print("JELOU DESDE AQUI")
         if attach_file is None:
             return Response('No hay archivo adjunto', status=status.HTTP_400_BAD_REQUEST)
         _, extension = os.path.splitext(attach_file.name) # Obtenemos la extencion del archivo
-        code = "{ titulo: '"+title+"', extencion: '"+extension+"', number: '"+num_item+"'}," # Codigo de insersion en la guia
 
-        self.write_file(request, title, num_item, old_title, attach_file, extension)
-        self.save_video(request, title, num_item, extension, code, old_title)
+        new_video_name = video_name.replace(' ', '_')
+        file_name = new_video_name+"-"+acronym+"-"+code
+        script = "{ name: '"+video_name+"', extencion: '"+extension+"', acronimo: '"+acronym+"', files_name: '"+file_name+"', images_num: "+images_num+"}," # Codigo de insersion en la guia
 
-        return Response(code, status=status.HTTP_200_OK)
+        print('SCRIPT: ', script)
+        self.write_file(request, file_name, attach_file, extension)
+        self.save_video(request, video_name, old_name, extension, file_name, code, script, acronym, images_num)
+
+        return Response({'messaje': 'successfull'}, status=status.HTTP_200_OK)
 
     #region # TODO: DELETED VIDEO
     @action(detail=False, methods=['post'], url_path='deleted_video')
     def deleted_video(self, request):
         if request.method == 'POST':
             item = request.data.get('num_item')
-            if item is not None:
-                # NOTE : ELIMINAR UN VIDEO
-                video.objects.filter(num_item=item).delete()
-                self.delete_file(item)
-                return Response('UN VIDEO ELIMINADO', status=status.HTTP_200_OK)
-            else:
+            if item is None:
                 # NOTE : ELIMINAR TODOS LOS VIDEOS
                 video.objects.all().delete()
                 self.delete_file(item)
-                return Response('TODOS LOS VIEOS ELIMINADOS', status=status.HTTP_200_OK)
-        return Response('MÉTODO NO PERMITIDO', status=status.HTTP_405_METHOD_NOT_ALLOWED)
+                return Response({'datail': 'successfull'}, status=status.HTTP_200_OK)
+            else:
+                # NOTE : ELIMINAR UN VIDEO
+                video.objects.filter(num_item=item).delete()
+                self.delete_file(item)
+                return Response({'datail': 'successfull'}, status=status.HTTP_200_OK)
+        return Response({'datail': 'metodo no permitido'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     #region # TODO: SELECT VIDEOS
     @action(detail=False, methods=['get'], url_path='select_videos')
@@ -53,7 +60,7 @@ class my_apis(viewsets.ModelViewSet):
         
         data = []
         for i in myvideo:
-            data.append({'title': i.title, 'num_items': i.num_item, 'extension': i.extension, 'code': i.code, 'id_guia': i.id_guia.name, 'old_title': i.old_title})
+            data.append({'video_name': i.video_name, 'old_name': i.old_name, 'extension': i.extension, 'file_name': i.file_name, 'code': i.code, 'script': i.script, 'acronym': i.acronimo, 'images_num': i.num_images, 'date': i.date})
 
         resultados_json = list(data)
         return Response(resultados_json, status=status.HTTP_200_OK)
@@ -74,19 +81,19 @@ class my_apis(viewsets.ModelViewSet):
     def get_queryset(self):
         pass
     # ANCHOR GUARDA LOS VIDEO EN LA BASE DE DATOS
-    def save_video(self, request, title, num_item, extension, code, old_title):
-        new_video = video(title=title, num_item=num_item, extension=extension, code=code, old_title=old_title, id_guia=guia.objects.get(name='ES-Guia-v'))
+    def save_video(self, request, video_name, old_name, extension, file_name, code, script, acronym, images_num):
+        new_video = video(video_name=video_name, old_name=old_name, extension=extension, file_name=file_name, code=code, script=script, acronimo=acronym, num_images=images_num)
         new_video.save()
     # ANCHOR ECRIBE LOS ARCHIVOS EN LA CARPETA TEMPORAL
-    def write_file(self, request, title, num_item, old_title, attach_file, extension):
-        with open(f'static/tmp/{title}{extension}', 'wb') as f:
+    def write_file(self, request, file_name, attach_file, extension):
+        with open(f'static/tmp/videos/{file_name}{extension}', 'wb') as f:
             for chunk in attach_file.chunks():
                 f.write(chunk)
     # ANCHOR ELIMINA TODOS LOS ARCHIVOS DE LA CARPETA TEMPORAL
     def delete_file(self, item):
         if item is None:
             # NOTE : ELIMINAR TODOS LOS VIDEOS
-            file_list = glob.glob('static/tmp/*') # OBTENER TODOS LOS ARCHIVOS DE LA CARPETA TEMPORAL
+            file_list = glob.glob('static/tmp/videos/*') # OBTENER TODOS LOS ARCHIVOS DE LA CARPETA TEMPORAL
             for file_path in file_list:
                 os.remove(file_path)
         else:

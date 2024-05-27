@@ -55,11 +55,34 @@ export function create_elemet_capture(url, second){
 }
 
 export function create_image_view(url){
-    var img = document.createElement('img');
-    img.src = url;
-    // img.className = 'img_styles';
-    document.getElementById('id_only_imgs').appendChild(img);
+    if (img_viwe_generated < 3){
+        var img = document.createElement('img');
+        img.src = url;
+        // img.className = 'img_styles';
+        document.getElementById('id_only_imgs').appendChild(img);
+        img_viwe_generated++;
+        viewerImg();
+    }else{
+        alert('Solo puedes generar 3 imagenes')
+    }
 
+}
+
+function viewerImg() {
+    if (img_viwe_generated == 1){
+        document.getElementById('id_name_img_1').classList.remove('hidden');
+    } else if (img_viwe_generated == 2){
+        document.getElementById('id_name_img_1').classList.remove('hidden');
+        document.getElementById('id_name_img_2').classList.remove('hidden');
+    } else if (img_viwe_generated == 3){
+        document.getElementById('id_name_img_1').classList.remove('hidden');
+        document.getElementById('id_name_img_2').classList.remove('hidden');
+        document.getElementById('id_name_img_3').classList.remove('hidden');
+    }else{
+        document.getElementById('id_name_img_1').classList.add('hidden');
+        document.getElementById('id_name_img_2').classList.add('hidden');
+        document.getElementById('id_name_img_3').classList.add('hidden');
+    }
 }
 
 // ANCHOR : CREATE ELEMENT VIDEO
