@@ -6,6 +6,7 @@ export function saludar() {
 export function capture_second(id) {
     var video = document.getElementById(id);
     var rondedNum = Math.round(video.currentTime);
+    // var rondedNum = video.currentTime;
     return rondedNum;
 }
 
@@ -56,16 +57,17 @@ export function create_elemet_capture(url, second){
 
 export function create_image_view(url){
     if (img_viwe_generated < 3){
+        img_viwe_generated++;
+        document.getElementById('num_imgs_in_video').innerHTML = 'i'+img_viwe_generated;
         var img = document.createElement('img');
         img.src = url;
+        img.id = 'generated_img_' + img_viwe_generated;
         // img.className = 'img_styles';
         document.getElementById('id_only_imgs').appendChild(img);
-        img_viwe_generated++;
         viewerImg();
     }else{
         alert('Solo puedes generar 3 imagenes')
     }
-
 }
 
 function viewerImg() {

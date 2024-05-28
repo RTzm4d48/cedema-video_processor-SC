@@ -34,9 +34,7 @@ document.getElementById('btn_capture').addEventListener('click', function() {
     var file = fileInput.files[0];
     var url = URL.createObjectURL(file); // crea una URL de objeto para el archivo
 
-
     var numSecond = capture_second('video_reproductor');
-    console.log(numSecond)
 
     create_elemet_capture(url, numSecond)
 
@@ -84,13 +82,18 @@ document.getElementById('id_submit').addEventListener('click', function() {
     const acronym = document.getElementById('id_acronime').value.trim();
     const file = document.getElementById('video_file');
     
-    
+    let regex = /^[a-z0-9]+$/i;
+
     if (file.files.length == 0) {
         alert("Seleccione un archivo.");
     } else if (video_name === '') {
         alert("ingrese la descripcion del documento.");
     } else if (code == '' || acronym == '') {
         alert("Ingrese el codigo y el acronimo.");
+    }else if (img_viwe_generated == 0) {
+        alert("Capture una imagen.");
+    }else if (!regex.test(video_name)){
+        alert("La descripcion del documento no puede contener caracteres especiales.");
     } else {
         create_video(code, acronym, video_name, file);
     }
@@ -177,6 +180,12 @@ function create_video(code, acronym, video_name, file) {
         formData.append('old_name', file.files[0].name);
         formData.append('attach_file', file.files[0]);
         formData.append('images_num', img_viwe_generated);
+        if (img_viwe_generated > 0) {
+            for (let i = 1; i <= img_viwe_generated; i++) {
+                let image = document.getElementById(`generated_img_${i}`);
+                formData.append(`generated_img_${i}`, image.src);
+            }
+        }
         $.ajax({
             url: '/api/my_apis/create_video/',
             type: 'POST',
@@ -255,17 +264,15 @@ function pinter_data(data){
                     <img width="26px" height="23" src="static/img/icon_vid.png" alt="">
                 </div>
                 <div class="tittle">
-                    <p class="thetitle">${file_name}${extension}</p>
+                    <p class="thetitle">${file_name}-i${images_num}${extension}</p>
                     <span>
-                        <p class="before">Before:</p>
-                        <p>${old_name}</p>
+                        <p><strong style="color: #EF4E69;">Before: </strong> ${old_name}</p>
                     </span>
                 </div>
             </th>
             <th class="organism_th_2"><p>${images_num}</p></th>
             <th class="organism_th_3">
                 <div class="actions">
-                    <img height="16px" src="static/img/icon_edit.png" alt="">
                     <img onclick="deleted_video(${acronym})" height="16px" src="static/img/icon_deleted.png" alt="">
                 </div>
             </th>
@@ -282,10 +289,10 @@ function highlightCode(code) {
     code = code.replace(/('.*?')/g, "<span class='string'>$1</span>");
     code = code.replace(/(var|obj|name|extencion|acronimo|file_name|images_num|files_name)/g, "<span class='keyword'>$1</span>");
     code = code.replace(/(\{|\})/g, "<span class='signos'>$1</span>");
-    code = code.replace(/(1|2|3)/g, "<span class='number'>$1</span>");
+    code = code.replace(/( 1| 2| 3)/g, "<span class='number'>$1</span>");
     
     // Inserta el código resaltado en el elemento <code>
-    document.getElementById("insert_code").innerHTML += `${code} <br>`;
+    document.getElementById("insert_code").innerHTML += `${code}<br>`;
 }
 
 // VERMOS QUE ES ESTO

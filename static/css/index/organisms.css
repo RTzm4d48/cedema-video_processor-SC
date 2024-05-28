@@ -274,14 +274,13 @@
         display: flex;
         flex-direction: column;
         overflow-y: scroll;
-
-        
+        /* background: yellow; */
 
         & tr {
-            /* background: darksalmon; */
+            background: darksalmon;
             display: flex;
-            height: 50px;
             justify-content: space-between;
+            border-bottom: 1px solid #435161;
 
             .tittle_cont {
                 justify-content: flex-start;
@@ -289,9 +288,10 @@
 
             & th {
                 /* background: red; */
-                margin: auto 15px;
+                margin: 10px 15px;
                 display: flex;
                 justify-content: center;
+                align-items: center;
 
                 .icon {
                     /* background: gold; */
@@ -337,6 +337,8 @@
                     & p {
                         font-size: smaller;
                         margin-top: 2px;
+                        /* color: #35A7D7; */
+                        text-align: start;
                     }
 
                     .before {
@@ -501,8 +503,21 @@
         font-family: Arial, Helvetica, sans-serif;
         font-size: smaller;
         flex-grow: 1;
-        white-space: pre-line;
+        /* background: salmon; */
+        overflow-x: scroll;
+        /* display: flex; */
+        
+        & #insert_code {
+            /* background: red; */
+            padding: 0px;
+            margin: 0px;
+            /* min-width: 100%;
+            max-width: 200%; */
+            width: 150%;
+            /* white-space: pre-line; */
+            line-height: 1.5;
 
+        }
 
         &:focus {
             outline: none;
