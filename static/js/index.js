@@ -82,7 +82,9 @@ document.getElementById('id_submit').addEventListener('click', function() {
     const acronym = document.getElementById('id_acronime').value.trim();
     const file = document.getElementById('video_file');
     
-    let regex = /^[a-z0-9]+$/i;
+    var regex = /^[a-zA-Z0-9 ]*$/;
+    console.log("AQUI-----------")
+    console.log(regex.test(video_name));
 
     if (file.files.length == 0) {
         alert("Seleccione un archivo.");
@@ -252,10 +254,12 @@ function pinter_data(data){
         const extension = data[i].extension;
         const file_name = data[i].file_name;
         const code = data[i].code;
-        const script = data[i].script;
+        // const script = data[i].script;
         const acronym = data[i].acronym;
         const images_num = data[i].images_num;
         const date = data[i].date;
+
+        const script = `{name: '${video_name}', extencion: '${extension}', acronimo: '${acronym}', code: '${code}', files_name: '${file_name}', images_num: ${images_num}},`;
 
         const html_table = `
         <tr class="ligth">
@@ -287,7 +291,7 @@ function pinter_data(data){
 function highlightCode(code) {
     // Reemplaza las partes del código con etiquetas HTML para el resaltado de sintaxis
     code = code.replace(/('.*?')/g, "<span class='string'>$1</span>");
-    code = code.replace(/(var|obj|name|extencion|acronimo|file_name|images_num|files_name)/g, "<span class='keyword'>$1</span>");
+    code = code.replace(/(var|obj|name|extencion|acronimo|file_name|images_num|files_name|code)/g, "<span class='keyword'>$1</span>");
     code = code.replace(/(\{|\})/g, "<span class='signos'>$1</span>");
     code = code.replace(/( 1| 2| 3)/g, "<span class='number'>$1</span>");
     
