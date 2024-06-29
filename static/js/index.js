@@ -6,6 +6,8 @@ import {saludar,
         captured_image_capturate,
 } from './gestor_imagen_capture.js';
 
+import {obtain_date, getCookie} from './utils.js';
+
 import {asigned_code, put_name_files, insertAcronime, put_view_acronime} from './operations.js';
 
 init();
@@ -17,15 +19,27 @@ function init() {
 
     // ANCHOR : VARIABLES WINDOWS, OBJETO GLOBAL
     window.img_viwe_generated = 0;
+    window.VideoPosition = 'H';
 }
 
 // ANCHOR : NUMBER ITEMS FUNCTION
-var input = document.getElementById('id_acronime');
-input.addEventListener('input', function() {
-    const inputValue = input.value;
+// var input = document.getElementById('id_acronime');
+// console.log(input);
+// input.addEventListener('input', function() {
+//     const inputValue = input.value;
     
-});
+// });
 
+// ANCHOR : RADIO BUTTONS DE LA POSICIÓN DEL VIDEO
+function handleChange(event) {
+    if (event.target.checked) {
+        window.VideoPosition = event.target.value;
+    }
+}
+let nombre = document.getElementsByName('opciones');
+for (const n of nombre) {
+    n.addEventListener('change', handleChange);
+}
 
 // ANCHOR : CLICK CREATE CAPTURE
 document.getElementById('btn_capture').addEventListener('click', function() {
@@ -182,6 +196,8 @@ function create_video(code, acronym, video_name, file) {
         formData.append('old_name', file.files[0].name);
         formData.append('attach_file', file.files[0]);
         formData.append('images_num', img_viwe_generated);
+        formData.append('fecha', obtain_date());
+        formData.append('position', window.VideoPosition);
         if (img_viwe_generated > 0) {
             for (let i = 1; i <= img_viwe_generated; i++) {
                 let image = document.getElementById(`generated_img_${i}`);
@@ -211,12 +227,16 @@ function create_video(code, acronym, video_name, file) {
 
 // #region TODO: DELETED VIDEOS
 function deleted_video(item) {
+    var csrftoken = getCookie('csrftoken');
     $(document).ready(function() {
             $.ajax({
             url: '/api/my_apis/deleted_video/',
             type: 'POST',
             data: {
-                'num_item': item
+                'num_item': 'item'
+            },
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
             },
             success: function(data) {
                 console.log('VIDEO DELETD SUCESSFULL!', data);
@@ -230,22 +250,6 @@ function deleted_video(item) {
     });
 }
 
-// NOTE : GET COOKIE
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // ¿El cookie comienza con el nombre que queremos?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
 // NOTE : PRINT DATA
 function pinter_data(data){
     for (var i = 0; i < data.length; i++) {
@@ -258,8 +262,11 @@ function pinter_data(data){
         const acronym = data[i].acronym;
         const images_num = data[i].images_num;
         const date = data[i].date;
+        const fecha = data[i].fecha;
+        const position = data[i].position;
 
-        const script = `{name: '${video_name}', extencion: '${extension}', acronimo: '${acronym}', code: '${code}', files_name: '${file_name}', images_num: ${images_num}},`;
+
+        const script = `{name: '${video_name}', extencion: '${extension}', acronimo: '${acronym}', code: '${code}', files_name: '${file_name}', fecha: '${fecha}', position: '${position}', images_num: ${images_num}},`;
 
         const html_table = `
         <tr class="ligth">
@@ -291,7 +298,7 @@ function pinter_data(data){
 function highlightCode(code) {
     // Reemplaza las partes del código con etiquetas HTML para el resaltado de sintaxis
     code = code.replace(/('.*?')/g, "<span class='string'>$1</span>");
-    code = code.replace(/(var|obj|name|extencion|acronimo|file_name|images_num|files_name|code)/g, "<span class='keyword'>$1</span>");
+    code = code.replace(/(var|obj|name|extencion|acronimo|file_name|images_num|files_name|code|fecha|position)/g, "<span class='keyword'>$1</span>");
     code = code.replace(/(\{|\})/g, "<span class='signos'>$1</span>");
     code = code.replace(/( 1| 2| 3)/g, "<span class='number'>$1</span>");
     

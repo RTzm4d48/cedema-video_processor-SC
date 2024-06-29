@@ -18,7 +18,7 @@
         <aside>
             <div class="check">
                 <span id="select_guia">
-                    <label for="seleccion">Video Guias checkpoint</label>
+                    <label for="seleccion">Video Categorias</label>
                     <select id="seleccion" name="seleccion">
                         <option value="">Selection</option>
                         <!-- STUB - SELECTOR DE GUIAS -->
@@ -29,8 +29,24 @@
         <aside>
             <section>
                 <div class="organism_firsSettings">
-                    <span>Acronimo: <input maxlength="2" id="id_acronime" type="text" value="" name="" disabled></span>
-                    <span>Código: <input id="id_code" type="text" value="jd63hd" name="" disabled></span>
+                    <div class="espacio_uno">
+                        <span>Acronimo: <input maxlength="2" id="id_acronime" type="text" value="" name="" disabled></span>
+                        <span>Código: <input id="id_code" type="text" value="jd63hd" name="" disabled></span>
+                    </div>
+
+                    <div class="espacio_dos">
+                        <p>Posición del video:</p>
+                        <div class="cont_radios">
+                            <div class="myradio">
+                                <label for="opcion1">Horizontal (H)</label>
+                                <input type="radio" id="opcion1" name="opciones" value="H" checked>
+                            </div>
+                            <div class="myradio">
+                                <label for="opcion2">Vertical (V)</label>
+                                <input type="radio" id="opcion2" name="opciones" value="V">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="organism_input">
                         <div class="cont_desq">

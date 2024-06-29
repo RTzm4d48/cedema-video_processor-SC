@@ -24,6 +24,8 @@ class my_apis(viewsets.ModelViewSet):
             acronym = request.data.get('acronym')
             attach_file = request.FILES.get('attach_file')
             images_num = request.data.get('images_num')
+            fecha = request.data.get('fecha')
+            position = request.data.get('position')
 
             #images captured
             images_list = []
@@ -35,22 +37,28 @@ class my_apis(viewsets.ModelViewSet):
         _, extension = os.path.splitext(attach_file.name) # Obtenemos la extencion del archivo
 
         new_video_name = video_name.replace(' ', '_')
-        file_name = new_video_name+"-"+acronym+"-"+code
-        script = "{ name: '"+video_name+"', extencion: '"+extension+"', acronimo: '"+acronym+"', files_name: '"+file_name+"', images_num: "+images_num+"}," # Codigo de insersion en la guia
+        file_name = new_video_name+"-"+acronym+"-"+code+"-"+fecha+"-"+position
+        # script = "{ name: '"+video_name+"', extencion: '"+extension+"', acronimo: '"+acronym+"', files_name: '"+file_name+"', images_num: "+images_num+", fecha: "+fecha+", position: "+position+"}," # Codigo de insersion en la guia
+        script = "aqui no hay nada XD" # Codigo de insersion en la guia
 
         self.write_file(request, file_name, attach_file, images_num, extension, images_list)
-        self.save_video(request, video_name, old_name, extension, file_name, code, script, acronym, images_num)
+        self.save_video(request, video_name, old_name, extension, file_name, code, script, acronym, images_num, fecha, position)
 
         return Response({'messaje': 'successfull'}, status=status.HTTP_200_OK)
 
     #region # TODO: DELETED VIDEO
     @action(detail=False, methods=['post'], url_path='deleted_video')
     def deleted_video(self, request):
+        print("PATATA CON SAL")
         if request.method == 'POST':
             item = request.data.get('num_item')
+            # item = None
+            print(item)
             if item is None:
                 # NOTE : ELIMINAR TODOS LOS VIDEOS
+                print("COMOOOO ELIMINAR")
                 video.objects.all().delete()
+                print('QUEEEEE')
                 self.delete_file(item)
                 return Response({'datail': 'successfull'}, status=status.HTTP_200_OK)
             else:
@@ -67,7 +75,7 @@ class my_apis(viewsets.ModelViewSet):
         
         data = []
         for i in myvideo:
-            data.append({'video_name': i.video_name, 'old_name': i.old_name, 'extension': i.extension, 'file_name': i.file_name, 'code': i.code, 'script': i.script, 'acronym': i.acronimo, 'images_num': i.num_images, 'date': i.date})
+            data.append({'video_name': i.video_name, 'old_name': i.old_name, 'extension': i.extension, 'file_name': i.file_name, 'code': i.code, 'script': i.script, 'acronym': i.acronimo, 'images_num': i.num_images, 'date': i.date, 'fecha': i.fecha, 'position': i.position})
 
         resultados_json = list(data)
         return Response(resultados_json, status=status.HTTP_200_OK)
@@ -88,8 +96,8 @@ class my_apis(viewsets.ModelViewSet):
     def get_queryset(self):
         pass
     # ANCHOR GUARDA LOS VIDEO EN LA BASE DE DATOS
-    def save_video(self, request, video_name, old_name, extension, file_name, code, script, acronym, images_num):
-        new_video = video(video_name=video_name, old_name=old_name, extension=extension, file_name=file_name, code=code, script=script, acronimo=acronym, num_images=images_num)
+    def save_video(self, request, video_name, old_name, extension, file_name, code, script, acronym, images_num, fecha, position):
+        new_video = video(video_name=video_name, old_name=old_name, extension=extension, file_name=file_name, code=code, script=script, acronimo=acronym, num_images=images_num, fecha=fecha, position=position)
         new_video.save()
     # ANCHOR ECRIBE LOS ARCHIVOS EN LA CARPETA TEMPORAL
     def write_file(self, request, file_name, attach_file, images_num, extension, images_list):
