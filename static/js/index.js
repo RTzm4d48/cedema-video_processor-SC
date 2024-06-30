@@ -22,14 +22,6 @@ function init() {
     window.VideoPosition = 'H';
 }
 
-// ANCHOR : NUMBER ITEMS FUNCTION
-// var input = document.getElementById('id_acronime');
-// console.log(input);
-// input.addEventListener('input', function() {
-//     const inputValue = input.value;
-    
-// });
-
 // ANCHOR : RADIO BUTTONS DE LA POSICIÓN DEL VIDEO
 function handleChange(event) {
     if (event.target.checked) {
@@ -54,6 +46,7 @@ document.getElementById('btn_capture').addEventListener('click', function() {
 
 });
 
+// NOTE : NO TIENE FUNCIONALIDAD
 document.getElementById('btn_download').addEventListener('click', function() {
     alert("Descargando video...");    
 });
@@ -258,10 +251,8 @@ function pinter_data(data){
         const extension = data[i].extension;
         const file_name = data[i].file_name;
         const code = data[i].code;
-        // const script = data[i].script;
         const acronym = data[i].acronym;
         const images_num = data[i].images_num;
-        const date = data[i].date;
         const fecha = data[i].fecha;
         const position = data[i].position;
 

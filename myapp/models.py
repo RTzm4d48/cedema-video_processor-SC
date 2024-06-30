@@ -25,9 +25,8 @@ class video(models.Model):
 
     num_images = models.IntegerField(default=0) # Numero de imagenes que tiene el video
 
-    date = models.DateField(auto_now=True)
     fecha = models.TextField(default='')
-    position = models.TextField(default='')
+    position = models.TextField(default='') # Posición horizontal o vertical del video
 
 
     def __str__(self):

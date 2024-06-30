@@ -38,11 +38,9 @@ class my_apis(viewsets.ModelViewSet):
 
         new_video_name = video_name.replace(' ', '_')
         file_name = new_video_name+"-"+acronym+"-"+code+"-"+fecha+"-"+position
-        # script = "{ name: '"+video_name+"', extencion: '"+extension+"', acronimo: '"+acronym+"', files_name: '"+file_name+"', images_num: "+images_num+", fecha: "+fecha+", position: "+position+"}," # Codigo de insersion en la guia
-        script = "aqui no hay nada XD" # Codigo de insersion en la guia
 
         self.write_file(request, file_name, attach_file, images_num, extension, images_list)
-        self.save_video(request, video_name, old_name, extension, file_name, code, script, acronym, images_num, fecha, position)
+        self.save_video(request, video_name, old_name, extension, file_name, code, acronym, images_num, fecha, position)
 
         return Response({'messaje': 'successfull'}, status=status.HTTP_200_OK)
 
@@ -52,13 +50,10 @@ class my_apis(viewsets.ModelViewSet):
         print("PATATA CON SAL")
         if request.method == 'POST':
             item = request.data.get('num_item')
-            # item = None
-            print(item)
+            item = None
             if item is None:
                 # NOTE : ELIMINAR TODOS LOS VIDEOS
-                print("COMOOOO ELIMINAR")
                 video.objects.all().delete()
-                print('QUEEEEE')
                 self.delete_file(item)
                 return Response({'datail': 'successfull'}, status=status.HTTP_200_OK)
             else:
@@ -75,7 +70,7 @@ class my_apis(viewsets.ModelViewSet):
         
         data = []
         for i in myvideo:
-            data.append({'video_name': i.video_name, 'old_name': i.old_name, 'extension': i.extension, 'file_name': i.file_name, 'code': i.code, 'script': i.script, 'acronym': i.acronimo, 'images_num': i.num_images, 'date': i.date, 'fecha': i.fecha, 'position': i.position})
+            data.append({'video_name': i.video_name, 'old_name': i.old_name, 'extension': i.extension, 'file_name': i.file_name, 'code': i.code, 'acronym': i.acronimo, 'images_num': i.num_images, 'fecha': i.fecha, 'position': i.position})
 
         resultados_json = list(data)
         return Response(resultados_json, status=status.HTTP_200_OK)
@@ -96,8 +91,8 @@ class my_apis(viewsets.ModelViewSet):
     def get_queryset(self):
         pass
     # ANCHOR GUARDA LOS VIDEO EN LA BASE DE DATOS
-    def save_video(self, request, video_name, old_name, extension, file_name, code, script, acronym, images_num, fecha, position):
-        new_video = video(video_name=video_name, old_name=old_name, extension=extension, file_name=file_name, code=code, script=script, acronimo=acronym, num_images=images_num, fecha=fecha, position=position)
+    def save_video(self, request, video_name, old_name, extension, file_name, code, acronym, images_num, fecha, position):
+        new_video = video(video_name=video_name, old_name=old_name, extension=extension, file_name=file_name, code=code, acronimo=acronym, num_images=images_num, fecha=fecha, position=position)
         new_video.save()
     # ANCHOR ECRIBE LOS ARCHIVOS EN LA CARPETA TEMPORAL
     def write_file(self, request, file_name, attach_file, images_num, extension, images_list):
