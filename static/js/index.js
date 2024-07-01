@@ -10,6 +10,35 @@ import {obtain_date, getCookie} from './utils.js';
 
 import {asigned_code, put_name_files, insertAcronime, put_view_acronime} from './operations.js';
 
+
+
+class MySettings {
+    constructor() {
+        this.video_position = 'H';
+    }
+    get position() {
+        return this.video_position;
+    }
+    set position(value) {
+        this.video_position = value;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 init();
 function init() {
     // ANCHOR : ASIGNAMOS EL CODIGO AL INPUT
@@ -120,8 +149,8 @@ document.getElementById('seleccion').addEventListener('change', function() {
 });
 
 function select_guia(data) {
-    console.log("GUIA SELECCIONADA");
-    const select_guia = document.getElementById('select_guia');
+    // console.log("GUIA SELECCIONADA");
+    // const select_guia = document.getElementById('select_guia');
 
     // Crear el elemento select
     let select = document.getElementById('seleccion');
@@ -138,7 +167,7 @@ function select_guia(data) {
     option.textContent = 'other';
     select.appendChild(option);
     
-    select_guia.appendChild(select);
+    // select_guia.appendChild(select);
 }
 
 function consult_guias() {

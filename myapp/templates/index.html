@@ -11,25 +11,32 @@
     <link rel="stylesheet" href="{% static 'css/index/templates.css' %}">
     <link rel="stylesheet" href="{% static 'css/index/organisms.css' %}">
     <link rel="stylesheet" href="{% static 'css/index/molecules.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index/atoms.css' %}">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
 </head>
 <body class="template_body">
     <div class="template_cont style_RES_CONT">
         <aside>
-            <div class="check">
-                <span id="select_guia">
-                    <label for="seleccion">Video Categorias</label>
-                    <select id="seleccion" name="seleccion">
-                        <option value="">Selection</option>
-                        <!-- STUB - SELECTOR DE GUIAS -->
-                    </select>
-                </span>
-            </div>
-        </aside>
-        <aside>
             <section>
+                <div class="atoms_navSettings">
+                    <p>Settings</p>
+                </div>
                 <div class="organism_firsSettings">
+                    <div class="espacio_tres">
+                        <div class="settin_selector">
+                            Preset de configuración:
+                            <select id="seleccion_caracteres" name="seleccion_cracteres">
+                                <option value="">seleccionar preset</option>
+                                <option value="">LAV</option>
+                                <option value="">Bitacoras</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="espacio_uno">
+                        <select id="seleccion" name="seleccion">
+                            <option value="">Seleccione la categoria</option>
+                            <!-- STUB - SELECTOR DE GUIAS -->
+                        </select>
                         <span>Acronimo: <input maxlength="2" id="id_acronime" type="text" value="" name="" disabled></span>
                         <span>Código: <input id="id_code" type="text" value="jd63hd" name="" disabled></span>
                     </div>
@@ -47,6 +54,33 @@
                             </div>
                         </div>
                     </div>
+                    <div class="espacio_dos">
+                        <p>Nombre de los archivos:</p>
+                        <div class="cont_radios">
+                            <div class="myradio">
+                                <input type="checkbox" id="checkbox1" name="option" value="1">Incluir Titulo<br>
+                            </div>
+                            <div class="myradio">
+                                <input type="checkbox" id="checkbox2" name="option" value="2">Incluir fecha<br>
+                            </div>
+                            <div class="myradio">
+                                <input type="checkbox" id="checkbox3" name="option" value="3"> Incluir posición<br>
+                            </div>
+                        </div>
+                        <div class="cont_radios">
+                            <div class="myradio">
+                                Número de caracteres:
+                                <select id="seleccion_caracteres" name="seleccion_cracteres">
+                                    <option value="">select</option>
+                                    <option value="">70</option>
+                                    <option value="">1000</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="atoms_navSettings">
+                    <p>Inputs</p>
                 </div>
                 <div class="organism_input">
                         <div class="cont_desq">
@@ -118,18 +152,8 @@
                             <input type="submit" id="id_submit" value="Subir Archivo">
                         </div>
                 </div>
-                <div class="molecule_navbarFile">
-                    <p class="organism_th_1 tittle_file">Titulo</p>
-                    <p class="organism_th_2">IMG</p>
-                    <p class="organism_th_3">Acción</p>
-                </div>
-                <div class="organism_listFile">
-                    <table id="table_videos">
-                        <!-- STUB - TABLE GENERATED -->
-                    </table>
-                </div>
                 <div class="organism_buttons">
-                    <button>DESCARGAR ARCHIVOS</button>
+                    <!-- <button>DESCARGAR ARCHIVOS</button> -->
                     <button id="id_clear" class="clear">LIMPIAR</button>
                 </div>
             </section>
@@ -158,12 +182,27 @@
                     </nav>
                 </div>
                 <div class="organism_code">
-                    <p>Insertar Código</p>
+                    <div class="subtitle">
+                        <p>Insertar Código</p>
+                        <button> <img src="{% static 'img/icon_copy.png' %}" alt=""> Copiar</button>
+                    </div>
                     <code>
                         <div id="insert_code">
                             <!-- STUB - CODE INSERT -->
                         </div>
                     </code>
+                </div>
+                <div class="organism_code">
+                    <div class="molecule_navbarFile">
+                        <p class="organism_th_1 tittle_file">Titulo</p>
+                        <p class="organism_th_2">IMG</p>
+                        <p class="organism_th_3">Acción</p>
+                    </div>
+                    <div class="organism_listFile">
+                        <table id="table_videos">
+                            <!-- STUB - TABLE GENERATED -->
+                        </table>
+                    </div>
                 </div>
             </section>
         </aside>

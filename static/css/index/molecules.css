@@ -3,9 +3,7 @@
 
 .molecule_navbarFile {
     display: flex;
-    /* background: goldenrod; */
     width: calc(100% - 20px);
-    margin: 10px auto;
     
     & p {
         /* background: firebrick; */
@@ -21,4 +19,3 @@
         justify-content: flex-start;
     }
 }
-

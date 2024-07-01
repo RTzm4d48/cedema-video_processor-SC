@@ -1,16 +1,29 @@
 @import url(/static/css/style.css);
 .organism_firsSettings {
     background: var(--color-tres);
+    /* background: red; */
     width: calc((100% - 20px) - 30px);
-    margin: 10px auto;    
+    margin: 0 auto 10px auto;
     padding: 15px;
-    border-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     border: 1px solid var(--color-border_1);
     display: flex;
     flex-direction: column;
 
     .espacio_uno {
         display: flex;
+
+        & select {
+            margin: 0 10px 0 0;
+            background: var(--color-dos);
+            color: var(--color-white);
+            border-radius: 5px;
+
+            &:focus {
+                outline: none;
+            }
+        }
     }
 
     .espacio_dos {
@@ -22,7 +35,8 @@
             display: flex;
 
             .myradio{
-                background: var(--color-cinco);
+                /* background: var(--color-cinco); */
+                background: var(--color-dos);
                 margin: auto 10px 0 0;
                 padding: 5px 10px;
                 border-radius: 5px;
@@ -32,9 +46,45 @@
 
                 & input[type="radio"] {
                     cursor: pointer;
-                    background: red;
                     margin: auto 0 auto 5px;
                 }
+            }
+        }
+
+        & select {
+            background: var(--color-dos);
+            color: var(--color-white);
+            border-radius: 5px;
+            margin: 0 0 0 10px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+    .espacio_tres {
+        margin: 0px;
+
+        .settin_selector{
+            background: var(--color-dos);
+            width: calc(100% );
+            /* margin: auto 10px 0 0; */
+            padding: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 0 15px 0;
+        }
+        & select {
+            background: var(--color-dos);
+            color: var(--color-white);
+            border-radius: 5px;
+            margin: 0 0 0 10px;
+            cursor: pointer;
+
+            &:focus {
+                outline: none;
             }
         }
     }
@@ -64,9 +114,10 @@
 .organism_input {
     background: var(--color-tres);
     width: calc((100% - 20px) - 30px);
-    margin: 10px auto;    
+    margin: 0 auto 10px auto;
     padding: 15px;
-    border-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     border: 1px solid #2f3842;
     display: flex;
     flex-direction: column;
@@ -269,8 +320,8 @@
 
 .organism_listFile {
     background: var(--color-tres);
-    width: calc(100% - 20px);
-    margin: 10px auto;    
+    width: 100%;
+    margin: 15px auto 0 auto;    
     overflow: hidden;
     border-radius: 8px;
     border: 1px solid #2f3842;
@@ -425,6 +476,10 @@
     display: flex;
     /* background: #264277; */
 
+    & p {
+        margin: 0px 0px 10px 0px;
+    }
+
     & .cont_viewer {
         width: 100%;
         display: flex;
@@ -518,8 +573,35 @@
     flex-direction: column;
     flex-grow: 1;
 
-    & p {
+    .subtitle {
         margin: 0px 0px 10px 0px;
+        /* background: red; */
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+
+        & button {
+            background: var(--color-cuatro);
+            color: var(--color-white);
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+            margin: 0 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+
+            & img {
+                height: 15px;
+            }
+
+            &:hover {
+                opacity: 70%;
+            }
+            &:active {
+                opacity: 50%;
+            }
+        }
     }
 
     & code {

@@ -40,11 +40,12 @@
         /* height: 50px; */
         display: flex;
         justify-content: start;
+        height: calc(100vh - 20px);
 
         & section {
             background: var(--color-dos);
             width: calc(40% - 10px);
-            height: calc(100vh - 100px);
+            height: 100%;
             border-radius: 8px;
             display: flex;
             flex-direction: column;
