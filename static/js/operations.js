@@ -54,43 +54,22 @@ function create_file_names() {
     video_name.innerHTML = html;
 }
 
-export function asigned_code() {
-    const the_code = createCode();
-    document.getElementById('id_code').value = the_code;
-    let elements = document.getElementsByClassName("id_view_code");
-    for(let i = 0; i < elements.length; i++) {
-        elements[i].innerHTML = the_code;
-    }
-}
+// export function asigned_code() {
+//     const the_code = createCode();
+//     document.getElementById('id_code').value = the_code;
+//     let elements = document.getElementsByClassName("id_view_code");
+//     for(let i = 0; i < elements.length; i++) {
+//         elements[i].innerHTML = the_code;
+//     }
+// }
 
-export function insertAcronime(acronime) {
-    if(acronime == 'other') {
-        activate_edit_acronime();
-        acronime = 'N';
-    }else{
-        disable_edit_acronime();
-        acronime = acronime;
-    }
-    put_view_acronime(acronime);
-}
-
-export function put_view_acronime(acronime) {
-    let elements = document.getElementsByClassName("id_view_acronime");
-    for(let i = 0; i < elements.length; i++) {
-        elements[i].innerHTML = acronime;
-    }
-    document.getElementById('id_acronime').value = acronime;
-}
-
-function activate_edit_acronime() {
-    let element = document.getElementById('id_acronime');
-    element.removeAttribute('disabled');
-    element.style.color = 'white';
-}
-
-function disable_edit_acronime() {
-    let element = document.getElementById('id_acronime');
-    element.setAttribute('disabled', '');
-    element.removeAttribute('style');
-    // element.style.color = 'white';
-}
+// export function insertAcronime(acronime) {
+//     if(acronime == 'other') {
+//         activate_edit_acronime();
+//         acronime = 'N';
+//     }else{
+//         disable_edit_acronime();
+//         acronime = acronime;
+//     }
+//     put_view_acronime(acronime);
+// }

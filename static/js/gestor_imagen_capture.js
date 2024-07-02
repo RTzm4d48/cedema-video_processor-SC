@@ -1,7 +1,3 @@
-export function saludar() {
-    console.log('Hola desde el modulo de gestor_imagen_capture.js');
-}
-
 // ANCHOR : CAPTURE SECOND
 export function capture_second(id) {
     var video = document.getElementById(id);

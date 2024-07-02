@@ -97,11 +97,11 @@ h4 {
     display: flex;
     flex-direction: column;
 
-    @media (max-width: 1050px) {
-    padding: 0px 10%;
+    @media (max-width: 1480px) {
+        padding: 0px 5%;
     }
-    @media (max-width: 580px) {
-        padding: 0px 0px;
+    @media (max-width: 1280px) {
+        padding: 0px 0%;
     }
 }
 
