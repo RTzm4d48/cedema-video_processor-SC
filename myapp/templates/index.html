@@ -58,13 +58,13 @@
                         <p>Nombre de los archivos:</p>
                         <div class="cont_radios">
                             <div class="myradio">
-                                <input type="checkbox" id="checkbox1" name="option" value="1">Incluir Titulo<br>
+                                <input type="checkbox" id="incl_titulo" name="option_name" value="1">Incluir Titulo<br>
                             </div>
                             <div class="myradio">
-                                <input type="checkbox" id="checkbox2" name="option" value="2">Incluir fecha<br>
+                                <input type="checkbox" id="incl_fecha" name="option_name" value="2">Incluir fecha<br>
                             </div>
                             <div class="myradio">
-                                <input type="checkbox" id="checkbox3" name="option" value="3"> Incluir posición<br>
+                                <input type="checkbox" id="incl_posicion" name="option_name" value="3"> Incluir posición<br>
                             </div>
                         </div>
                         <div class="cont_radios">
@@ -184,7 +184,7 @@
                 <div class="organism_code">
                     <div class="subtitle">
                         <p>Insertar Código</p>
-                        <button> <img src="{% static 'img/icon_copy.png' %}" alt=""> Copiar</button>
+                        <button id="copy_code"> <img src="{% static 'img/icon_copy.png' %}" alt=""> Copiar</button>
                     </div>
                     <code>
                         <div id="insert_code">

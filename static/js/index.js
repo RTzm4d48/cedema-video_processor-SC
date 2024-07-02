@@ -4,8 +4,6 @@ import {capture_second,
         create_image_view,
         captured_image_capturate,
 } from './gestor_imagen_capture.js';
-// import {obtain_date, getCookie} from './utils.js';
-// import {asigned_code, put_name_files, insertAcronime, put_view_acronime} from './operations.js';
 import {put_name_files} from './operations.js';
 import {consult_guias, init_program, deleted_video} from './crud.js';
 
@@ -18,6 +16,10 @@ class MySettings {
         this.category = category;
         this.preset = preset;
         this.video_position = video_position;
+
+        this.incl_titulo = false;
+        this.incl_fecha = false;
+        this.incl_posicion = false;
     }
     
     get config_categoryes() {
@@ -35,6 +37,46 @@ class MySettings {
     }
     set config_my_preset(value) {
         this.preset = value;
+        const incl_titulo = document.getElementById('incl_titulo')
+        const incl_fecha = document.getElementById('incl_fecha')
+        const incl_posicion = document.getElementById('incl_posicion')
+
+        const seleccion_caracteres = document.getElementById('seleccion_caracteres');
+        // CONFIGURACION DE LOS PRESETS
+        if (value == 'lav') {
+            // NOTE : CHECKBOX DE TITULO
+            // incl_titulo.disabled = true;
+            // incl_fecha.disabled = true;
+            // incl_posicion.disabled = true;
+            incl_titulo.checked = true;
+            incl_fecha.checked = true;
+            incl_posicion.checked = true;
+
+            // NOTE : COMBOBOX CARACTERES
+            seleccion_caracteres.value = 70;
+
+        }else if (value == 'bitacoras') {
+            // NOTE : CHECKBOX DE TITULO
+            // incl_titulo.disabled = true;
+            // incl_fecha.disabled = true;
+            // incl_posicion.disabled = true;
+            incl_titulo.checked = false;
+            incl_fecha.checked = true;
+            incl_posicion.checked = true;
+
+            // NOTE : COMBOBOX CARACTERES
+            seleccion_caracteres.value = 1000;
+
+        }else {
+            // NOTE : CHECKBOX DE TITULO
+            incl_titulo.checked = false;
+            incl_fecha.checked = false;
+            incl_posicion.checked = false;
+
+            // NOTE : COMBOBOX CARACTERES
+            seleccion_caracteres.value = 'none';
+
+        }
     }
 
     get config_video_position() {
@@ -42,6 +84,26 @@ class MySettings {
     }
     set config_video_position(value) {
         this.video_position = value;
+    }
+
+    get config_checkbox_titulo() {
+        return [this.incl_titulo, this.incl_fecha, this.incl_posicion]
+    }
+    set config_checkbox_titulo(value) {
+        if (value[0] == 'incl_titulo') {
+            this.incl_titulo = value[1];
+        }else if (value[0] == 'incl_fecha') {
+            this.incl_fecha = value[1];
+        }else if (value[0] == 'incl_posicion') {
+            this.incl_posicion = value[1];
+        }
+    }
+
+    get config_numCaracteres() {
+        return this.num_caracteres;
+    }
+    set config_numCaracteres(value) {
+        this.num_caracteres = value;
     }
 }
 
@@ -162,6 +224,12 @@ function MyEvents() {
         let seleccion = this.value;
         settings.config_my_preset = seleccion;
     });
+
+    // NOTE : EVENTO DE LISTA DE CARACTERES
+    document.getElementById('seleccion_caracteres').addEventListener('change', function() {
+        let seleccion = this.value;
+        settings.config_numCaracteres = seleccion;
+    });
     
     // NOTE : INPUT TEXT DEL ACROINMO
     document.getElementById('id_acronime').addEventListener('input', function(e) {
@@ -175,6 +243,15 @@ function MyEvents() {
             settings.config_video_position = event.target.value;
         });
     }
+
+    // NOTE : CHECKBOX DE LA CONFIGURACIÓN DEL TITULO
+    function handleCheckboxChange(event) {
+        const { id, checked } = event.target;
+        settings.config_checkbox_titulo = [id, checked];
+    }
+    document.getElementById('incl_titulo').addEventListener('change', handleCheckboxChange);
+    document.getElementById('incl_fecha').addEventListener('change', handleCheckboxChange);
+    document.getElementById('incl_posicion').addEventListener('change', handleCheckboxChange);
     
     // NOTE : BOTÓN DE SUBIR ARCHIVOS
     document.getElementById('id_submit').addEventListener('click', function() {
@@ -257,6 +334,18 @@ function MyEvents() {
     
         var length = value.length;
         document.getElementById('total_description').innerHTML = `${length}/70`;
+    });
+
+    document.getElementById('copy_code').addEventListener('click', function() {
+        console.log("-----------------------------------------------------------");
+        console.log('Categorias: '+settings.config_categoryes);
+        console.log('Preset: '+settings.config_my_preset);
+        console.log('Position: '+settings.config_video_position);
+        console.log('Titulo: '+settings.config_checkbox_titulo);
+        console.log('Caracteres: '+settings.config_numCaracteres);
+
+
+
     });
     
     // NOTE COÍAR CODIGO (VERMOS QUE ES ESTO)
