@@ -4,20 +4,19 @@ import {capture_second,
         create_image_view,
         captured_image_capturate,
 } from './gestor_imagen_capture.js';
-// import {put_name_files} from './operations.js';
 import {consult_guias, init_program, deleted_video, create_video} from './crud.js';
 
-import {subir_imagen, subir_video, controller_title, controller_acronime, controller_code, obtain_num_imgs} from './controller.js';
+import {subir_imagen, subir_video, controller_title, controller_acronime, controller_code, obtain_params_data, controller_position,
+        controller_config_incluir_titulo, controller_config_incluir_fecha, controller_config_incluir_position
+} from './controller.js';
 
 
 
 class MySettings {
-    constructor(category = null, preset = 'lav', video_position = 'H') {
-        window.img_viwe_generated = 0;
-        //-----------------------
-        this.category = category;
-        this.preset = preset;
-        this.video_position = video_position;
+    constructor() {
+        this.category = '';
+        this.preset = '';
+        this.video_position = '';
 
         this.incl_titulo = false;
         this.incl_fecha = false;
@@ -57,13 +56,18 @@ class MySettings {
     get config_checkbox_titulo() {
         return [this.incl_titulo, this.incl_fecha, this.incl_posicion]
     }
+    // NOTE : CONFIGURACION DE LOS CHECKBOX DEL TITULO
     set config_checkbox_titulo(value) {
         if (value[0] == 'incl_titulo') {
             this.incl_titulo = value[1];
+            controller_config_incluir_titulo(value[1], this.id_title.value);
         }else if (value[0] == 'incl_fecha') {
             this.incl_fecha = value[1];
+            controller_config_incluir_fecha(value[1]);
         }else if (value[0] == 'incl_posicion') {
             this.incl_posicion = value[1];
+            inabilite_radiobutons(value[1]);
+            controller_config_incluir_position(value[1], this.video_position);
         }
     }
 
@@ -100,11 +104,7 @@ class MySettings {
     
             // NOTE : COMBOBOX CARACTERES
             seleccion_caracteres.value = 70;
-            this.num_caracteres = 70;
-            this.id_title.setAttribute('maxlength', '70');
-            this.id_title.value = '';
-            this.id_title.style.height = '40px';
-            this.config_total_description = '/70';
+            this.configuration_caracterres(70);
 
     
         }else if (value == 'bitacoras') {
@@ -118,13 +118,8 @@ class MySettings {
     
             // NOTE : COMBOBOX CARACTERES
             seleccion_caracteres.value = 1000;
-            this.num_caracteres = 1000;
-            this.id_title.setAttribute('maxlength', '1000');
-            this.id_title.value = '';
-            this.id_title.style.height = '140px';
-            this.config_total_description = '/1000';
+            this.configuration_caracterres(1000);
 
-    
         }else {
             // NOTE : CHECKBOX DE TITULO
             incl_titulo.checked = false;
@@ -138,6 +133,27 @@ class MySettings {
             seleccion_caracteres.value = 'none';
             this.num_caracteres = 'none';
     
+        }
+    }
+
+    configuration_caracterres(num) {
+        let txt_height = num == 70 ? '40px' : '140px';
+        settings.config_numCaracteres = num;
+        this.num_caracteres = num;
+        this.id_title.setAttribute('maxlength', num);
+        this.id_title.value = this.id_title.value.substring(0, num);
+        this.id_title.style.height = txt_height;
+        this.config_total_description = '/'+num;
+    }
+}
+
+// NOTE : ACTIVAR Y DESACTIVAR LOS RADIO BUTTONS DE POSICION
+function inabilite_radiobutons(value) {
+    for (const n of document.getElementsByName('opciones')) {
+        if (value) {
+            n.disabled = false;
+        }else {
+            n.disabled = true;
         }
     }
 }
@@ -233,15 +249,19 @@ let settings = new MySettings();
 
 init();
 async function init() {
+    // NOTE: SELECT CATEGORIES OF DATABASE
     let data = await consult_guias();
     views.select_guia(data);
 
-    // NOTE: SELECT VIDEOS
+    // NOTE: SELECT VIDEOS OF DATABASE
     let data_videos = await init_program();
     views.pinter_data(data_videos);
     
     // NOTE : PRINT CODE
     controller_code();
+
+    // NOTE : POR DEFECTO DESACTIVAR EL RAIOBUTON POSICION
+    inabilite_radiobutons(false);
 }
 
 MyEvents();
@@ -262,6 +282,7 @@ function MyEvents() {
     // NOTE : EVENTO DE LISTA DE CARACTERES
     document.getElementById('seleccion_caracteres').addEventListener('change', function() {
         let seleccion = this.value;
+        settings.configuration_caracterres(seleccion);
         settings.config_numCaracteres = seleccion;
     });
     
@@ -276,6 +297,7 @@ function MyEvents() {
     for (const n of document.getElementsByName('opciones')) {
         n.addEventListener('change', (event) => {
             settings.config_video_position = event.target.value;
+            controller_position(event.target.value);
         });
     }
 
@@ -290,28 +312,20 @@ function MyEvents() {
     
     // NOTE : BOTÓN DE SUBIR ARCHIVOS
     document.getElementById('id_submit').addEventListener('click', function() {
-        const video_name = document.getElementById('id_title').value.trim();
-        const code = document.getElementById('id_code').value.trim();
-        const acronym = document.getElementById('id_acronime').value.trim();
+        let data = obtain_params_data()[0];
         const file = document.getElementById('video_file');
-        const VideoPosition = settings.config_video_position;
-        // const img_viwe_generated = window.img_viwe_generated;
-        const imgNum = obtain_num_imgs();
-    
         var regex = /^[a-zA-Z0-9 ]*$/;
-    
+
         if (file.files.length == 0) {
             alert("Seleccione un archivo.");
-        } else if (video_name === '') {
+        } else if (data['title'] === '----') {
             alert("ingrese la descripcion del documento.");
-        } else if (code == '' || acronym == '') {
-            alert("Ingrese el codigo y el acronimo.");
-        }else if (imgNum == 0) {
-            alert("Capture una imagen.");
-        }else if (!regex.test(video_name)){
+        } else if (data['acronime'] == '') {
+            alert("Seleccione una categoria.");
+        }else if (!regex.test(data['title_original'])){
             alert("La descripcion del documento no puede contener caracteres especiales.");
         } else {
-            create_video(code, acronym, video_name, file, VideoPosition, imgNum);
+            create_video(data, file);
         }
     });
     

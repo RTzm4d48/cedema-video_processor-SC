@@ -36,9 +36,9 @@ export function init_program() {
 }
 
 // #region TODO: CREATE VIDEOS
-export function create_video(code, acronym, video_name, file, VideoPosition, img_viwe_generated) {
+export function create_video(data, file) {
     console.log("CREAMOSSSS");
-    console.log(img_viwe_generated)
+    console.log(data);
     // $(document).ready(function() {
     //     var csrftoken = getCookie('csrftoken');
     //     var formData = new FormData();

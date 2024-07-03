@@ -11,7 +11,7 @@ function string_month(mes) {
     return month[mes];
 }
 
-// NOTE : GET COOKIE
+// NOTE : OBTENERMOS EL csrftoken DE LAS KOOKIES
 export function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
