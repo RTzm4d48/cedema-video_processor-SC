@@ -27,3 +27,21 @@ export function getCookie(name) {
     }
     return cookieValue;
 }
+
+export function createCode() {
+    const caracteres = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    let resultado = '';
+    for (let i = 0; i < 6; i++) {
+        const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
+        resultado += caracteres.charAt(indiceAleatorio);
+    }
+    return resultado;
+}
+
+// NOTE : AGEGA VALIDACIONES AL TITULO Y RETORNA EL TITULO
+export function put_name_files(value) {
+    const text__ = value.replace(/ /g, "_");
+    let titulo = text__ != '' ? text__ : 'unnamed';
+    return titulo;
+}

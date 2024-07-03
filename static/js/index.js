@@ -4,8 +4,10 @@ import {capture_second,
         create_image_view,
         captured_image_capturate,
 } from './gestor_imagen_capture.js';
-import {put_name_files} from './operations.js';
-import {consult_guias, init_program, deleted_video} from './crud.js';
+// import {put_name_files} from './operations.js';
+import {consult_guias, init_program, deleted_video, create_video} from './crud.js';
+
+import {subir_imagen, subir_video, controller_title, controller_acronime, controller_code, obtain_num_imgs} from './controller.js';
 
 
 
@@ -20,6 +22,12 @@ class MySettings {
         this.incl_titulo = false;
         this.incl_fecha = false;
         this.incl_posicion = false;
+
+        this.num_caracteres = 'none';
+
+        this.id_title = document.getElementById('id_title');
+        this.numeracion_title = '/70';
+        
     }
     
     get config_categoryes() {
@@ -27,8 +35,6 @@ class MySettings {
     }
     set config_categoryes(value) {
         document.getElementById('id_acronime').value = value;
-        if (value == 'other') views.activate_edit_acronime();
-        if (value != 'other') views.disable_edit_acronime();
         this.category = value;
     }
     
@@ -37,46 +43,8 @@ class MySettings {
     }
     set config_my_preset(value) {
         this.preset = value;
-        const incl_titulo = document.getElementById('incl_titulo')
-        const incl_fecha = document.getElementById('incl_fecha')
-        const incl_posicion = document.getElementById('incl_posicion')
-
-        const seleccion_caracteres = document.getElementById('seleccion_caracteres');
         // CONFIGURACION DE LOS PRESETS
-        if (value == 'lav') {
-            // NOTE : CHECKBOX DE TITULO
-            // incl_titulo.disabled = true;
-            // incl_fecha.disabled = true;
-            // incl_posicion.disabled = true;
-            incl_titulo.checked = true;
-            incl_fecha.checked = true;
-            incl_posicion.checked = true;
-
-            // NOTE : COMBOBOX CARACTERES
-            seleccion_caracteres.value = 70;
-
-        }else if (value == 'bitacoras') {
-            // NOTE : CHECKBOX DE TITULO
-            // incl_titulo.disabled = true;
-            // incl_fecha.disabled = true;
-            // incl_posicion.disabled = true;
-            incl_titulo.checked = false;
-            incl_fecha.checked = true;
-            incl_posicion.checked = true;
-
-            // NOTE : COMBOBOX CARACTERES
-            seleccion_caracteres.value = 1000;
-
-        }else {
-            // NOTE : CHECKBOX DE TITULO
-            incl_titulo.checked = false;
-            incl_fecha.checked = false;
-            incl_posicion.checked = false;
-
-            // NOTE : COMBOBOX CARACTERES
-            seleccion_caracteres.value = 'none';
-
-        }
+        this.preset_configuration(value);
     }
 
     get config_video_position() {
@@ -105,6 +73,73 @@ class MySettings {
     set config_numCaracteres(value) {
         this.num_caracteres = value;
     }
+
+    get config_total_description() {
+        return this.numeracion_title;
+    }
+    set config_total_description(value) {
+        document.getElementById('total_description').innerHTML = `0${value}`;
+        this.numeracion_title = value;
+    }
+
+    preset_configuration(value) {
+        const incl_titulo = document.getElementById('incl_titulo')
+        const incl_fecha = document.getElementById('incl_fecha')
+        const incl_posicion = document.getElementById('incl_posicion')
+    
+        const seleccion_caracteres = document.getElementById('seleccion_caracteres');
+
+        if (value == 'lav') {
+            // NOTE : CHECKBOX DE TITULO
+            incl_titulo.checked = true;
+            incl_fecha.checked = true;
+            incl_posicion.checked = true;
+            this.incl_titulo = true;
+            this.incl_fecha = true;
+            this.incl_posicion = true;
+    
+            // NOTE : COMBOBOX CARACTERES
+            seleccion_caracteres.value = 70;
+            this.num_caracteres = 70;
+            this.id_title.setAttribute('maxlength', '70');
+            this.id_title.value = '';
+            this.id_title.style.height = '40px';
+            this.config_total_description = '/70';
+
+    
+        }else if (value == 'bitacoras') {
+            // NOTE : CHECKBOX DE TITULO
+            incl_titulo.checked = false;
+            incl_fecha.checked = true;
+            incl_posicion.checked = true;
+            this.incl_titulo = false;
+            this.incl_fecha = true;
+            this.incl_posicion = true;
+    
+            // NOTE : COMBOBOX CARACTERES
+            seleccion_caracteres.value = 1000;
+            this.num_caracteres = 1000;
+            this.id_title.setAttribute('maxlength', '1000');
+            this.id_title.value = '';
+            this.id_title.style.height = '140px';
+            this.config_total_description = '/1000';
+
+    
+        }else {
+            // NOTE : CHECKBOX DE TITULO
+            incl_titulo.checked = false;
+            incl_fecha.checked = false;
+            incl_posicion.checked = false;
+            this.incl_titulo = false;
+            this.incl_fecha = false;
+            this.incl_posicion = false;
+    
+            // NOTE : COMBOBOX CARACTERES
+            seleccion_caracteres.value = 'none';
+            this.num_caracteres = 'none';
+    
+        }
+    }
 }
 
 class MyViews {
@@ -120,12 +155,7 @@ class MyViews {
             option.setAttribute('value', data[i]['acronimo']);
             option.textContent = data[i]['name'];
             select.appendChild(option);
-        }
-        // NOTE : AGREGAMOS EL OTHERS
-        let option = document.createElement('option');
-        option.setAttribute('value', 'other');
-        option.textContent = 'other';
-        select.appendChild(option);        
+        }      
     }
 
     // NOTE : PRINT DATA OF VIDEOS
@@ -206,9 +236,12 @@ async function init() {
     let data = await consult_guias();
     views.select_guia(data);
 
-    // #region # TODO: SELECT VIDEOS
+    // NOTE: SELECT VIDEOS
     let data_videos = await init_program();
     views.pinter_data(data_videos);
+    
+    // NOTE : PRINT CODE
+    controller_code();
 }
 
 MyEvents();
@@ -217,6 +250,7 @@ function MyEvents() {
     document.getElementById('seleccion_category').addEventListener('change', function() {
         let seleccion = this.value;
         settings.config_categoryes = seleccion;
+        controller_acronime(seleccion);
     });
     
     // NOTE : EVENTOS DE LISTAS DESPLEGABLES
@@ -235,6 +269,7 @@ function MyEvents() {
     document.getElementById('id_acronime').addEventListener('input', function(e) {
         var value = e.target.value;
         settings.config_categoryes = value;
+        controller_acronime(value);
     });
     
     // NOTE : RADIO BUTTONS DE LA POSICIÓN DEL VIDEO
@@ -260,11 +295,10 @@ function MyEvents() {
         const acronym = document.getElementById('id_acronime').value.trim();
         const file = document.getElementById('video_file');
         const VideoPosition = settings.config_video_position;
-        const img_viwe_generated = window.img_viwe_generated;
+        // const img_viwe_generated = window.img_viwe_generated;
+        const imgNum = obtain_num_imgs();
     
         var regex = /^[a-zA-Z0-9 ]*$/;
-        console.log("AQUI-----------")
-        console.log(regex.test(video_name));
     
         if (file.files.length == 0) {
             alert("Seleccione un archivo.");
@@ -272,12 +306,12 @@ function MyEvents() {
             alert("ingrese la descripcion del documento.");
         } else if (code == '' || acronym == '') {
             alert("Ingrese el codigo y el acronimo.");
-        }else if (img_viwe_generated == 0) {
+        }else if (imgNum == 0) {
             alert("Capture una imagen.");
         }else if (!regex.test(video_name)){
             alert("La descripcion del documento no puede contener caracteres especiales.");
         } else {
-            create_video(code, acronym, video_name, file, VideoPosition, img_viwe_generated);
+            create_video(code, acronym, video_name, file, VideoPosition, imgNum);
         }
     });
     
@@ -304,7 +338,8 @@ function MyEvents() {
     document.getElementById('charger_capture').addEventListener('click', function() {
         var screen_video = document.getElementById('screen_video');
         const base64Image = captured_image_capturate(screen_video);
-        create_image_view(base64Image);
+        let num_img = subir_imagen();
+        create_image_view(base64Image, num_img);
     });
     
     // NOTE : CARGAR VÍDEO (EL ARRASTRA AQUÍ)
@@ -316,24 +351,28 @@ function MyEvents() {
         create_elemet_capture(url, 0)
         create_element_video(url)
     
-        document.getElementById('id_name_video').classList.add('show');
+        subir_video();
+        // document.getElementById('id_name_video').classList.add('show');
         document.getElementById('label_file').innerHTML = file.name;
     });
     
     // NOTE : CARGAR IMAGEN DE MINIATURA
-    document.getElementById('image_file').addEventListener('change', function() {
-        var file = imageFileImput.files[0];
+    document.getElementById('image_file').addEventListener('change', function(event) {
+        var file = event.target.files[0];
         var url = URL.createObjectURL(file); // crea una URL de objeto para el archivo
-        create_image_view(url);
+        let num_img = subir_imagen();
+        create_image_view(url, num_img);
     });
     
     // NOTE : MOSTRAMOS NUMERO Y TAMBIEN CAPTURAMOS LO QUE ESCRIBIMOS EN EL TITULO
     document.getElementById('id_title').addEventListener('input', function(e) {
         var value = e.target.value;
-        put_name_files(value);
+        // put_name_files(value);
+
+        controller_title(value);
     
         var length = value.length;
-        document.getElementById('total_description').innerHTML = `${length}/70`;
+        document.getElementById('total_description').innerHTML = length+settings.config_total_description;
     });
 
     document.getElementById('copy_code').addEventListener('click', function() {

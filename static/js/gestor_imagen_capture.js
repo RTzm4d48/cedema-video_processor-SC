@@ -51,36 +51,14 @@ export function create_elemet_capture(url, second){
     // return base64Image;
 }
 
-export function create_image_view(url){
-    if (img_viwe_generated < 3){
-        img_viwe_generated++;
-        document.getElementById('num_imgs_in_video').innerHTML = 'i'+img_viwe_generated;
-        var img = document.createElement('img');
-        img.src = url;
-        img.id = 'generated_img_' + img_viwe_generated;
-        // img.className = 'img_styles';
-        document.getElementById('id_only_imgs').appendChild(img);
-        viewerImg();
-    }else{
-        alert('Solo puedes generar 3 imagenes')
-    }
-}
-
-function viewerImg() {
-    if (img_viwe_generated == 1){
-        document.getElementById('id_name_img_1').classList.remove('hidden');
-    } else if (img_viwe_generated == 2){
-        document.getElementById('id_name_img_1').classList.remove('hidden');
-        document.getElementById('id_name_img_2').classList.remove('hidden');
-    } else if (img_viwe_generated == 3){
-        document.getElementById('id_name_img_1').classList.remove('hidden');
-        document.getElementById('id_name_img_2').classList.remove('hidden');
-        document.getElementById('id_name_img_3').classList.remove('hidden');
-    }else{
-        document.getElementById('id_name_img_1').classList.add('hidden');
-        document.getElementById('id_name_img_2').classList.add('hidden');
-        document.getElementById('id_name_img_3').classList.add('hidden');
-    }
+// NOTE : CREAMOS LOS ELEMENTOS DE LAS IMAGENES
+export function create_image_view(url, num_img){
+    var img = document.createElement('img');
+    img.src = url;
+    img.id = 'generated_img_' + num_img;
+    // img.className = 'img_styles';
+    document.getElementById('id_only_imgs').appendChild(img);
+    // viewerImg();
 }
 
 // ANCHOR : CREATE ELEMENT VIDEO
