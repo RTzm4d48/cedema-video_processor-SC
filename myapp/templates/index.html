@@ -22,16 +22,6 @@
                     <p>Settings</p>
                 </div>
                 <div class="organism_firsSettings">
-                    <div class="espacio_tres">
-                        <div class="settin_selector">
-                            Preset de configuración:
-                            <select id="seleccion_preset" name="seleccion_cracteres">
-                                <option value="none">seleccionar preset</option>
-                                <option value="lav">LAV</option>
-                                <option value="bitacoras">Bitacoras</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="espacio_uno">
                         <select id="seleccion_category" name="seleccion">
                             <option value="">Seleccione la categoria</option>
@@ -46,35 +36,11 @@
                         <div class="cont_radios">
                             <div class="myradio">
                                 <label for="opcion1">Horizontal (H)</label>
-                                <input type="radio" id="opcion1" name="opciones" value="H" checked>
+                                <input type="radio" id="opcion1" name="opciones" value="pH" checked>
                             </div>
                             <div class="myradio">
                                 <label for="opcion2">Vertical (V)</label>
-                                <input type="radio" id="opcion2" name="opciones" value="V">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="espacio_dos">
-                        <p>Nombre de los archivos:</p>
-                        <div class="cont_radios">
-                            <div class="myradio">
-                                <input type="checkbox" id="incl_titulo" name="option_name" value="1">Incluir Titulo<br>
-                            </div>
-                            <div class="myradio">
-                                <input type="checkbox" id="incl_fecha" name="option_name" value="2">Incluir fecha<br>
-                            </div>
-                            <div class="myradio">
-                                <input type="checkbox" id="incl_posicion" name="option_name" value="3"> Incluir posición<br>
-                            </div>
-                        </div>
-                        <div class="cont_radios">
-                            <div class="myradio">
-                                Número de caracteres:
-                                <select id="seleccion_caracteres" name="seleccion_cracteres">
-                                    <option value="none">select</option>
-                                    <option value="70">70</option>
-                                    <option value="1000">1000</option>
-                                </select>
+                                <input type="radio" id="opcion2" name="opciones" value="pV">
                             </div>
                         </div>
                     </div>
@@ -103,51 +69,7 @@
                                 <!-- <button></button> -->
                             </div>
                             <div class="names_view" id="names_references">
-                                <!-- <div id="id_name_video" class="file hidden">
-                                    <img src="{% static '/img/file_video.png' %}" alt="">
-                                    <p class="id_view_tittle">unnamed</p>
-                                    <p>-</p>
-                                    <p class="id_view_acronime color2">ES</p>
-                                    <p>-</p>
-                                    <p class="id_view_code color3">000000</p>
-                                    <p>-</p>
-                                    <p id="num_imgs_in_video" class="color1"></p>
-                                    <p class="">.mp4</p>
-                                </div>
-
-                                <div id="id_name_img_1" class="file hidden">
-                                    <img src="{% static '/img/file_image.png' %}" alt="">
-                                    <p class="id_view_tittle">unnamed</p>
-                                    <p>-</p>
-                                    <p class="id_view_acronime color2">ES</p>
-                                    <p>-</p>
-                                    <p class="id_view_code color3">000000</p>
-                                    <p>-</p>
-                                    <p class="color1">1</p>
-                                    <p class="">.png</p>
-                                </div>
-                                <div id="id_name_img_2" class="file hidden">
-                                    <img src="{% static '/img/file_image.png' %}" alt="">
-                                    <p class="id_view_tittle">unnamed</p>
-                                    <p>-</p>
-                                    <p class="id_view_acronime color2">ES</p>
-                                    <p>-</p>
-                                    <p class="id_view_code color3">000000</p>
-                                    <p>-</p>
-                                    <p class="color1">2</p>
-                                    <p class="">.png</p>
-                                </div>
-                                <div id="id_name_img_3" class="file hidden">
-                                    <img src="{% static '/img/file_image.png' %}" alt="">
-                                    <p class="id_view_tittle">unnamed</p>
-                                    <p>-</p>
-                                    <p class="id_view_acronime color2">ES</p>
-                                    <p>-</p>
-                                    <p class="id_view_code color3">000000</p>
-                                    <p>-</p>
-                                    <p class="color1">3</p>
-                                    <p class="">.png</p>
-                                </div> -->
+                                <!-- STUB - NAMES VIEW OF VIDEO AND IMAGES -->
                             </div>
                             <input type="submit" id="id_submit" value="Subir Archivo">
                         </div>

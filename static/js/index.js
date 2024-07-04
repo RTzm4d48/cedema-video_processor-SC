@@ -1,162 +1,6 @@
-import {capture_second,
-        create_elemet_capture,
-        create_element_video,
-        create_image_view,
-        captured_image_capturate,
-} from './gestor_imagen_capture.js';
+import {capture_second, create_elemet_capture, create_element_video, create_image_view, captured_image_capturate} from './gestor_imagen_capture.js';
 import {consult_guias, init_program, deleted_video, create_video} from './crud.js';
-
-import {subir_imagen, subir_video, controller_title, controller_acronime, controller_code, obtain_params_data, controller_position,
-        controller_config_incluir_titulo, controller_config_incluir_fecha, controller_config_incluir_position
-} from './controller.js';
-
-
-
-class MySettings {
-    constructor() {
-        this.category = '';
-        this.preset = '';
-        this.video_position = '';
-
-        this.incl_titulo = false;
-        this.incl_fecha = false;
-        this.incl_posicion = false;
-
-        this.num_caracteres = 'none';
-
-        this.id_title = document.getElementById('id_title');
-        this.numeracion_title = '/70';
-        
-    }
-    
-    get config_categoryes() {
-        return this.category;
-    }
-    set config_categoryes(value) {
-        document.getElementById('id_acronime').value = value;
-        this.category = value;
-    }
-    
-    get config_my_preset() {
-        return this.preset;
-    }
-    set config_my_preset(value) {
-        this.preset = value;
-        // CONFIGURACION DE LOS PRESETS
-        this.preset_configuration(value);
-    }
-
-    get config_video_position() {
-        return this.video_position;
-    }
-    set config_video_position(value) {
-        this.video_position = value;
-    }
-
-    get config_checkbox_titulo() {
-        return [this.incl_titulo, this.incl_fecha, this.incl_posicion]
-    }
-    // NOTE : CONFIGURACION DE LOS CHECKBOX DEL TITULO
-    set config_checkbox_titulo(value) {
-        if (value[0] == 'incl_titulo') {
-            this.incl_titulo = value[1];
-            controller_config_incluir_titulo(value[1], this.id_title.value);
-        }else if (value[0] == 'incl_fecha') {
-            this.incl_fecha = value[1];
-            controller_config_incluir_fecha(value[1]);
-        }else if (value[0] == 'incl_posicion') {
-            this.incl_posicion = value[1];
-            inabilite_radiobutons(value[1]);
-            controller_config_incluir_position(value[1], this.video_position);
-        }
-    }
-
-    get config_numCaracteres() {
-        return this.num_caracteres;
-    }
-    set config_numCaracteres(value) {
-        this.num_caracteres = value;
-    }
-
-    get config_total_description() {
-        return this.numeracion_title;
-    }
-    set config_total_description(value) {
-        document.getElementById('total_description').innerHTML = `0${value}`;
-        this.numeracion_title = value;
-    }
-
-    preset_configuration(value) {
-        const incl_titulo = document.getElementById('incl_titulo')
-        const incl_fecha = document.getElementById('incl_fecha')
-        const incl_posicion = document.getElementById('incl_posicion')
-    
-        const seleccion_caracteres = document.getElementById('seleccion_caracteres');
-
-        if (value == 'lav') {
-            // NOTE : CHECKBOX DE TITULO
-            incl_titulo.checked = true;
-            incl_fecha.checked = true;
-            incl_posicion.checked = true;
-            this.incl_titulo = true;
-            this.incl_fecha = true;
-            this.incl_posicion = true;
-    
-            // NOTE : COMBOBOX CARACTERES
-            seleccion_caracteres.value = 70;
-            this.configuration_caracterres(70);
-
-    
-        }else if (value == 'bitacoras') {
-            // NOTE : CHECKBOX DE TITULO
-            incl_titulo.checked = false;
-            incl_fecha.checked = true;
-            incl_posicion.checked = true;
-            this.incl_titulo = false;
-            this.incl_fecha = true;
-            this.incl_posicion = true;
-    
-            // NOTE : COMBOBOX CARACTERES
-            seleccion_caracteres.value = 1000;
-            this.configuration_caracterres(1000);
-
-        }else {
-            // NOTE : CHECKBOX DE TITULO
-            incl_titulo.checked = false;
-            incl_fecha.checked = false;
-            incl_posicion.checked = false;
-            this.incl_titulo = false;
-            this.incl_fecha = false;
-            this.incl_posicion = false;
-    
-            // NOTE : COMBOBOX CARACTERES
-            seleccion_caracteres.value = 'none';
-            this.num_caracteres = 'none';
-    
-        }
-    }
-
-    configuration_caracterres(num) {
-        let txt_height = num == 70 ? '40px' : '140px';
-        settings.config_numCaracteres = num;
-        this.num_caracteres = num;
-        this.id_title.setAttribute('maxlength', num);
-        this.id_title.value = this.id_title.value.substring(0, num);
-        this.id_title.style.height = txt_height;
-        this.config_total_description = '/'+num;
-    }
-}
-
-// NOTE : ACTIVAR Y DESACTIVAR LOS RADIO BUTTONS DE POSICION
-function inabilite_radiobutons(value) {
-    for (const n of document.getElementsByName('opciones')) {
-        if (value) {
-            n.disabled = false;
-        }else {
-            n.disabled = true;
-        }
-    }
-}
+import {subir_imagen, subir_video, controller_title, controller_acronime, controller_code, obtain_params_data, controller_position} from './controller.js';
 
 class MyViews {
     constructor() {
@@ -171,7 +15,7 @@ class MyViews {
             option.setAttribute('value', data[i]['acronimo']);
             option.textContent = data[i]['name'];
             select.appendChild(option);
-        }      
+        }
     }
 
     // NOTE : PRINT DATA OF VIDEOS
@@ -186,7 +30,6 @@ class MyViews {
             const images_num = data[i].images_num;
             const fecha = data[i].fecha;
             const position = data[i].position;
-
 
             const script = `{name: '${video_name}', extencion: '${extension}', acronimo: '${acronym}', code: '${code}', files_name: '${file_name}', fecha: '${fecha}', position: '${position}', images_num: ${images_num}},`;
 
@@ -226,26 +69,9 @@ class MyViews {
         // Inserta el código resaltado en el elemento <code>
         document.getElementById("insert_code").innerHTML += `${code}<br>`;
     }
-
-    activate_edit_acronime() {
-        let element = document.getElementById('id_acronime');
-        element.value = '';
-        element.removeAttribute('disabled');
-        element.style.color = 'white';
-    }
-
-    disable_edit_acronime() {
-        let element = document.getElementById('id_acronime');
-        element.setAttribute('disabled', '');
-        element.removeAttribute('style');
-        // element.style.color = 'white';
-    }
 }
 
-
 let views = new MyViews();
-let settings = new MySettings();
-
 
 init();
 async function init() {
@@ -259,9 +85,6 @@ async function init() {
     
     // NOTE : PRINT CODE
     controller_code();
-
-    // NOTE : POR DEFECTO DESACTIVAR EL RAIOBUTON POSICION
-    inabilite_radiobutons(false);
 }
 
 MyEvents();
@@ -269,47 +92,17 @@ function MyEvents() {
     // NOTE : EVENTOS DE LISTAS DESPLEGABLES
     document.getElementById('seleccion_category').addEventListener('change', function() {
         let seleccion = this.value;
-        settings.config_categoryes = seleccion;
+        document.getElementById('id_acronime').value = seleccion;
         controller_acronime(seleccion);
-    });
-    
-    // NOTE : EVENTOS DE LISTAS DESPLEGABLES
-    document.getElementById('seleccion_preset').addEventListener('change', function() {
-        let seleccion = this.value;
-        settings.config_my_preset = seleccion;
-    });
-
-    // NOTE : EVENTO DE LISTA DE CARACTERES
-    document.getElementById('seleccion_caracteres').addEventListener('change', function() {
-        let seleccion = this.value;
-        settings.configuration_caracterres(seleccion);
-        settings.config_numCaracteres = seleccion;
-    });
-    
-    // NOTE : INPUT TEXT DEL ACROINMO
-    document.getElementById('id_acronime').addEventListener('input', function(e) {
-        var value = e.target.value;
-        settings.config_categoryes = value;
-        controller_acronime(value);
     });
     
     // NOTE : RADIO BUTTONS DE LA POSICIÓN DEL VIDEO
     for (const n of document.getElementsByName('opciones')) {
         n.addEventListener('change', (event) => {
-            settings.config_video_position = event.target.value;
             controller_position(event.target.value);
         });
     }
 
-    // NOTE : CHECKBOX DE LA CONFIGURACIÓN DEL TITULO
-    function handleCheckboxChange(event) {
-        const { id, checked } = event.target;
-        settings.config_checkbox_titulo = [id, checked];
-    }
-    document.getElementById('incl_titulo').addEventListener('change', handleCheckboxChange);
-    document.getElementById('incl_fecha').addEventListener('change', handleCheckboxChange);
-    document.getElementById('incl_posicion').addEventListener('change', handleCheckboxChange);
-    
     // NOTE : BOTÓN DE SUBIR ARCHIVOS
     document.getElementById('id_submit').addEventListener('click', function() {
         let data = obtain_params_data()[0];
@@ -318,17 +111,19 @@ function MyEvents() {
 
         if (file.files.length == 0) {
             alert("Seleccione un archivo.");
-        } else if (data['title'] === '----') {
+        } else if (data['title'] === '') {
             alert("ingrese la descripcion del documento.");
         } else if (data['acronime'] == '') {
             alert("Seleccione una categoria.");
+        }else if (data['num_img'] == 0) {
+            alert("Capture una imagen.");
         }else if (!regex.test(data['title_original'])){
             alert("La descripcion del documento no puede contener caracteres especiales.");
         } else {
             create_video(data, file);
         }
     });
-    
+
     // NOTE : BOTÓN DE LIMPIAR (BORRAR TODO)
     document.getElementById('id_clear').addEventListener('click', function() {
         deleted_video();
@@ -342,12 +137,7 @@ function MyEvents() {
         var numSecond = capture_second('video_reproductor');
         create_elemet_capture(url, numSecond)
     });
-    
-    // NOTE : DESCARGAR IMAGEN YA CAPTURADA (NO TIENE FUNCIONALIDAD)
-    // document.getElementById('btn_download').addEventListener('click', function() {
-    //     alert("Descargando video...");    
-    // });
-    
+
     // NOTE : CARGAR LA IMAGEN QUE ESTA CAPTURADA
     document.getElementById('charger_capture').addEventListener('click', function() {
         var screen_video = document.getElementById('screen_video');
@@ -366,7 +156,6 @@ function MyEvents() {
         create_element_video(url)
     
         subir_video();
-        // document.getElementById('id_name_video').classList.add('show');
         document.getElementById('label_file').innerHTML = file.name;
     });
     
@@ -381,39 +170,15 @@ function MyEvents() {
     // NOTE : MOSTRAMOS NUMERO Y TAMBIEN CAPTURAMOS LO QUE ESCRIBIMOS EN EL TITULO
     document.getElementById('id_title').addEventListener('input', function(e) {
         var value = e.target.value;
-        // put_name_files(value);
-
         controller_title(value);
-    
         var length = value.length;
-        document.getElementById('total_description').innerHTML = length+settings.config_total_description;
+        document.getElementById('total_description').innerHTML = length+'/70';
     });
 
+    // NOTE Copiamos el script generado
     document.getElementById('copy_code').addEventListener('click', function() {
-        console.log("-----------------------------------------------------------");
-        console.log('Categorias: '+settings.config_categoryes);
-        console.log('Preset: '+settings.config_my_preset);
-        console.log('Position: '+settings.config_video_position);
-        console.log('Titulo: '+settings.config_checkbox_titulo);
-        console.log('Caracteres: '+settings.config_numCaracteres);
-
-
-
+        var code = document.getElementById("insert_code");
+        navigator.clipboard.writeText(code.innerText);
+        code.classList.add('atom_finished');
     });
-    
-    // NOTE COÍAR CODIGO (VERMOS QUE ES ESTO)
-    function copyCode() {
-        // Copia el código al portapapeles
-        var code = document.getElementById("insert_code").innerText;
-        navigator.clipboard.writeText(code);
-        alert("Código copiado al portapapeles");
-    }
 }
-
-
-// function view_video() {
-//     var html_view_video = `
-//     <source src="" type="video/mp4">
-//     `;
-//     document.getElementById('video_output').style.display = 'block';
-// }

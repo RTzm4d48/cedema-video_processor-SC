@@ -37,44 +37,44 @@ export function init_program() {
 
 // #region TODO: CREATE VIDEOS
 export function create_video(data, file) {
-    console.log("CREAMOSSSS");
+    // console.log("CREAMOSSSS");
     console.log(data);
-    // $(document).ready(function() {
-    //     var csrftoken = getCookie('csrftoken');
-    //     var formData = new FormData();
-    //     formData.append('video_name', video_name);
-    //     formData.append('code', code);
-    //     formData.append('acronym', acronym);
-    //     formData.append('old_name', file.files[0].name);
-    //     formData.append('attach_file', file.files[0]);
-    //     formData.append('images_num', img_viwe_generated);
-    //     formData.append('fecha', obtain_date());
-    //     formData.append('position', VideoPosition);
-    //     if (img_viwe_generated > 0) {
-    //         for (let i = 1; i <= img_viwe_generated; i++) {
-    //             let image = document.getElementById(`generated_img_${i}`);
-    //             formData.append(`generated_img_${i}`, image.src);
-    //         }
-    //     }
-    //     $.ajax({
-    //         url: '/api/my_apis/create_video/',
-    //         type: 'POST',
-    //         data: formData,
-    //         processData: false,
-    //         contentType: false,
-    //         beforeSend: function(xhr) {
-    //             xhr.setRequestHeader("X-CSRFToken", csrftoken);
-    //         },
-    //         success: function(data) {
-    //             console.log('VIDEO GUIA CREATE!', data);
-    //             location.reload();
-    //         },
-    //         error: function(xhr, textStatus, errorThrown) {
-    //             // Manejar errores si la solicitud falla
-    //             console.error('Error al obtener datos de la API:', errorThrown);
-    //         }
-    //     });
-    // });
+    $(document).ready(function() {
+        var csrftoken = getCookie('csrftoken');
+        var formData = new FormData();
+        formData.append('video_name', data['title']);
+        formData.append('code', data['code']);
+        formData.append('acronym', data['acronime']);
+        formData.append('old_name', file.files[0].name);
+        formData.append('attach_file', file.files[0]);
+        formData.append('images_num', data['num_img']);
+        formData.append('fecha', data['fecha']);
+        formData.append('position', data['position']);
+        if (data['num_img'] > 0) {
+            for (let i = 1; i <= data['num_img']; i++) {
+                let image = document.getElementById(`generated_img_${i}`);
+                formData.append(`generated_img_${i}`, image.src);
+            }
+        }
+        $.ajax({
+            url: '/api/my_apis/create_video/',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            },
+            success: function(data) {
+                console.log('VIDEO GUIA CREATE!', data);
+                location.reload();
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                // Manejar errores si la solicitud falla
+                console.error('Error al obtener datos de la API:', errorThrown);
+            }
+        });
+    });
 }
 
 // #region TODO: DELETED VIDEOS

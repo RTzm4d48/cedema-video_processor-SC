@@ -47,7 +47,6 @@ class my_apis(viewsets.ModelViewSet):
     #region # TODO: DELETED VIDEO
     @action(detail=False, methods=['post'], url_path='deleted_video')
     def deleted_video(self, request):
-        print("PATATA CON SAL")
         if request.method == 'POST':
             item = request.data.get('num_item')
             item = None

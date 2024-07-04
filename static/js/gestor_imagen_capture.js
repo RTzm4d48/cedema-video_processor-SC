@@ -7,18 +7,18 @@ export function capture_second(id) {
 }
 
 // ANCHOR : CREATE ENLACE OF DOWNLOAD
-function DownloadImageCaptured(base64Image) {
-    console.log('DESDE DOWNLOAD:', base64Image);
+// function DownloadImageCaptured(base64Image) {
+//     console.log('DESDE DOWNLOAD:', base64Image);
 
-    var link = document.createElement('a');
-    link.href = base64Image;
-    link.download = 'static/temp/frame.jpg'; // establece el nombre del archivo de la imagen
-    link.click(); // inicia la descarga
+//     var link = document.createElement('a');
+//     link.href = base64Image;
+//     link.download = 'static/temp/frame.jpg'; // establece el nombre del archivo de la imagen
+//     link.click(); // inicia la descarga
 
-    // Muestra la imagen en una etiqueta <img>
-    var img = document.getElementById('img_capture');
-    img.src = base64Image;
-}
+//     // Muestra la imagen en una etiqueta <img>
+//     // var img = document.getElementById('img_capture');
+//     // img.src = base64Image;
+// }
 
 // ANCHOR : CREATE ELEMENT CAPTURE
 export function create_elemet_capture(url, second){
@@ -46,9 +46,6 @@ export function create_elemet_capture(url, second){
     });
     document.getElementById('captura_output').innerHTML = '';
     document.getElementById('captura_output').appendChild(video);
-    // console.log('Imagen capturada:', base64Image);
-    // console.log(base64Image)
-    // return base64Image;
 }
 
 // NOTE : CREAMOS LOS ELEMENTOS DE LAS IMAGENES
@@ -56,9 +53,7 @@ export function create_image_view(url, num_img){
     var img = document.createElement('img');
     img.src = url;
     img.id = 'generated_img_' + num_img;
-    // img.className = 'img_styles';
     document.getElementById('id_only_imgs').appendChild(img);
-    // viewerImg();
 }
 
 // ANCHOR : CREATE ELEMENT VIDEO
@@ -81,22 +76,19 @@ export function create_element_video(url){
     document.getElementById('video_output').appendChild(video)
 }
 
+// function capture() {
+//     alert("Capturando video...")
+//     console.log("Capturando video...");
+//     var fileInput = document.getElementById('video_file');
+//     var file = fileInput.files[0];
+//     var url = URL.createObjectURL(file); // crea una URL de objeto para el archivo
 
-function capture() {
-    alert("Capturando video...")
-    console.log("Capturando video...");
-    var fileInput = document.getElementById('video_file');
-    var file = fileInput.files[0];
-    var url = URL.createObjectURL(file); // crea una URL de objeto para el archivo
 
+//     var numSecond = capture_second('video_reproductor');
+//     console.log(numSecond);
 
-    var numSecond = capture_second('video_reproductor');
-    console.log(numSecond);
-
-    create_elemet_capture(url, numSecond);
-
-}
-
+//     create_elemet_capture(url, numSecond);
+// }
 
 export function captured_image_capturate(screen_video) {
     // NOTE : Crea un nuevo elemento de canvas y obtén su contexto
