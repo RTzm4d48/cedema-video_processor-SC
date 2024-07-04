@@ -37,8 +37,6 @@ export function init_program() {
 
 // #region TODO: CREATE VIDEOS
 export function create_video(data, file) {
-    // console.log("CREAMOSSSS");
-    console.log(data);
     $(document).ready(function() {
         var csrftoken = getCookie('csrftoken');
         var formData = new FormData();
