@@ -72,11 +72,11 @@
                                 <!-- STUB - NAMES VIEW OF VIDEO AND IMAGES -->
                             </div>
                             <input type="submit" id="id_submit" value="Subir Archivo">
+                            <a class="atom_btnSnippet" href="/static/snippets/snpt_01.md">🧩 - [SNIPPET] - MANUAL</a>
+                            <div class="organism_buttons">
+                                <button id="id_clear" class="clear">LIMPIAR</button>
+                            </div>
                         </div>
-                </div>
-                <div class="organism_buttons">
-                    <!-- <button>DESCARGAR ARCHIVOS</button> -->
-                    <button id="id_clear" class="clear">LIMPIAR</button>
                 </div>
             </section>
             <section class="cont_viwer">
@@ -107,6 +107,12 @@
                     <div class="subtitle">
                         <p>Insertar Código</p>
                         <button id="copy_code"> <img src="{% static 'img/icon_copy.png' %}" alt=""> Copiar</button>
+                        <select class="atom_comboboxStack" id="select_stack">
+                            <option value="1">Stack 1</option>
+                            <option value="2">Stack 2</option>
+                            <option value="3">Stack 3</option>
+                            <option value="4">Stack 4</option>
+                        </select>
                     </div>
                     <code>
                         <div id="insert_code">

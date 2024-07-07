@@ -19,7 +19,10 @@ class MyViews {
     }
 
     // NOTE : PRINT DATA OF VIDEOS
-    pinter_data(data){
+    pinter_data(data, stack){
+        let script_color = ``;
+        document.getElementById('table_videos').innerHTML = '';
+        document.getElementById("insert_code").innerHTML = '';
         for (var i = 0; i < data.length; i++) {
             const video_name = data[i].video_name;
             const old_name = data[i].old_name;
@@ -30,9 +33,11 @@ class MyViews {
             const images_num = data[i].images_num;
             const fecha = data[i].fecha;
             const position = data[i].position;
+            
+            const comas = i == data.length - 1 ? '' : ',';
 
-            const script = `{name: '${video_name}', extencion: '${extension}', acronimo: '${acronym}', code: '${code}', files_name: '${file_name}', fecha: '${fecha}', position: '${position}', images_num: ${images_num}},`;
-
+            let script = `{name: "${video_name}", extension: "${extension}", acronimo: "${acronym}", code: "${code}", files_name: "${file_name}", fecha: "${fecha}", position: "${position}", images_num: ${images_num}, GO: 5}${comas}`;
+            
             const html_table = `
             <tr class="ligth">
                 <th class="organism_th_1 tittle_cont">
@@ -54,34 +59,40 @@ class MyViews {
                 </th>
             </tr>
             `;
+
             document.getElementById('table_videos').innerHTML += html_table;
-            this.highlightCode(script);
+            script_color += this.highlightCode(script);
         }
+        const json_modificadores_open = `jq '. += [`;
+        const json_modificadores_close = `]' data_videosStack_n${stack}.json > temp.json && mv temp.json data_videosStack_n${stack}.json`
+
+        document.getElementById("insert_code").innerHTML += `<span class='especiales'>${json_modificadores_open}</span><br>${script_color}<span class='especiales'>${json_modificadores_close}</span>`;
     }
 
     highlightCode(code) {
         // Reemplaza las partes del código con etiquetas HTML para el resaltado de sintaxis
-        code = code.replace(/('.*?')/g, "<span class='string'>$1</span>");
-        code = code.replace(/(var|obj|name|extencion|acronimo|file_name|images_num|files_name|code|fecha|position)/g, "<span class='keyword'>$1</span>");
+        code = code.replace(/(".*?")/g, "<span class='string'>$1</span>");
+        code = code.replace(/(var|obj|name|extension|acronimo|file_name|images_num|files_name|code|fecha|position| GO)/g, "<span class='keyword'>$1</span>");
         code = code.replace(/(\{|\})/g, "<span class='signos'>$1</span>");
-        code = code.replace(/( 1| 2| 3)/g, "<span class='number'>$1</span>");
+        code = code.replace(/( 1| 2| 3 | 4| 5| 6| 7)/g, "<span class='number'>$1</span>");
         
+        return code+"<br>";
         // Inserta el código resaltado en el elemento <code>
-        document.getElementById("insert_code").innerHTML += `${code}<br>`;
+        // document.getElementById("insert_code").innerHTML += `${code}<br>`;
     }
 }
 
 let views = new MyViews();
 
 init();
-async function init() {
+async function init(stack=1) {
     // NOTE: SELECT CATEGORIES OF DATABASE
     let data = await consult_guias();
     views.select_guia(data);
 
     // NOTE: SELECT VIDEOS OF DATABASE
     let data_videos = await init_program();
-    views.pinter_data(data_videos);
+    views.pinter_data(data_videos, stack);
     
     // NOTE : PRINT CODE
     controller_code();
@@ -94,6 +105,11 @@ function MyEvents() {
         let seleccion = this.value;
         document.getElementById('id_acronime').value = seleccion;
         controller_acronime(seleccion);
+    });
+
+    document.getElementById('select_stack').addEventListener('change', function() {
+        let seleccion = this.value;
+        init(seleccion);
     });
     
     // NOTE : RADIO BUTTONS DE LA POSICIÓN DEL VIDEO

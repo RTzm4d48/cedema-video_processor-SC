@@ -40,7 +40,7 @@ export function create_video(data, file) {
     $(document).ready(function() {
         var csrftoken = getCookie('csrftoken');
         var formData = new FormData();
-        formData.append('video_name', data['title']);
+        formData.append('video_name', data['title_original']);
         formData.append('code', data['code']);
         formData.append('acronym', data['acronime']);
         formData.append('old_name', file.files[0].name);

@@ -646,6 +646,9 @@
     .signos {
         color: #D9FF31;
     }
+    .especiales {
+        color: #7fffd4a5;
+    }
     .number {
         color: #FBAC45;
     }

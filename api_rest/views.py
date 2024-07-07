@@ -37,7 +37,7 @@ class my_apis(viewsets.ModelViewSet):
         _, extension = os.path.splitext(attach_file.name) # Obtenemos la extencion del archivo
 
         new_video_name = video_name.replace(' ', '_')
-        file_name = new_video_name+"-"+acronym+"-"+code+"-"+fecha+"-"+position
+        file_name = new_video_name+"-"+acronym+"-"+code+"-"+fecha+"-"+position+"-GO5"
 
         self.write_file(request, file_name, attach_file, images_num, extension, images_list)
         self.save_video(request, video_name, old_name, extension, file_name, code, acronym, images_num, fecha, position)

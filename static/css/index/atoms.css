@@ -13,3 +13,31 @@
 .atom_finished {
     background: #ffaa0071;
 }
+
+.atom_btnSnippet {
+    color: white;
+    background: #1373e0;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;    
+    margin: 5px auto;
+    border-radius: 10px;
+
+    &:hover {
+        background: #0f5f9b;
+    }
+    &:active {
+        background: #1373e0;
+    }
+}
+
+.atom_comboboxStack {
+    margin: 0 10px 0 0;
+    background: var(--color-dos);
+    color: var(--color-white);
+    border-radius: 5px;
+
+    &:focus {
+        outline: none;
+    }
+}
