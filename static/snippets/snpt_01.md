@@ -8,7 +8,7 @@
 1. Asegurarnos cuantos elementos `json` y archivos de `videos` tenmos en la categoria del `LAV` al que queremos enviar.
 
 ~~~
-jsons_videos_elements_stack "LG" "1"
+show_data_lav "LG" "1"
 ~~~
 
 <sup># 💬 : Si el numero de items de nuestro `Stack` no supera los `144` podemos continuar, de lo contrario cambiamos de `Stack`. `🚩C_301555_midi`</sup>
@@ -16,7 +16,7 @@ jsons_videos_elements_stack "LG" "1"
 2. Primero movemos los `videos` y las `imagenes` con el siguente comando
 
 ~~~
-move_files_to_lav "LG" "1"
+FI_move_files_to_lav "LG" "1"
 ~~~
 
 3. Si todo esta bien continuamos el `json` de nuestro `LAV`
@@ -25,7 +25,7 @@ move_files_to_lav "LG" "1"
 open_lav_json "LG" "1"
 ~~~
 
-❗el código de las funciones están en el modulo de SHELL `🧾C_2N6TD7oQ24_modulo`
+❗el código de las funciones están en el modulo de SHELL `🧾C_ka7RJ76N24_modulo`
 
 🌟 Y ya estaria! acabamos de mover nuestros videos procesado con `SC` video_processor a nuestro sistema `LAV`
 

@@ -36,7 +36,7 @@ class MyViews {
             
             const comas = i == data.length - 1 ? '' : ',';
 
-            let script = `{name: "${video_name}", extension: "${extension}", acronimo: "${acronym}", code: "${code}", files_name: "${file_name}", fecha: "${fecha}", position: "${position}", images_num: ${images_num}, GO: 5}${comas}`;
+            let script = `{name: "${video_name}", extension: "${extension}", acronimo: "${acronym}", code: "${code}", files_name: "${file_name}", fecha: "${fecha}", position: "${position}", images_num: ${images_num}, GO: 6}${comas}`;
             
             const html_table = `
             <tr class="ligth">

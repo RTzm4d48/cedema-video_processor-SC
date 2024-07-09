@@ -29,14 +29,29 @@ export function getCookie(name) {
 }
 
 export function createCode() {
-    const caracteres = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    return caracter_random() + caracter_random() + date(0) + caracter_random() + date(1) + caracter_random() + date(2) + caracter_random();
+}
 
+function caracter_random() {
+    const caracteres = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let resultado = '';
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 1; i++) {
         const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
         resultado += caracteres.charAt(indiceAleatorio);
     }
     return resultado;
+}
+
+function date(d) {
+    const fechaActual = new Date();
+    const dia = fechaActual.getDate();
+    const mes = fechaActual.getMonth()+1;
+    const anio = fechaActual.getFullYear();
+    let cadena = anio.toString();
+    let ultimosDos = cadena.substring(2, 4);
+
+    const date = [dia, mes, ultimosDos];
+    return date[d];
 }
 
 // NOTE : AGEGA VALIDACIONES AL TITULO Y RETORNA EL TITULO
