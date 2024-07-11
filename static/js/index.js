@@ -1,6 +1,6 @@
 import {capture_second, create_elemet_capture, create_element_video, create_image_view, captured_image_capturate} from './gestor_imagen_capture.js';
 import {consult_guias, init_program, deleted_video, create_video} from './crud.js';
-import {subir_imagen, subir_video, controller_title, controller_acronime, controller_code, obtain_params_data, controller_position} from './controller.js';
+import {subir_imagen, subir_video, controller_title, controller_acronime, controller_code, obtain_params_data, controller_position, reset_images} from './controller.js';
 
 class MyViews {
     constructor() {
@@ -63,8 +63,8 @@ class MyViews {
             document.getElementById('table_videos').innerHTML += html_table;
             script_color += this.highlightCode(script);
         }
-        const json_modificadores_open = `jq '. += [`;
-        const json_modificadores_close = `]' data_videosStack_n${stack}.json > temp.json && mv temp.json data_videosStack_n${stack}.json`
+        const json_modificadores_open = `jq '[`;
+        const json_modificadores_close = `] + .' data_videosStack_n${stack}.json > temp.json && mv temp.json data_videosStack_n${stack}.json`
 
         document.getElementById("insert_code").innerHTML += `<span class='especiales'>${json_modificadores_open}</span><br>${script_color}<span class='especiales'>${json_modificadores_close}</span>`;
     }
@@ -133,8 +133,8 @@ function MyEvents() {
             alert("Seleccione una categoria.");
         }else if (data['num_img'] == 0) {
             alert("Capture una imagen.");
-        }else if (!regex.test(data['title_original'])){
-            alert("La descripcion del documento no puede contener caracteres especiales.");
+        // }else if (!regex.test(data['title_original'])){
+        //     alert("La descripcion del documento no puede contener caracteres especiales.");
         } else {
             create_video(data, file);
         }
@@ -161,6 +161,64 @@ function MyEvents() {
         let num_img = subir_imagen();
         create_image_view(base64Image, num_img);
     });
+
+    document.getElementById('move_after').addEventListener('click', function() {
+        var video = document.getElementById('video_reproductor');
+        video.currentTime = video.currentTime + 0.02;
+    });
+
+    document.getElementById('move_before').addEventListener('click', function() {
+        var video = document.getElementById('video_reproductor');
+        video.currentTime = video.currentTime - 0.02;
+    });
+    document.getElementById('btn_next1').addEventListener('click', function() {
+        var video = document.getElementById('video_reproductor');
+        video.currentTime = video.currentTime + 1;
+    });
+
+    document.getElementById('btn_next2').addEventListener('click', function() {
+        var video = document.getElementById('video_reproductor');
+        video.currentTime = video.currentTime - 1;
+    });
+    document.getElementById('btn_volume').addEventListener('click', function() {
+        var video = document.getElementById('video_reproductor');
+        if (video.volume == 0) {
+            video.volume = 1;
+        }else {
+            video.volume = 0;
+        }
+        console.log(video.volume);
+    });
+    document.getElementById('btn_slow').addEventListener('click', function() {
+        var video = document.getElementById('video_reproductor');
+        video.playbackRate = 0.25;
+        if  (video.paused) {
+            video.play();
+        }else {
+            video.pause();
+        }
+    });
+    document.getElementById('btn_pause_play').addEventListener('click', function() {
+        var video = document.getElementById('video_reproductor');
+        video.playbackRate = 1;
+        if  (video.paused) {
+            video.play();
+        }else {
+            video.pause();
+        }
+    });
+    document.getElementById('btn_clear').addEventListener('click', function() {
+        var video = document.getElementById('video_reproductor');
+        if (video.controls) {
+            video.controls = false;
+        }else {
+            video.controls = true;
+        }
+    });
+    document.getElementById('deleted_images').addEventListener('click', function() {
+        document.getElementById('id_only_imgs').innerHTML = '';
+        reset_images();
+    });
     
     // NOTE : CARGAR VÍDEO (EL ARRASTRA AQUÍ)
     var fileInput = document.getElementById('video_file');
@@ -178,9 +236,14 @@ function MyEvents() {
     // NOTE : CARGAR IMAGEN DE MINIATURA
     document.getElementById('image_file').addEventListener('change', function(event) {
         var file = event.target.files[0];
-        var url = URL.createObjectURL(file); // crea una URL de objeto para el archivo
-        let num_img = subir_imagen();
-        create_image_view(url, num_img);
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            var base64Image = reader.result;
+            let num_img = subir_imagen();
+            create_image_view(base64Image, num_img);
+        };
+        // var url = URL.createObjectURL(file); // crea una URL de objeto para el archivo
+        reader.readAsDataURL(file);
     });
     
     // NOTE : MOSTRAMOS NUMERO Y TAMBIEN CAPTURAMOS LO QUE ESCRIBIMOS EN EL TITULO

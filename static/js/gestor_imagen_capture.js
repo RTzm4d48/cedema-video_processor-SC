@@ -1,9 +1,9 @@
 // ANCHOR : CAPTURE SECOND
 export function capture_second(id) {
     var video = document.getElementById(id);
-    var rondedNum = Math.round(video.currentTime);
+    // var rondedNum = Math.round(video.currentTime);
     // var rondedNum = video.currentTime;
-    return rondedNum;
+    return video.currentTime;
 }
 
 // ANCHOR : CREATE ENLACE OF DOWNLOAD

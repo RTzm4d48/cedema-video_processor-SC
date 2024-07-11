@@ -40,19 +40,22 @@
         /* height: 50px; */
         display: flex;
         justify-content: start;
-        height: calc(100vh - 20px);
+        /* height: calc(100vh - 20px); */
 
         & section {
             background: var(--color-dos);
             width: calc(40% - 10px);
-            height: 100%;
             border-radius: 8px;
             display: flex;
             flex-direction: column;
             margin: 0px 5px;
+            /* background: rebeccapurple; */
+            height: calc(100vh - 20px);
+            overflow: hidden;
         }
         & .cont_viwer {
-            width: calc(60% - 10px);
+            width: calc(70% - 10px);
+            overflow-y: scroll;
         }
     }
 

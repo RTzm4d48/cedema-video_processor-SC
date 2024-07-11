@@ -27,7 +27,7 @@ class MyController {
 
     // ANCHOR : SETTERS Y GETTERS PARA LAS PROPIEDADES DE LOS FILES
     set param_rows(row) {
-        this.rows = this.rows + row;
+        this.rows = row;
     }
     get param_rows() {
         return this.rows;
@@ -57,7 +57,7 @@ class MyController {
         return this.code;
     }
     set param_num_imgs(num_imgs) {
-        this.num_imgs = this.num_imgs + num_imgs;
+        this.num_imgs = num_imgs;
     }
     get param_num_imgs() {
         return this.num_imgs;
@@ -80,7 +80,8 @@ const controller = new MyController();
 
 // NOTE : FILE_NAME PREVIEW : ROWS
 export function controller_rows() {
-    controller.param_rows = 1;
+    let new_value = controller.param_rows + 1;
+    controller.param_rows = new_value;
 }
 
 // NOTE : FILE_NAME PREVIEW : TITLE
@@ -111,7 +112,21 @@ export function asigned_code() {
 
 // NOTE : FILE_NAME PREVIEW : NUM_IMGS
 function controller_num_imgs() {
-    controller.param_num_imgs = 1;
+    let new_value = controller.param_num_imgs + 1;
+    controller.param_num_imgs = new_value;
+}
+
+// NOTE : CUANDO DA AL BORTON DE ELIMINAR IMAGENES RESETEAMOS LAS IMAGENES Y LOS ROWS
+export function controller_reset_imgs() {
+    controller.param_num_imgs = 0;
+}
+export function controller_reset_rows() {
+    controller.param_rows = 0;
+}
+export function reset_images() {
+    controller_reset_imgs();
+    controller_reset_rows();
+    paint_name_reference();
 }
 
 // NOTE : FILE_NAME PREVIEW : POSITION

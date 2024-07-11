@@ -19,3 +19,40 @@
         justify-content: flex-start;
     }
 }
+.molecule_buttonsVideo_cont {
+    display: flex;
+    height: 30px;
+    background: #1a222e;
+    border-radius: 10px;
+    margin: 5px 0;
+    border: 1px solid var(--color-border_1);
+
+    .controllers_btn {
+        display: flex;
+        height: 90%;
+        margin: auto 5px;
+        background: rgb(27, 27, 27);
+        border-radius: 20px;
+    }
+
+    & button {
+        background: #ffffff00;
+        border: none;
+        margin: auto 5px;
+        font-size: small;
+        font-family: var(--font-roboto_normal);
+        cursor: pointer;
+        height: 80%;
+
+        &:hover {
+            opacity: 50%;
+        }
+        &:active {
+            opacity: 20%;
+        }
+
+        & img {
+            height: 100%;
+        }
+    }
+}

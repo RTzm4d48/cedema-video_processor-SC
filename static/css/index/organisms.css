@@ -233,8 +233,8 @@
             & label {
                 cursor: pointer;
                 margin: auto 5px;
-                height: 50px;
-                width: 50px;
+                height: 40px;
+                width: 40px;
 
                 & img {
                     height: 100%;
@@ -328,7 +328,7 @@
     border: 1px solid #2f3842;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    /* flex-grow: 1; */
 
     /* Estilo para la barra de desplazamiento */
     & ::-webkit-scrollbar {
@@ -473,9 +473,8 @@
     border: 1px solid var(--color-border_1);
     display: flex;
     flex-direction: column;
-    height: 260px;
+    /* height: 460px; */
     display: flex;
-    /* background: #264277; */
 
     & p {
         margin: 0px 0px 10px 0px;
@@ -485,13 +484,14 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
-        /* background: green; */
-        max-height: 100%;
-        max-height: calc(100% - 10px);
-        /* margin: 10px 0px */
+        background: black;
+        border-radius: 4px;
+        min-height: 260px;
+        max-height: 270px;
+        /* height: 270px; */
 
         & .video {
-            width: 50%;
+            width: calc(60% - 10px);
             background: black;
             /* max-height: calc(100% - 10px); */
             max-height: 100%;
@@ -508,55 +508,20 @@
                 /* opacity: 20%; */
             }
         }
-        .capture_options {
-            background: #1a222e;
-            border-radius: 10px;
-            margin: 0px 5px;
-            border: 1px solid var(--color-border_1);
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Alinea Horizontal */
-            align-items: center; /* Alinea Vertical */
-
-            & button {
-                width: 40px;
-                height: 40px;
-                /* background: green; */
-                margin: 5px;
-                border: none;
-                padding: 0px;
-                background: none;
-                cursor: pointer;
-    
-                &:hover {
-                    opacity: 50%;
-                }
-                &:active {
-                    opacity: 20%;
-                }
-                
-            }
-            & img {
-                width: 100%;
-                height: 100%;
-            }
-        }
 
         & .captura {
-            height: 240px;
+            min-height: 260px;
+            max-height: 270px;
             margin: auto;
-            width: calc(50% - 60px);
-            /* background: black; */
+            width: calc(40%);
             display: flex;
-            /* border: 1px solid var(--color-border_1); */
-            /* opacity: 50%; */
     
             .video_styles {
                 width: auto;
+                max-height: 270px;
                 max-width: 100%;
-                max-height: 100%;
                 margin: auto;
-                border: 2px dotted #CC5F1A;
+                border: 2px dotted #a8a8a8;
             }
             
         }
@@ -572,7 +537,7 @@
     border: 1px solid var(--color-border_1);
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    /* flex-grow: 1; */
 
     .subtitle {
         margin: 0px 0px 10px 0px;
@@ -613,7 +578,7 @@
         padding: 15px;
         font-family: Arial, Helvetica, sans-serif;
         font-size: smaller;
-        flex-grow: 1;
+        /* flex-grow: 1; */
         /* background: salmon; */
         overflow-x: scroll;
         /* display: flex; */
