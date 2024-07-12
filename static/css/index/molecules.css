@@ -24,8 +24,9 @@
     height: 30px;
     background: #1a222e;
     border-radius: 10px;
-    margin: 5px 0;
+    margin: 15px 0 0 0;
     border: 1px solid var(--color-border_1);
+    justify-content: center;
 
     .controllers_btn {
         display: flex;
@@ -43,6 +44,7 @@
         font-family: var(--font-roboto_normal);
         cursor: pointer;
         height: 80%;
+        display: flex;
 
         &:hover {
             opacity: 50%;
@@ -53,6 +55,7 @@
 
         & img {
             height: 100%;
+            margin: auto 0;
         }
     }
 }

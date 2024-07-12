@@ -17,7 +17,104 @@
 <body class="template_body">
     <div class="template_cont style_RES_CONT">
         <aside>
+            <section class="cont_viwer">
+                <div class="organism_fileOutput">
+                    <p>Video View</p>
+                    <nav id="cont_video" class="cont_viewer">
+                        <nav class="video" id="video_output" style="display: none;">
+                            <!-- STUB - CAPTURE VIWER -->
+                        </nav>
+                        <div class="cont_select_video" id="open_video_cont">
+                            <input type="file" id="video_file" name="archivo" accept=".mp4">
+                            <label id="label_file" for="video_file">Arrastra el video aquí</label>
+                        </div>
+                    </nav>
+                    <div class="molecule_buttonsVideo_cont">
+                        <div class="controllers_btn">
+                            <button id="btn_volume">
+                                <img src="{% static 'img/volume.png' %}" alt="">
+                            </button>
+                            <button id="btn_next2">
+                                <img src="{% static 'img/next2.png' %}" alt="">
+                            </button>
+                            <button id="btn_pause_play">
+                                <img src="{% static 'img/pause_play.png' %}" alt="">
+                            </button>
+                            <button id="btn_next1">
+                                <img src="{% static 'img/next1.png' %}" alt="">
+                            </button>
+                            <button id="btn_slow">
+                                <img src="{% static 'img/slow.png' %}" alt="">
+                            </button>
+                            <button id="btn_clear">
+                                <img src="{% static 'img/clear.png' %}" alt="">
+                            </button>
+                            <button id="btn_fast">
+                                <img style="height: 80%;" src="{% static 'img/fast.png' %}" alt="">
+                            </button>
+                        </div>
+                        <button id="move_before">
+                            <img src="{% static 'img/move_before.png' %}" alt="">
+                        </button>
+                        <button id="move_after">
+                            <img src="{% static 'img/move_after.png' %}" alt="">
+                        </button>
+                        <button id="btn_capture" >
+                            <img src="{% static 'img/icon_capture.png' %}" alt="">
+                        </button>
+                        <button id="btn_expand" >
+                            <img src="{% static 'img/expand.png' %}" alt="">
+                        </button>
+                    </div>
+                </div>
+                <div class="organism_code">
+                    <div class="subtitle">
+                        <p>Insertar Código</p>
+                        <button id="copy_code"> <img src="{% static 'img/icon_copy.png' %}" alt=""> Copiar</button>
+                        <select class="atom_comboboxStack" id="select_stack">
+                            <option value="1">Stack 1</option>
+                            <option value="2">Stack 2</option>
+                            <option value="3">Stack 3</option>
+                            <option value="4">Stack 4</option>
+                        </select>
+                    </div>
+                    <code>
+                        <div id="insert_code">
+                            <!-- STUB - CODE INSERT -->
+                        </div>
+                    </code>
+                </div>
+                <div class="organism_code">
+                    <div class="molecule_navbarFile">
+                        <p class="organism_th_1 tittle_file">Titulo</p>
+                        <p class="organism_th_2">IMG</p>
+                        <p class="organism_th_3">Acción</p>
+                    </div>
+                    <div class="organism_listFile">
+                        <table id="table_videos">
+                            <!-- STUB - TABLE GENERATED -->
+                        </table>
+                    </div>
+                </div>
+            </section>
             <section>
+                <div class="atoms_navSettings">
+                    <p>Screen</p>
+                </div>
+                <div class="organism_firsSettings">
+                    <nav style="height: 50px;" class="captura" id="captura_output">
+                        <!-- STUB - VIDEO VIWER -->
+                        <!-- <div style="width: 100%; height: 100%;background: black;"></div> -->
+                    </nav>
+                    <div class="molecule_buttonsVideo_cont">
+                        <button id="charger_capture">
+                            <img src="{% static 'img/add_imgIcon.png' %}" alt="">
+                        </button>
+                        <button id="btn_download">
+                            <img src="{% static 'img/icon_download.png' %}" alt="">
+                        </button>
+                    </div>
+                </div>
                 <div class="atoms_navSettings">
                     <p>Settings</p>
                 </div>
@@ -50,10 +147,6 @@
                 </div>
                 <div class="organism_input">
                         <div class="cont_desq">
-                            <div class="cont_select_video">
-                                <input type="file" id="video_file" name="archivo" accept=".mp4">
-                                <label id="label_file" for="video_file">Arrastra el video aquí</label>
-                            </div>
                             <p>titulo/Brebe Descripción</p>
                             <div class="cont_text">
                                 <textarea id="id_title" name="tittle" rows="2" cols="50" maxlength="70"></textarea>
@@ -79,86 +172,6 @@
                                 <button id="id_clear" class="clear">LIMPIAR</button>
                             </div>
                         </div>
-                </div>
-            </section>
-            <section class="cont_viwer">
-                <div class="organism_fileOutput">
-                    <p>Video View</p>
-                    <nav class="cont_viewer">
-                        <nav class="video" id="video_output">
-                            <!-- STUB - CAPTURE VIWER -->
-                        </nav>
-                        <nav class="captura" id="captura_output">
-                            <!-- STUB - VIDEO VIWER -->
-                            <div style="width: 100%; height: 100%;background: black;"></div>
-                        </nav>
-                    </nav>
-                    <div class="molecule_buttonsVideo_cont">
-                        <div class="controllers_btn">
-                            <button id="btn_volume">
-                                <img src="{% static 'img/volume.png' %}" alt="">
-                            </button>
-                            <button id="btn_next2">
-                                <img src="{% static 'img/next2.png' %}" alt="">
-                            </button>
-                            <button id="btn_pause_play">
-                                <img src="{% static 'img/pause_play.png' %}" alt="">
-                            </button>
-                            <button id="btn_clear">
-                                <img src="{% static 'img/clear.png' %}" alt="">
-                            </button>
-                            <button id="btn_next1">
-                                <img src="{% static 'img/next1.png' %}" alt="">
-                            </button>
-                            <button id="btn_slow">
-                                <img src="{% static 'img/slow.png' %}" alt="">
-                            </button>
-                        </div>
-                        <button id="move_before">
-                            <img src="{% static 'img/move_before.png' %}" alt="">
-                        </button>
-                        <button id="move_after">
-                            <img src="{% static 'img/move_after.png' %}" alt="">
-                        </button>
-                        <button id="btn_capture" >
-                            <img src="{% static 'img/icon_capture.png' %}" alt="">
-                        </button>
-                        <button id="charger_capture">
-                            <img src="{% static 'img/add_imgIcon.png' %}" alt="">
-                        </button>
-                        <button id="btn_download">
-                            <img src="{% static 'img/icon_download.png' %}" alt="">
-                        </button>
-                    </div>
-                </div>
-                <div class="organism_code">
-                    <div class="subtitle">
-                        <p>Insertar Código</p>
-                        <button id="copy_code"> <img src="{% static 'img/icon_copy.png' %}" alt=""> Copiar</button>
-                        <select class="atom_comboboxStack" id="select_stack">
-                            <option value="1">Stack 1</option>
-                            <option value="2">Stack 2</option>
-                            <option value="3">Stack 3</option>
-                            <option value="4">Stack 4</option>
-                        </select>
-                    </div>
-                    <code>
-                        <div id="insert_code">
-                            <!-- STUB - CODE INSERT -->
-                        </div>
-                    </code>
-                </div>
-                <div class="organism_code">
-                    <div class="molecule_navbarFile">
-                        <p class="organism_th_1 tittle_file">Titulo</p>
-                        <p class="organism_th_2">IMG</p>
-                        <p class="organism_th_3">Acción</p>
-                    </div>
-                    <div class="organism_listFile">
-                        <table id="table_videos">
-                            <!-- STUB - TABLE GENERATED -->
-                        </table>
-                    </div>
                 </div>
             </section>
         </aside>

@@ -1,4 +1,5 @@
 import {obtain_date, createCode, put_name_files} from './utils.js';
+import {capture_second, create_elemet_capture} from './gestor_imagen_capture.js';
 
 class MyController {
     constructor() {
@@ -174,4 +175,14 @@ function paint_name_reference() {
         `;
         document.getElementById('names_references').innerHTML += element;
     }
+}
+
+// NOTE : ALGUNAS FUNCIONES DEL DEL PROGRAMA
+
+export function capture_video_screen() {
+    var fileInput = document.getElementById('video_file');
+    var file = fileInput.files[0];
+    var url = URL.createObjectURL(file); // crea una URL de objeto para el archivo
+    var numSecond = capture_second('video_reproductor');
+    create_elemet_capture(url, numSecond)
 }

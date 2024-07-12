@@ -52,10 +52,10 @@
             /* background: rebeccapurple; */
             height: calc(100vh - 20px);
             overflow: hidden;
+            overflow-y: scroll;
         }
         & .cont_viwer {
             width: calc(70% - 10px);
-            overflow-y: scroll;
         }
     }
 

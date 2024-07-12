@@ -1,6 +1,6 @@
 import {capture_second, create_elemet_capture, create_element_video, create_image_view, captured_image_capturate} from './gestor_imagen_capture.js';
 import {consult_guias, init_program, deleted_video, create_video} from './crud.js';
-import {subir_imagen, subir_video, controller_title, controller_acronime, controller_code, obtain_params_data, controller_position, reset_images} from './controller.js';
+import {subir_imagen, subir_video, controller_title, controller_acronime, controller_code, obtain_params_data, controller_position, reset_images, capture_video_screen} from './controller.js';
 
 class MyViews {
     constructor() {
@@ -98,6 +98,38 @@ async function init(stack=1) {
     controller_code();
 }
 
+// NOTE : FUNCIONES PARA EL REPRODUCTOR DE VIDEO
+function play_video(velocidad=1) {
+    var video = document.getElementById('video_reproductor');
+    video.playbackRate = velocidad;
+    if  (video.paused) {
+        video.play();
+    }else {
+        video.pause();
+    }
+}
+function advance_video(num) {
+    var video = document.getElementById('video_reproductor');
+    video.currentTime = video.currentTime + num;
+}
+function volume_video() {
+    var video = document.getElementById('video_reproductor');
+    if (video.volume == 0) {
+        video.volume = 1;
+    }else {
+        video.volume = 0;
+    }
+}
+function clear_controls_video() {
+    var video = document.getElementById('video_reproductor');
+    if (video.controls) {
+        video.controls = false;
+    }else {
+        video.controls = true;
+    }
+}
+
+// NOTE : EVENTOS DEL TODAS LAS FUNCIONES DEL SISTEMA
 MyEvents();
 function MyEvents() {
     // NOTE : EVENTOS DE LISTAS DESPLEGABLES
@@ -147,11 +179,7 @@ function MyEvents() {
     
     // NOTE : BOTÓN DE CAPTURAR FRAME DE VIDEO
     document.getElementById('btn_capture').addEventListener('click', function() {
-        var fileInput = document.getElementById('video_file');
-        var file = fileInput.files[0];
-        var url = URL.createObjectURL(file); // crea una URL de objeto para el archivo
-        var numSecond = capture_second('video_reproductor');
-        create_elemet_capture(url, numSecond)
+        capture_video_screen();
     });
 
     // NOTE : CARGAR LA IMAGEN QUE ESTA CAPTURADA
@@ -163,57 +191,33 @@ function MyEvents() {
     });
 
     document.getElementById('move_after').addEventListener('click', function() {
-        var video = document.getElementById('video_reproductor');
-        video.currentTime = video.currentTime + 0.02;
+        advance_video(0.02);
     });
 
     document.getElementById('move_before').addEventListener('click', function() {
-        var video = document.getElementById('video_reproductor');
-        video.currentTime = video.currentTime - 0.02;
+        advance_video(-0.02);
     });
     document.getElementById('btn_next1').addEventListener('click', function() {
-        var video = document.getElementById('video_reproductor');
-        video.currentTime = video.currentTime + 1;
+        advance_video(1);
     });
 
     document.getElementById('btn_next2').addEventListener('click', function() {
-        var video = document.getElementById('video_reproductor');
-        video.currentTime = video.currentTime - 1;
+        advance_video(-1);
     });
     document.getElementById('btn_volume').addEventListener('click', function() {
-        var video = document.getElementById('video_reproductor');
-        if (video.volume == 0) {
-            video.volume = 1;
-        }else {
-            video.volume = 0;
-        }
-        console.log(video.volume);
+        volume_video();
     });
     document.getElementById('btn_slow').addEventListener('click', function() {
-        var video = document.getElementById('video_reproductor');
-        video.playbackRate = 0.25;
-        if  (video.paused) {
-            video.play();
-        }else {
-            video.pause();
-        }
+        play_video(0.25)
+    });
+    document.getElementById('btn_fast').addEventListener('click', function() {
+        play_video(2);
     });
     document.getElementById('btn_pause_play').addEventListener('click', function() {
-        var video = document.getElementById('video_reproductor');
-        video.playbackRate = 1;
-        if  (video.paused) {
-            video.play();
-        }else {
-            video.pause();
-        }
+        play_video();
     });
     document.getElementById('btn_clear').addEventListener('click', function() {
-        var video = document.getElementById('video_reproductor');
-        if (video.controls) {
-            video.controls = false;
-        }else {
-            video.controls = true;
-        }
+        clear_controls_video();
     });
     document.getElementById('deleted_images').addEventListener('click', function() {
         document.getElementById('id_only_imgs').innerHTML = '';
@@ -228,6 +232,9 @@ function MyEvents() {
     
         create_elemet_capture(url, 0)
         create_element_video(url)
+
+        document.getElementById('video_output').style.display = 'flex';
+        document.getElementById('open_video_cont').style.display = 'none';
     
         subir_video();
         document.getElementById('label_file').innerHTML = file.name;
@@ -259,5 +266,53 @@ function MyEvents() {
         var code = document.getElementById("insert_code");
         navigator.clipboard.writeText(code.innerText);
         code.classList.add('atom_finished');
+    });
+    document.getElementById('btn_expand').addEventListener('click', function() {
+        console.log('expandir');
+        document.getElementById('cont_video').classList.toggle('expand');
+    });
+
+    // NOTE : ATAJOSDE TECLADO
+    document.addEventListener('keydown', function(e) {
+        const elementoClic = e.target;
+        let textbox = document.getElementById('id_title');
+
+        // Verificar si el clic ocurrió dentro del div excluido
+        if (elementoClic !== textbox && !textbox.contains(elementoClic)) {
+            if (e.key === 'c' && e.ctrlKey) {
+                var code = document.getElementById("insert_code");
+                navigator.clipboard.writeText(code.innerText);
+                code.classList.add('atom_finished');
+            }else if (e.key === 'w') {
+                play_video(2);
+            }else if (e.key === 's') {
+                play_video(0.25);
+            }else if (e.key === ' ') {
+                e.preventDefault(); // NOTE : Evitar que se mueva la página
+                play_video();
+            }else if (e.key === 'ArrowRight' && e.ctrlKey) {
+                advance_video(0.02);
+            }else if (e.key === 'ArrowLeft' && e.ctrlKey) {
+                advance_video(-0.02);
+            }else if (e.key === 'ArrowRight') {
+                advance_video(1);
+            }else if (e.key === 'ArrowLeft') {
+                advance_video(-1);
+            }else if (e.key === 'f') {
+                let video = document.getElementById('video_reproductor');
+                video.requestFullscreen();
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            }else if (e.key === 'm') {
+                volume_video();
+            }
+            else if (e.key === 'c') {
+                clear_controls_video();
+            }
+            else if (e.key === 'Enter' && e.ctrlKey) {
+                capture_video_screen();
+            }
+        }
     });
 }

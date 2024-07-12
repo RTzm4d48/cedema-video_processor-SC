@@ -1,7 +1,6 @@
 @import url(/static/css/style.css);
 .organism_firsSettings {
     background: var(--color-tres);
-    /* background: red; */
     width: calc((100% - 20px) - 30px);
     margin: 0 auto 10px auto;
     padding: 15px;
@@ -24,6 +23,26 @@
                 outline: none;
             }
         }
+    }
+
+    & .captura {
+        min-height: 260px;
+        max-height: 270px;
+        /* margin: 10px; */
+        min-width: calc(40%);
+        max-width: calc(100%);
+        display: flex;
+        border: 1px solid #ffffff21;
+        /* background: red; */
+
+        .video_styles {
+            width: auto;
+            max-height: calc(100% - 4px);
+            max-width: calc(100% - 4px);
+            margin: auto;
+            border: 2px dotted #a8a8a8;
+        }
+        
     }
 
     .espacio_dos {
@@ -131,46 +150,6 @@
         & * {
             /* background: gold; */
             margin: 5px 0px;
-        }
-
-        .cont_select_video{
-            display: flex;
-            width: 100%;
-            height: 60px;
-
-            &:hover {
-                opacity: 70%;
-                cursor: pointer;
-            }
-
-            &:active {
-                opacity: 20%;
-            }
-
-            & input[type="file"] {
-                color: var(--color-white_2);
-                margin: 0px;
-                opacity: 0;
-                position: absolute;
-                background: salmon;
-                width: 100%;
-                height: 60px;
-                z-index: 2;
-                cursor: pointer;
-            }
-    
-            & label {
-                font-size: smaller;
-                margin: 0px;
-                display: flex;
-                justify-content: center; /* Alinea Horizontal */
-                align-items: center; /* Alinea Vertical */
-                border: 2px dotted #cacaca;
-                border-radius: 5px;
-                width: 100%;
-                height: calc(60px - 4px);
-                z-index: 1;
-            }
         }
 
         & p {
@@ -486,45 +465,75 @@
         justify-content: space-between;
         background: black;
         border-radius: 4px;
-        min-height: 260px;
-        max-height: 270px;
-        /* height: 270px; */
+        min-height: 270px;
+        max-height: 450px;
 
         & .video {
-            width: calc(60% - 10px);
+            width: calc(100%);
             background: black;
-            /* max-height: calc(100% - 10px); */
-            max-height: 100%;
+            height: 100%;
             display: flex;
             padding: 0px;
 
             & video {
                 width: auto;
                 max-width: 100%;
-                /* max-height: calc(100% - 210px); */
                 padding: 0px;
+                height: 100%;
                 max-height: 100%;
                 margin: auto;
-                /* opacity: 20%; */
-            }
-        }
 
-        & .captura {
-            min-height: 260px;
-            max-height: 270px;
-            margin: auto;
-            width: calc(40%);
-            display: flex;
-    
-            .video_styles {
-                width: auto;
-                max-height: 270px;
-                max-width: 100%;
-                margin: auto;
-                border: 2px dotted #a8a8a8;
+                &:focus {
+                    outline: none;
+                }
             }
-            
         }
+        .cont_select_video{
+            display: flex;
+            width: 80%;
+            height: 80%;
+            /* background: red; */
+            margin: auto;
+
+            &:hover {
+                opacity: 70%;
+                cursor: pointer;
+            }
+
+            &:active {
+                opacity: 20%;
+            }
+
+            & input[type="file"] {
+                color: var(--color-white_2);
+                margin: 0px;
+                position: absolute;
+                background: salmon;
+                opacity: 0;
+                width: 620px;
+                height: 215px;
+                z-index: 2;
+                cursor: pointer;
+
+            }
+    
+            & label {
+                font-size: smaller;
+                margin: 0px;
+                display: flex;
+                justify-content: center; /* Alinea Horizontal */
+                align-items: center; /* Alinea Vertical */
+                border: 2px dotted #cacaca;
+                border-radius: 5px;
+                width: 100%;
+                height: 100%;
+                /* background: red; */
+                z-index: 1;
+            }
+        }
+    }
+    .expand {
+        max-height: 800px;
     }
 }
 
