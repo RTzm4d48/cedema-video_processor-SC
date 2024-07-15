@@ -23,7 +23,9 @@ class MyViews {
         let script_color = ``;
         document.getElementById('table_videos').innerHTML = '';
         document.getElementById("insert_code").innerHTML = '';
+        let total = 0;
         for (var i = 0; i < data.length; i++) {
+            total++;
             const video_name = data[i].video_name;
             const old_name = data[i].old_name;
             const extension = data[i].extension;
@@ -33,7 +35,7 @@ class MyViews {
             const images_num = data[i].images_num;
             const fecha = data[i].fecha;
             const position = data[i].position;
-            
+
             const comas = i == data.length - 1 ? '' : ',';
 
             let script = `{name: "${video_name}", extension: "${extension}", acronimo: "${acronym}", code: "${code}", files_name: "${file_name}", fecha: "${fecha}", position: "${position}", images_num: ${images_num}, GO: 6}${comas}`;
@@ -63,6 +65,7 @@ class MyViews {
             document.getElementById('table_videos').innerHTML += html_table;
             script_color += this.highlightCode(script);
         }
+        document.getElementById('total_videos').value = total+' Videos';
         const json_modificadores_open = `jq '[`;
         const json_modificadores_close = `] + .' data_videosStack_n${stack}.json > temp.json && mv temp.json data_videosStack_n${stack}.json`
 
@@ -229,7 +232,10 @@ function MyEvents() {
     fileInput.addEventListener('change', function() {
         var file = fileInput.files[0];
         var url = URL.createObjectURL(file); // crea una URL de objeto para el archivo
-    
+        var name = file.name;
+        name = name.slice(0, name.lastIndexOf('.'));
+        document.getElementById('id_title').value = name;
+        controller_title(name);
         create_elemet_capture(url, 0)
         create_element_video(url)
 
@@ -257,8 +263,6 @@ function MyEvents() {
     document.getElementById('id_title').addEventListener('input', function(e) {
         var value = e.target.value;
         controller_title(value);
-        var length = value.length;
-        document.getElementById('total_description').innerHTML = length+'/70';
     });
 
     // NOTE Copiamos el script generado

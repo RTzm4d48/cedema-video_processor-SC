@@ -88,6 +88,8 @@ export function controller_rows() {
 // NOTE : FILE_NAME PREVIEW : TITLE
 export function controller_title(value) {
     controller.param_title = put_name_files(value);
+    var length = value.length;
+    document.getElementById('total_description').innerHTML = length+'/70';
     controller_title_original(value);
     paint_name_reference();
 }
