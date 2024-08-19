@@ -1,14 +1,16 @@
 # VIDEO PROCESSOR - SC
 
+This is a personal web system that I use to process videos. What it does is capture one or more frames of the video, assign it a nomenclature with all the data necessary to identify the video and save it to another video storage system that I have.
+
 <div>
     <img src="static/img/project_view.png">
-</div>
+</div><br>
 
-## Introduction
+![Static Badge](https://img.shields.io/badge/3.11.2-flat?logo=python&logoColor=white&label=Python&labelColor=blue&color=gray)
+![Static Badge](https://img.shields.io/badge/4.2.13-flat?logo=django&logoColor=white&label=Django&labelColor=green&color=gray)
 
-Video Processor is is a personal project and I use it to manage video.
 
-## Installation
+## Build instructions
 
 - I use python=3.11.2 in PYENV
 
